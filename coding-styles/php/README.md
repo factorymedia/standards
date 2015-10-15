@@ -3,7 +3,7 @@
 
 ## Single and Double Quotes
 
-Use always single over double quotes if possible. If you’re not evaluating anything in the string, use single quotes. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
+Use single and double quotes if appropriate. However, use single quotes as much as possible, unless you’re evaluating anything in the string. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
 
 ```
 echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
@@ -186,21 +186,149 @@ $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID 
 
 `%s` is used for string placeholders and %d is used for integer placeholders. Note that they are not ‘quoted’! `$wpdb->prepare()` will take care of escaping and quoting for us. The benefit of this is that we don’t have to remember to manually use `esc_sql()`, and also that it is easy to see at a glance whether something has been escaped or not, because it happens right when the query happens.
 
-## Database Queries
-
 ## Naming Conventions
+
+Use lowercase letters in variable, action, and function names (never `camelCase`). Separate words via underscores. Don’t abbreviate variable names un-necessarily; let the code be unambiguous and self-documenting.
+
+```
+function some_name( $some_variable ) { [...] }
+```
+
+Class names should use capitalized words separated by underscores. Any acronyms should be all upper case.
+
+```
+class Walker_Category extends Walker { [...] }
+class WP_HTTP { [...] }
+```
+
+Constants should be in all upper-case with underscores separating words:
+
+```
+define( 'DOING_AJAX', true );
+```
+
+Files should be named descriptively using lowercase letters. Hyphens should separate words.
+
+```
+my-plugin-name.php
+```
+
+Class file names should be based on the class name with `class-` prepended and the underscores in the class name replaced with hyphens, for example `WP_Error` becomes:
+
+```
+class-wp-error.php
+```
+
+This file-naming standard is for all current and new files with classes. There is one exception for three files that contain code that got ported into BackPress: class.wp-dependencies.php, class.wp-scripts.php, class.wp-styles.php. Those files are prepended with class., a dot after the word class instead of a hyphen.
+
+Files containing template tags in `wp-includes` should have `-template` appended to the end of the name so that they are obvious.
+
+```
+general-template.php
+```
 
 ## Self-Explanatory Flag Values for Function Arguments
 
+Prefer string values to just 'true' and 'false' when calling functions.
+
+```
+// Incorrect
+function eat( $what, $slowly = true ) {
+...
+}
+eat( 'mushrooms' );
+eat( 'mushrooms', true ); // what does true mean?
+eat( 'dogfood', false ); // what does false mean? The opposite of true?
+```
+
+Since PHP doesn’t support named arguments, the values of the flags are meaningless, and each time we come across a function call like the examples above, we have to search for the function definition. The code can be made more readable by using descriptive string values, instead of booleans.
+
+```
+// Correct
+function eat( $what, $speed = 'slowly' ) {
+...
+}
+eat( 'mushrooms' );
+eat( 'mushrooms', 'slowly' );
+eat( 'dogfood', 'quickly' );
+```
+
+When more words are needed to describe the function parameters, an '$args' array may be a better pattern.
+
+```
+// Even Better
+function eat( $what, $args ) {
+...
+}
+eat ( 'noodles', array( 'speed' => 'moderate' ) );
+```
+
 ## Ternary Operator
+
+Ternary operators are fine, but always have them test if the statement is true, not false. Otherwise, it just gets confusing. (An exception would be using '! empty()', as testing for false here is generally more intuitive.)
+
+For example:
+
+```
+// (if statement is true) ? (do this) : (else, do this);
+$musictype = ( 'jazz' == $music ) ? 'cool' : 'blah';
+// (if field is not empty ) ? (do this) : (else, do this);
+```
 
 ## Yoda Conditions
 
+```
+if ( true == $the_force ) {
+    $victorious = you_will( $be );
+}
+```
+When doing logical comparisons, always put the variable on the right side, constants or literals on the left.
+
+In the above example, if you omit an equals sign (admit it, it happens even to the most seasoned of us), you’ll get a parse error, because you can’t assign to a constant like 'true'. If the statement were the other way around '( $the_force = true )', the assignment would be perfectly valid, returning '1', causing the if statement to evaluate to 'true', and you could be chasing that bug for a while.
+
+A little bizarre, it is, to read. Get used to it, you will.
+
+This applies to ==, !=, ===, and !==. Yoda conditions for <, >, <= or >= are significantly more difficult to read and are best avoided.
+
 ## Clever Code
+
+In general, readability is more important than cleverness or brevity.
+```
+isset( $var ) || $var = some_function();
+```
+
+Although the above line is clever, it takes a while to grok if you’re not familiar with it. So, just write it like this:
+
+```
+if ( ! isset( $var ) ) {
+    $var = some_function();
+}
+```
 
 ## Error Control Operator
 
+As noted in the [PHP docs](http://www.php.net//manual/en/language.operators.errorcontrol.php):
+```
+PHP supports one error control operator: the at sign (@). When prepended to an expression in PHP, any error messages that might be generated by that expression will be ignored.
+```
+
+While this operator does exist in Core, it is often used lazily instead of doing proper error checking. Its use is highly discouraged, as even the PHP docs also state:
+```
+Warning: Currently the “@” error-control operator prefix will even disable error reporting for critical errors that will terminate script execution. Among other things, this means that if you use “@” to suppress errors from a certain function and either it isn’t available or has been mistyped, the script will die right there with no indication as to why.
+```
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Don’t extract()
+
+Per [#22400](https://core.trac.wordpress.org/ticket/22400):
+```
+'extract()' is a terrible function that makes code harder to debug and harder to understand. We should discourage it’s use and remove all of our uses of it.
+
+Joseph Scott has [a good write-up of why it’s bad](https://josephscott.org/archives/2009/02/i-dont-like-phps-extract-function/).
+```
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## PHP Coding Standards
 
