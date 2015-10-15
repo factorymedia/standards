@@ -11,6 +11,8 @@ echo "<a href='$link' title='$linktitle'>$linkname</a>";
 ```
 Text that goes into attributes should be run through `esc_attr()` so that single or double quotes do not end the attribute value and invalidate the HTML and cause a security issue. See Data Validation in the Codex for further details.
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Indentation
 
 Your indentation should always reflect logical structure. Use real tabs and not spaces, as this allows the most flexibility across clients.
@@ -33,6 +35,8 @@ $my_array = array(
 );
 ```
 Rule of thumb: Tabs should be used at the beginning of the line for indentation, while spaces can be used mid-line for alignment.
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## Brace Style
 
@@ -84,11 +88,15 @@ Note that requiring the use of braces just means that single-statement inline co
 <?php endif; ?>
 ```
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Regular Expressions
 
 Perl compatible regular expressions (PCRE, `preg_` functions) should be used in preference to their POSIX counterparts. Never use the `/e` switch, use `preg_replace_callback` instead.
 
 It’s most convenient to use single-quoted strings for regular expressions since, contrary to double-quoted strings, they have only two metasequences: `\'` and `\\`.
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## No Shorthand PHP Tags
 
@@ -108,9 +116,13 @@ Incorrect:
 <?= $var ?>
 ```
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Remove Trailing Spaces
 
 Remove trailing whitespace at the end of each line of code. Omitting the closing PHP tag at the end of a file is preferred. If you use the tag, make sure you remove trailing whitespace.
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## Space Usage
 
@@ -169,6 +181,8 @@ $x = $foo[ $bar ]; // correct
 $x = $foo[$bar]; // incorrect
 ```
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Formatting SQL statements
 
 When formatting SQL statements you may break it into several lines and indent if it is sufficiently complex to warrant it. Most statements work well as one line though. Always capitalize the SQL parts of the statement like `UPDATE` or `WHERE`.
@@ -185,6 +199,8 @@ $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID 
 ```
 
 `%s` is used for string placeholders and %d is used for integer placeholders. Note that they are not ‘quoted’! `$wpdb->prepare()` will take care of escaping and quoting for us. The benefit of this is that we don’t have to remember to manually use `esc_sql()`, and also that it is easy to see at a glance whether something has been escaped or not, because it happens right when the query happens.
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## Naming Conventions
 
@@ -227,6 +243,8 @@ Files containing template tags in `wp-includes` should have `-template` appended
 general-template.php
 ```
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Self-Explanatory Flag Values for Function Arguments
 
 Prefer string values to just 'true' and 'false' when calling functions.
@@ -263,6 +281,8 @@ function eat( $what, $args ) {
 eat ( 'noodles', array( 'speed' => 'moderate' ) );
 ```
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Ternary Operator
 
 Ternary operators are fine, but always have them test if the statement is true, not false. Otherwise, it just gets confusing. (An exception would be using '! empty()', as testing for false here is generally more intuitive.)
@@ -274,6 +294,8 @@ For example:
 $musictype = ( 'jazz' == $music ) ? 'cool' : 'blah';
 // (if field is not empty ) ? (do this) : (else, do this);
 ```
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## Yoda Conditions
 
@@ -290,6 +312,8 @@ A little bizarre, it is, to read. Get used to it, you will.
 
 This applies to ==, !=, ===, and !==. Yoda conditions for <, >, <= or >= are significantly more difficult to read and are best avoided.
 
+**[⬆ back to top](#factorymedia-php-style-guide)**
+
 ## Clever Code
 
 In general, readability is more important than cleverness or brevity.
@@ -304,6 +328,8 @@ if ( ! isset( $var ) ) {
     $var = some_function();
 }
 ```
+
+**[⬆ back to top](#factorymedia-php-style-guide)**
 
 ## Error Control Operator
 
