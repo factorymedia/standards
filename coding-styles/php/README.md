@@ -30,7 +30,7 @@ echo "<a href='$link' title='$linktitle'>$linkname</a>";
 ```
 Text that goes into attributes should be run through `esc_attr()` so that single or double quotes do not end the attribute value and invalidate the HTML and cause a security issue. See Data Validation in the Codex for further details.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Indentation
 
@@ -55,7 +55,7 @@ $my_array = array(
 ```
 Rule of thumb: Tabs should be used at the beginning of the line for indentation, while spaces can be used mid-line for alignment.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Brace Style
 
@@ -107,7 +107,7 @@ Note that requiring the use of braces just means that single-statement inline co
 <?php endif; ?>
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Regular Expressions
 
@@ -115,7 +115,7 @@ Perl compatible regular expressions (PCRE, `preg_` functions) should be used in 
 
 It’s most convenient to use single-quoted strings for regular expressions since, contrary to double-quoted strings, they have only two metasequences: `\'` and `\\`.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## No Shorthand PHP Tags
 
@@ -135,13 +135,13 @@ Incorrect:
 <?= $var ?>
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Remove Trailing Spaces
 
 Remove trailing whitespace at the end of each line of code. Omitting the closing PHP tag at the end of a file is preferred. If you use the tag, make sure you remove trailing whitespace.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Space Usage
 
@@ -200,7 +200,7 @@ $x = $foo[ $bar ]; // correct
 $x = $foo[$bar]; // incorrect
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Formatting SQL statements
 
@@ -219,7 +219,7 @@ $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID 
 
 `%s` is used for string placeholders and %d is used for integer placeholders. Note that they are not ‘quoted’! `$wpdb->prepare()` will take care of escaping and quoting for us. The benefit of this is that we don’t have to remember to manually use `esc_sql()`, and also that it is easy to see at a glance whether something has been escaped or not, because it happens right when the query happens.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Naming Conventions
 
@@ -262,7 +262,7 @@ Files containing template tags in `wp-includes` should have `-template` appended
 general-template.php
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Self-Explanatory Flag Values for Function Arguments
 
@@ -300,7 +300,7 @@ function eat( $what, $args ) {
 eat ( 'noodles', array( 'speed' => 'moderate' ) );
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Ternary Operator
 
@@ -314,7 +314,7 @@ $musictype = ( 'jazz' == $music ) ? 'cool' : 'blah';
 // (if field is not empty ) ? (do this) : (else, do this);
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Yoda Conditions
 
@@ -331,7 +331,7 @@ A little bizarre, it is, to read. Get used to it, you will.
 
 This applies to ==, !=, ===, and !==. Yoda conditions for <, >, <= or >= are significantly more difficult to read and are best avoided.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Clever Code
 
@@ -348,7 +348,7 @@ if ( ! isset( $var ) ) {
 }
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Error Control Operator
 
@@ -362,7 +362,7 @@ While this operator does exist in Core, it is often used lazily instead of doing
 Warning: Currently the “@” error-control operator prefix will even disable error reporting for critical errors that will terminate script execution. Among other things, this means that if you use “@” to suppress errors from a certain function and either it isn’t available or has been mistyped, the script will die right there with no indication as to why.
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Don’t extract()
 
@@ -373,7 +373,7 @@ Per [#22400](https://core.trac.wordpress.org/ticket/22400):
 Joseph Scott has [a good write-up of why it’s bad](https://josephscott.org/archives/2009/02/i-dont-like-phps-extract-function/).
 ```
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
 
 ## PHP Coding Standards
 
@@ -404,4 +404,4 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-**[⬆ back to top](#factorymedia-php-style-guide)**
+**[⬆ back to top](#table-of-contents)**
