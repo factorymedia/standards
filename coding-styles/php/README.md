@@ -1,6 +1,25 @@
 # Factorymedia PHP Style Guide
 
 
+## Table of Contents
+
+  1. [Single and Double Quotes](#single-and-double-quotes)
+  1. [Indentation](#indentation)
+  1. [Brace Style](#brace-style)
+  1. [Regular Expressions](#regular-expressions)  
+  1. [No Shorthand PHP Tags](#no-shorthand-php-tags)
+  1. [Remove Trailing Spaces](#remove-trailing-spaces)
+  1. [Space Usage](#space-usage)
+  1. [Formatting SQL statements](#formatting-sql-statements)
+  1. [Naming Conventions](#naming-conventions)
+  1. [Self-Explanatory Flag Values for Function Arguments](#self-explanatory-flag-values-for-function-arguments)
+  1. [Ternary Operator](#ternary-operator)
+  1. [Yoda Conditions](#yoda-conditions)
+  1. [Clever Code](#clever-code)
+  1. [Error Control Operator](#error-control-operator)
+  1. [Don’t extract](#dont-extract)
+
+
 ## Single and Double Quotes
 
 Use single and double quotes if appropriate. However, use single quotes as much as possible, unless you’re evaluating anything in the string. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
