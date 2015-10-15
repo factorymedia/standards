@@ -1,12 +1,30 @@
 # Factorymedia PHP Style Guide
 
-Some parts of the WordPress code structure for PHP markup are inconsistent in their style. WordPress is working to gradually improve this by helping users maintain a consistent style so the code can become clean and easy to read at a glance.
-
-Keep the following points in mind when writing PHP code for WordPress, whether for core programming code, plugins, or themes. The guidelines are similar to Pear standards in many ways, but differ in some key respects.
 
 ## Single and Double Quotes
 
 ## Indentation
+
+Your indentation should always reflect logical structure. Use real tabs and not spaces, as this allows the most flexibility across clients.
+
+Exception: if you have a block of code that would be more readable if things are aligned, use spaces:
+```
+[tab]$foo   = 'somevalue';
+[tab]$foo2  = 'somevalue2';
+[tab]$foo34 = 'somevalue3';
+[tab]$foo5  = 'somevalue4';
+```
+
+For associative arrays, values should start on a new line. Note the comma after the last array item: this is recommended because it makes it easier to change the order of the array, and makes for cleaner diffs when new items are added.
+```
+$my_array = array(
+[tab]'foo'   => 'somevalue',
+[tab]'foo2'  => 'somevalue2',
+[tab]'foo3'  => 'somevalue3',
+[tab]'foo34' => 'somevalue3',
+);
+```
+Rule of thumb: Tabs should be used at the beginning of the line for indentation, while spaces can be used mid-line for alignment.
 
 ## Brace Style
 
@@ -65,4 +83,4 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-**[⬆ back to top](#Factorymedia PHP Style Guide)**
+**[⬆ back to top](#factorymedia-php-style-guide)**
