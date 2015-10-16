@@ -7,7 +7,7 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
   1. [Single and Double Quotes](#single-and-double-quotes)
   1. [Indentation](#indentation)
   1. [Brace Style](#brace-style)
-  1. [Regular Expressions](#regular-expressions)  
+  1. [Regular Expressions](#regular-expressions)
   1. [No Shorthand PHP Tags](#no-shorthand-php-tags)
   1. [Remove Trailing Spaces](#remove-trailing-spaces)
   1. [Space Usage](#space-usage)
@@ -58,14 +58,14 @@ Your indentation should always reflect logical structure. Use 2 spaces and not t
 For associative arrays, values should start on a new line. Note the comma after the last array item: this is recommended because it makes it easier to change the order of the array, and makes for cleaner diffs when new items are added.
   ```php
   $my_array = array(
-  ∙∙'foo'   => 'somevalue',
-  ∙∙'foo2'  => 'somevalue2',
-  ∙∙'foo3'  => 'somevalue3',
-  ∙∙'foo34' => 'somevalue3',
+  ∙∙'foo'∙∙∙=> 'somevalue',
+  ∙∙'foo2'∙∙=> 'somevalue2',
+  ∙∙'foo3'∙∙=> 'somevalue3',
+  ∙∙'foo34'∙=> 'somevalue3',
   );
   ```
 
-Rule of thumb: Tabs should be used at the beginning of the line for indentation, while spaces can be used mid-line for alignment.
+Rule of thumb: Spaces should be used at the beginning and mid-line for alignment if it makes the array more readable.
 
 **[⬆ back to top](#table-of-contents)**
 
