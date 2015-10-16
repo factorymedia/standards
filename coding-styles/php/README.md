@@ -25,35 +25,46 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
 
 Use single and double quotes if appropriate. However, use single quotes as much as possible, unless you’re evaluating anything in the string. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
 
-```
-echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
-echo "<a href='$link' title='$linktitle'>$linkname</a>";
-```
+  ```php
+  echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
+  echo "<a href='$link' title='$linktitle'>$linkname</a>";
+  ```
+
 Text that goes into attributes should be run through `esc_attr()` so that single or double quotes do not end the attribute value and invalidate the HTML and cause a security issue. See Data Validation in the Codex for further details.
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Indentation
 
-Your indentation should always reflect logical structure. Use real tabs and not spaces, as this allows the most flexibility across clients.
+Your indentation should always reflect logical structure. Use s spaces spaces and not tabs.
 
-Exception: if you have a block of code that would be more readable if things are aligned, use spaces:
-```
-[tab]$foo   = 'somevalue';
-[tab]$foo2  = 'somevalue2';
-[tab]$foo34 = 'somevalue3';
-[tab]$foo5  = 'somevalue4';
-```
+  ```php
+  // bad
+  if (condition) {
+  ∙∙∙∙const name;
+  }
+
+  // bad
+  if (condition) {
+  ∙const name;
+  }
+
+  // good
+  if (condition) {
+  ∙∙const name;
+  }
+  ```
 
 For associative arrays, values should start on a new line. Note the comma after the last array item: this is recommended because it makes it easier to change the order of the array, and makes for cleaner diffs when new items are added.
-```
-$my_array = array(
-[tab]'foo'   => 'somevalue',
-[tab]'foo2'  => 'somevalue2',
-[tab]'foo3'  => 'somevalue3',
-[tab]'foo34' => 'somevalue3',
-);
-```
+  ```php
+  $my_array = array(
+  ∙∙'foo'   => 'somevalue',
+  ∙∙'foo2'  => 'somevalue2',
+  ∙∙'foo3'  => 'somevalue3',
+  ∙∙'foo34' => 'somevalue3',
+  );
+  ```
+
 Rule of thumb: Tabs should be used at the beginning of the line for indentation, while spaces can be used mid-line for alignment.
 
 **[⬆ back to top](#table-of-contents)**
@@ -62,50 +73,61 @@ Rule of thumb: Tabs should be used at the beginning of the line for indentation,
 
 Braces shall be used for all blocks in the style shown here:
 
-```
-if ( condition ) {
+  ```php
+  // bad
+  if ( codition ) {
+  }
+
+  // bad
+  if(condition){
+
+  }
+
+  // good
+  if (condition) {
     action1();
     action2();
-} elseif ( condition2 && condition3 ) {
+  } elseif (condition2 && condition3) {
     action3();
     action4();
-} else {
+  } else {
     defaultaction();
-}
-```
+  }
+  ```
 
 Furthermore, if you have a really long block, consider whether it can be broken into two or more shorter blocks or functions. If you consider such a long block unavoidable, please put a short comment at the end so people can tell at glance what that ending brace ends – typically this is appropriate for a logic block, longer than about 35 rows, but any code that’s not intuitively obvious can be commented.
 
 Braces should always be used, even when they are not required:
 
-```
-if ( condition ) {
+  ```php
+  if (condition) {
     action0();
-}
+  }
 
-if ( condition ) {
+  if (condition) {
     action1();
-} elseif ( condition2 ) {
+  } elseif (condition2) {
     action2a();
     action2b();
-}
+  }
 
-foreach ( $items as $item ) {
-    process_item( $item );
-}
-```
+  foreach ($items as $item) {
+    process_item($item);
+  }
+  ```
+
 Note that requiring the use of braces just means that single-statement inline control structures are prohibited. You are free to use the alternative syntax for control structures (e.g. `if`/`endif`, `while`/`endwhile`)—especially in your templates where PHP code is embedded within HTML, for instance:
 
-```
-<?php if ( have_posts() ) : ?>
+  ```php
+  <?php if (have_posts()) : ?>
     <div class='hfeed'>
-        <?php while ( have_posts() ) : the_post(); ?>
-            <article id="post-<?php the_ID() ?>" class="<?php post_class() ?>">
-                <!-- ... -->
-            </article>
-        <?php endwhile; ?>
+      <?php while (have_posts()) : the_post(); ?>
+        <article id="post-<?php the_ID() ?>" class="<?php post_class() ?>">
+          <!-- ... -->
+        </article>
+      <?php endwhile; ?>
     </div>
-<?php endif; ?>
+  <?php endif; ?>
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -122,19 +144,15 @@ It’s most convenient to use single-quoted strings for regular expressions sinc
 
 Important: Never use shorthand PHP start tags. Always use full PHP tags.
 
-Correct:
+  ```php
+  // good
+  <?php ... ?>
+  <?php echo $var; ?>
 
-```
-<?php ... ?>
-<?php echo $var; ?>
-```
-
-Incorrect:
-
-```
-<? ... ?>
-<?= $var ?>
-```
+  // bad
+  <? ... ?>
+  <?= $var ?>
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -148,58 +166,89 @@ Remove trailing whitespace at the end of each line of code. Omitting the closing
 
 Always put spaces after commas, and on both sides of logical, comparison, string and assignment operators.
 
-```
-x == 23
-foo && bar
-! foo
-array( 1, 2, 3 )
-$baz . '-5'
-$term .= 'X'
-```
-Put spaces on both sides of the opening and closing parenthesis of `if`, `elseif`, `foreach`, `for`, and `switch` blocks.
+  ```php
+  x == 23
+  foo && bar
+  ! foo
+  array(1, 2, 3)
+  $baz . '-5'
+  $term .= 'X'
+  ```
 
-```
-foreach ( $foo as $bar ) { ...
-```
+Do not put spaces on both sides of the opening and closing parenthesis of `if`, `elseif`, `foreach`, `for`, and `switch` blocks.
+
+  ```php
+  // bad
+  foreach ( $foo as $bar ) { ...
+
+  // good
+  foreach ($foo as $bar) { ...
+  ```
 
 When defining a function, do it like so:
 
-```
-function my_function( $param1 = 'foo', $param2 = 'bar' ) { ...
-```
+  ```php
+  // bad
+  function my_function( $param1 = 'foo', $param2 = 'bar' ) { ...
+
+  // good
+  function my_function($param1 = 'foo', $param2 = 'bar') { ...
+  ```
 
 When calling a function, do it like so:
 
-```
-my_function( $param1, func_param( $param2 ) );
-```
+  ```php
+  // bad
+  my_function( $param1, func_param( $param2 ) );
+
+  // good
+  my_function($param1, func_param($param2));
+  ```
 
 When performing logical comparisons, do it like so:
 
-```
-if ( ! $foo ) { ...
-```
+  ```php
+  // bad
+  if ( ! $foo ) { ...
+
+  // good
+  if (!$foo) { ...
+  ```
 
 When type casting, do it like so:
 
-```
-foreach ( (array) $foo as $bar ) { ...
+  ```php
+  // bad
+  foreach ( (array) $foo as $bar ) { ...
 
-$foo = (boolean) $bar;
-```
+  // good
+  foreach ((array) $foo as $bar) { ...
+
+  // bad
+  $foo = (boolean) $bar;
+
+  // good
+  $foo = (boolean)$bar;
+  ```
 
 When referring to array items, only include a space around the index if it is a variable, for example:
 
-```
-$x = $foo['bar']; // correct
-$x = $foo[ 'bar' ]; // incorrect
+  ```php
+  // good
+  $x = $foo['bar'];
+  // bad
+  $x = $foo[ 'bar' ];
 
-$x = $foo[0]; // correct
-$x = $foo[ 0 ]; // incorrect
+  // good
+  $x = $foo[0];
+  // bad
+  $x = $foo[ 0 ];
 
-$x = $foo[$bar]; // correct
-$x = $foo[ $bar ]; // incorrect
-```
+  // good
+  $x = $foo[$bar];
+  // bad
+  $x = $foo[ $bar ];
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -211,12 +260,12 @@ Functions that update the database should expect their parameters to lack SQL sl
 
 `$wpdb->prepare()` is a method that handles escaping, quoting, and int-casting for SQL queries. It uses a subset of the `sprintf()` style of formatting. Example :
 
-```
-$var = "dangerous'"; // raw data that may or may not need to be escaped
-$id = some_foo_number(); // data we expect to be an integer, but we're not certain
+  ```php
+  $var = "dangerous'"; // raw data that may or may not need to be escaped
+  $id = some_foo_number(); // data we expect to be an integer, but we're not certain
 
-$wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID = %d", $var, $id ) );
-```
+  $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID = %d", $var, $id ) );
+  ```
 
 `%s` is used for string placeholders and %d is used for integer placeholders. Note that they are not ‘quoted’! `$wpdb->prepare()` will take care of escaping and quoting for us. The benefit of this is that we don’t have to remember to manually use `esc_sql()`, and also that it is easy to see at a glance whether something has been escaped or not, because it happens right when the query happens.
 
@@ -226,42 +275,42 @@ $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET post_title = %s WHERE ID 
 
 Use lowercase letters in variable, action, and function names (never `camelCase`). Separate words via underscores. Don’t abbreviate variable names un-necessarily; let the code be unambiguous and self-documenting.
 
-```
-function some_name( $some_variable ) { [...] }
-```
+  ```php
+  function some_name($some_variable) { [...] }
+  ```
 
 Class names should use capitalized words separated by underscores. Any acronyms should be all upper case.
 
-```
-class Walker_Category extends Walker { [...] }
-class WP_HTTP { [...] }
-```
+  ```php
+  class Walker_Category extends Walker { [...] }
+  class WP_HTTP { [...] }
+  ```
 
 Constants should be in all upper-case with underscores separating words:
 
-```
-define( 'DOING_AJAX', true );
-```
+  ```
+  define('DOING_AJAX', true);
+  ```
 
 Files should be named descriptively using lowercase letters. Hyphens should separate words.
 
-```
-my-plugin-name.php
-```
+  ```
+  my-plugin-name.php
+  ```
 
 Class file names should be based on the class name with `class-` prepended and the underscores in the class name replaced with hyphens, for example `WP_Error` becomes:
 
-```
-class-wp-error.php
-```
+  ```
+  class-wp-error.php
+  ```
 
 This file-naming standard is for all current and new files with classes. There is one exception for three files that contain code that got ported into BackPress: class.wp-dependencies.php, class.wp-scripts.php, class.wp-styles.php. Those files are prepended with class., a dot after the word class instead of a hyphen.
 
 Files containing template tags in `wp-includes` should have `-template` appended to the end of the name so that they are obvious.
 
-```
-general-template.php
-```
+  ```
+  general-template.php
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -269,37 +318,37 @@ general-template.php
 
 Prefer string values to just 'true' and 'false' when calling functions.
 
-```
-// Incorrect
-function eat( $what, $slowly = true ) {
-...
-}
-eat( 'mushrooms' );
-eat( 'mushrooms', true ); // what does true mean?
-eat( 'dogfood', false ); // what does false mean? The opposite of true?
-```
+  ```php
+  // bad
+  function eat($what, $slowly = true) {
+  ...
+  }
+  eat('mushrooms');
+  eat('mushrooms', true); // what does true mean?
+  eat('dogfood', false); // what does false mean? The opposite of true?
+  ```
 
 Since PHP doesn’t support named arguments, the values of the flags are meaningless, and each time we come across a function call like the examples above, we have to search for the function definition. The code can be made more readable by using descriptive string values, instead of booleans.
 
-```
-// Correct
-function eat( $what, $speed = 'slowly' ) {
-...
-}
-eat( 'mushrooms' );
-eat( 'mushrooms', 'slowly' );
-eat( 'dogfood', 'quickly' );
-```
+  ```php
+  // good
+  function eat($what, $speed = 'slowly') {
+  ...
+  }
+  eat('mushrooms');
+  eat('mushrooms', 'slowly');
+  eat('dogfood', 'quickly');
+  ```
 
 When more words are needed to describe the function parameters, an '$args' array may be a better pattern.
 
-```
-// Even Better
-function eat( $what, $args ) {
-...
-}
-eat ( 'noodles', array( 'speed' => 'moderate' ) );
-```
+  ```php
+  // even better
+  function eat($what, $args) {
+  ...
+  }
+  eat ('noodles', array('speed' => 'moderate'));
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -309,21 +358,21 @@ Ternary operators are fine, but always have them test if the statement is true, 
 
 For example:
 
-```
-// (if statement is true) ? (do this) : (else, do this);
-$musictype = ( 'jazz' == $music ) ? 'cool' : 'blah';
-// (if field is not empty ) ? (do this) : (else, do this);
-```
+  ```php
+  // (if statement is true) ? (do this) : (else, do this);
+  $musictype = ( 'jazz' == $music ) ? 'cool' : 'blah';
+  // (if field is not empty ) ? (do this) : (else, do this);
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Yoda Conditions
 
-```
-if ( true == $the_force ) {
-    $victorious = you_will( $be );
-}
-```
+  ```
+  if (true == $the_force) {
+      $victorious = you_will($be);
+  }
+  ```
 When doing logical comparisons, always put the variable on the right side, constants or literals on the left.
 
 In the above example, if you omit an equals sign (admit it, it happens even to the most seasoned of us), you’ll get a parse error, because you can’t assign to a constant like 'true'. If the statement were the other way around '( $the_force = true )', the assignment would be perfectly valid, returning '1', causing the if statement to evaluate to 'true', and you could be chasing that bug for a while.
@@ -337,17 +386,17 @@ This applies to ==, !=, ===, and !==. Yoda conditions for <, >, <= or >= are sig
 ## Clever Code
 
 In general, readability is more important than cleverness or brevity.
-```
-isset( $var ) || $var = some_function();
-```
+  ```
+  isset($var) || $var = some_function();
+  ```
 
 Although the above line is clever, it takes a while to grok if you’re not familiar with it. So, just write it like this:
 
-```
-if ( ! isset( $var ) ) {
-    $var = some_function();
-}
-```
+  ```
+  if (!isset($var)) {
+      $var = some_function();
+  }
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
