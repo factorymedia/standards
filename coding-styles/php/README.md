@@ -276,14 +276,27 @@ Functions that update the database should expect their parameters to lack SQL sl
 Use lowercase letters in variable, action, and function names (never `camelCase`). Separate words via underscores. Don’t abbreviate variable names un-necessarily; let the code be unambiguous and self-documenting.
 
   ```php
+  // bad
+  function someName($someVariable) { [...] }
+
+  // good
   function some_name($some_variable) { [...] }
   ```
 
-Class names should use capitalized words separated by underscores. Any acronyms should be all upper case.
+Class names should use capitalized words. Any acronyms should be all upper case.
 
   ```php
+  // bad
   class Walker_Category extends Walker { [...] }
+
+  // bad
   class WP_HTTP { [...] }
+
+  // good
+  class WalkerCategory extends Walker { [...] }
+
+  // good
+  class WPHTTP { [...] }
   ```
 
 Constants should be in all upper-case with underscores separating words:
