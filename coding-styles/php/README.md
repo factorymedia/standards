@@ -283,7 +283,7 @@ Use lowercase letters in variable, action, and function names (never `camelCase`
   function some_name($some_variable) { [...] }
   ```
 
-Class names should use capitalized words. Any acronyms should be all upper case.
+Class names should use camelCase words with first letter capitalized. Any acronyms should be all upper case.
 
   ```php
   // bad
