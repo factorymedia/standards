@@ -1,5 +1,6 @@
 # Factorymedia PHP Style Guide
 
+It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/)
 
 ## Table of Contents
 
