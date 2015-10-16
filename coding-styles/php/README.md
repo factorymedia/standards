@@ -196,8 +196,8 @@ $x = $foo[ 'bar' ]; // incorrect
 $x = $foo[0]; // correct
 $x = $foo[ 0 ]; // incorrect
 
-$x = $foo[ $bar ]; // correct
-$x = $foo[$bar]; // incorrect
+$x = $foo[$bar]; // correct
+$x = $foo[ $bar ]; // incorrect
 ```
 
 **[⬆ back to top](#table-of-contents)**
