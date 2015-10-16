@@ -36,7 +36,7 @@ Text that goes into attributes should be run through `esc_attr()` so that single
 
 ## Indentation
 
-Your indentation should always reflect logical structure. Use s spaces spaces and not tabs.
+Your indentation should always reflect logical structure. Use 2 spaces and not tabs.
 
   ```php
   // bad
