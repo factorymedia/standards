@@ -22,7 +22,7 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 + Always use double quotes, never single quotes, on attributes.
 + Don't include a trailing slash in self-closing elements—the [HTML5 spec](http://dev.w3.org/html5/spec-author-view/syntax.html#syntax-start-tag) says they're optional.
 + Don’t omit optional closing tags (e.g. `</li>` or `</body>`).
-+ Elements & attributes should always be in lowercase
++ Elements & attributes should always be lowercase
 
 ```html
 <!-- bad-->
