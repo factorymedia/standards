@@ -115,7 +115,7 @@ HTML attributes should come in this particular order for easier reading of code.
 + `title`, `alt`
 + `role`, `aria-*`
 
-Classes make for great reusable components, so they come first. Ids are more specific and should be used sparingly (e.g., for in-page bookmarks), so they come second.
+Classes make for great reusable components, so they come first. IDs are more specific and should be used sparingly (e.g., for in-page bookmarks), so they come second.
 
 ```html
 <a class="c-modal ..." id="..." data-toggle="modal" href="#">
