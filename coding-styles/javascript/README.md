@@ -1,4 +1,4 @@
-# Factorymedia JavaScript Style Guide
+# Factory Media JavaScript Style Guide
 
 Inspired by [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
@@ -33,7 +33,7 @@ Inspired by [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
   1. [ECMAScript 6 Styles](#ecmascript-6-styles)
   1. [Testing](#testing)
   1. [Performance](#performance)
-  1. [Resources](#resources)  
+  1. [Resources](#resources)
   1. [License](#license)
 
 ## Types
@@ -175,7 +175,7 @@ Inspired by [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
     ```javascript
     function getKey(k) {
       return 'a key named ${k}';
-    }    
+    }
 
     // bad
     const obj = {
@@ -189,7 +189,7 @@ Inspired by [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript
       id: 5,
       name: 'San Francisco',
       [getKey('enabled')]: true ,
-    };  
+    };
     ```
 
   <a name="es6-object-shorthand"></a>
