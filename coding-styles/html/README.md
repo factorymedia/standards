@@ -24,8 +24,8 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 + Don’t omit optional closing tags (e.g. `</li>` or `</body>`).
 + Elements & attributes should always be lowercase
 
+#### Bad Example
 ```html
-<!-- bad-->
 <!DOCTYPE html>
 <html>
     <head> <!-- indent with 2 spaces only, not 4 or tabs -->
@@ -39,9 +39,10 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
         <h1 class='hello-world'>Hello, world!</h1> <!-- use double quotes for HTML attrs -->
     </body>
 </html>
+```
 
-
-<!-- good -->
+#### Good Example
+```html
 <!DOCTYPE html>
 <html>
 ∙∙<head>
@@ -160,6 +161,7 @@ For further reading, consult the [WhatWG section on boolean attributes](http://w
 
 **In short, don't add a value.**
 
+#### Bad Examples
 ```html
 <!-- bad -->
 <input type="text" disabled="false">
@@ -167,7 +169,10 @@ For further reading, consult the [WhatWG section on boolean attributes](http://w
 
 <!-- not so good, but not bad -->
 <input type="text" disabled="disabled">
+```
 
+#### Good Examples
+```html
 <!-- good -->
 <input type="text" disabled>
 
