@@ -27,12 +27,15 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 <!-- bad-->
 <!DOCTYPE html>
 <html>
-    <head>
-        <TITLE>Page title</TITLE> <!-- X elemets must always be lower case -->
+    <head> <!-- indent with 2 spaces only, not 4 or tabs -->
+        <TITLE>Page Title</TITLE> <!-- elemets must always be lower case -->
     </head>
     <body>
-        <img SRC='images/company-logo.png' ALT='Company'> <!-- X attrs must always be lower case -->
-        <h1 class='hello-world'>Hello, world!</h1> <!-- X use double quotes for HTML attrs -->
+        <figure>
+          <img src='images/company-logo.png' alt='Company' /> <!-- no need to close self closing tags like img -->
+          <figcaption CLASS='c-caption__text' ID='image-caption-123'>Company logo</figcaption> <!-- attrs must always be lower case  -->
+        </figure>
+        <h1 class='hello-world'>Hello, world!</h1> <!-- use double quotes for HTML attrs -->
     </body>
 </html>
 
@@ -41,10 +44,13 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 <!DOCTYPE html>
 <html>
 ∙∙<head>
-∙∙∙∙<title>Page title</title>
+∙∙∙∙<title>Page Title</title>
 ∙∙</head>
 ∙∙<body>
-∙∙∙∙<img src="images/company-logo.png" alt="Company">
+∙∙∙∙<figure>
+∙∙∙∙∙∙<img src="images/company-logo.png" alt="Company">
+∙∙∙∙∙∙<figcaption>Our company logo</figcaption>
+∙∙∙∙</figure>
 ∙∙∙∙<h1 class="hello-world">Hello, world!</h1>
 ∙∙</body>
 </html>
