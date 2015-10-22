@@ -22,18 +22,19 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 + Always use double quotes, never single quotes, on attributes.
 + Don't include a trailing slash in self-closing elements—the [HTML5 spec](http://dev.w3.org/html5/spec-author-view/syntax.html#syntax-start-tag) says they're optional.
 + Don’t omit optional closing tags (e.g. `</li>` or `</body>`).
++ Elements & attributes should always be in lowercase
 
 ```html
 <!-- bad-->
 <!DOCTYPE html>
 <html>
     <head> <!-- indent with 2 spaces only, not 4 or tabs -->
-        <TITLE>Page Title</TITLE> <!-- elemets must always be lower case -->
+        <TITLE>Page Title</TITLE> <!-- elemets must always be lowercase -->
     </head>
     <body>
         <figure>
           <img src='images/company-logo.png' alt='Company' /> <!-- no need to close self closing tags like img -->
-          <figcaption CLASS='c-caption__text' ID='image-caption-123'>Company logo</figcaption> <!-- attrs must always be lower case  -->
+          <figcaption CLASS='c-caption__text' ID='image-caption-123'>Company logo</figcaption> <!-- attrs must always be lowercase  -->
         </figure>
         <h1 class='hello-world'>Hello, world!</h1> <!-- use double quotes for HTML attrs -->
     </body>
