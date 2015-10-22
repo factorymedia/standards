@@ -24,16 +24,31 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 + Don’t omit optional closing tags (e.g. `</li>` or `</body>`).
 
 ```html
+<!-- bad-->
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Page title</title>
-  </head>
-  <body>
-    <img src="images/company-logo.png" alt="Company">
-    <h1 class="hello-world">Hello, world!</h1>
-  </body>
+    <head>
+        <TITLE>Page title</TITLE> <!-- X elemets must always be lower case -->
+    </head>
+    <body>
+        <img SRC='images/company-logo.png' ALT='Company'> <!-- X attrs must always be lower case -->
+        <h1 class='hello-world'>Hello, world!</h1> <!-- X use double quotes for HTML attrs -->
+    </body>
 </html>
+
+
+<!-- good -->
+<!DOCTYPE html>
+<html>
+∙∙<head>
+∙∙∙∙<title>Page title</title>
+∙∙</head>
+∙∙<body>
+∙∙∙∙<img src="images/company-logo.png" alt="Company">
+∙∙∙∙<h1 class="hello-world">Hello, world!</h1>
+∙∙</body>
+</html>
+
 ```
 
 ## HTML5 doctype
@@ -139,6 +154,14 @@ For further reading, consult the [WhatWG section on boolean attributes](http://w
 **In short, don't add a value.**
 
 ```html
+<!-- bad -->
+<input type="text" disabled="false">
+<input type="text" disabled="true">
+
+<!-- not so good, but not bad -->
+<input type="text" disabled="disabled">
+
+<!-- good -->
 <input type="text" disabled>
 
 <input type="checkbox" value="1" checked>
