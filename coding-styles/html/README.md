@@ -50,7 +50,7 @@ Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 ∙∙<body>
 ∙∙∙∙<figure>
 ∙∙∙∙∙∙<img src="images/company-logo.png" alt="Company">
-∙∙∙∙∙∙<figcaption>Our company logo</figcaption>
+∙∙∙∙∙∙<figcaption class="c-caption__text" id="image-caption-123">Our company logo</figcaption>
 ∙∙∙∙</figure>
 ∙∙∙∙<h1 class="hello-world">Hello, world!</h1>
 ∙∙</body>
