@@ -1,4 +1,4 @@
-# Factorymedia HTML Style Guide
+# Factory Media HTML Style Guide
 
 Inspired by [Code Guide by @mdo](http://codeguide.co/#html-syntax)
 
