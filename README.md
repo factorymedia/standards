@@ -5,4 +5,5 @@ Standard guideline for all factorymedia dev related
 
 - [PHP](coding-styles/php)
 - [JavaScript](coding-styles/javascript)
+- [CoffeeScript](coding-styles/coffeescript)
 - [HTML](coding-styles/html)
