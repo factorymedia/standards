@@ -446,7 +446,7 @@ Joseph Scott has [a good write-up of why it’s bad](https://josephscott.org/arc
 
 (The MIT License)
 
-Copyright (c) 2015 Factorymedia Ltd
+Copyright (c) 2015 Factory Media Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
