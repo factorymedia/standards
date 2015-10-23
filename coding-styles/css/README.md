@@ -22,7 +22,6 @@ Inspired by a lot of smart people, please take the time to read through their [i
   1. [Units](#units)
   1. [Miscellanious](#miscellanious)
 
-
 ## Basics
 + We use SASS, specifically the [**SCSS** flavour](http://sass-lang.com/guide), never the sass syntax.
 + To keep our CSS readable, we try and keep our CSS very vanilla (plain).
@@ -443,7 +442,10 @@ Try to avoid using fixed pixel values and use <abbr title="Root Em">`rem`</abbr>
 
 Some additional things to keep in mind:
 
-+ In your markup, order classes: `<div class="c-component c-component--modifier u-util-class is-state js-action"></div>`.
++ In your markup, try to keep your classes in order:
+
+`<div class="c-component c-component--modifier u-util-class is-state js-action"></div>`.
+
   + Block / Element
   + Modifiers
   + Utils
