@@ -130,7 +130,7 @@ Everything else takes place inside the component or without impacting the previo
 ## Comments
 Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post, add the link to a comment so future people know what’s up. It’s good to explain the purpose of the file in a comment at the top.
 
-+ Prefer line comments (`//...` in Sass-land) to block comments `/* ... */`.
++ Prefer line comments `//...` (in Sass-land) to block comments `/* ... */`.
 + Write detailed comments for code that isn't self-documenting:
   + Uses of z-index
   + Compatibility or browser-specific hacks
@@ -177,7 +177,8 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
 
 
 ## SCSS Ordering Of Property Declarations
-1. `@extend` declarations
+1. **`@extend` declarations**
+
     Just as in other OOP languages, it's helpful to know right away that this `class` inherits from another.
 
     ```scss
@@ -187,7 +188,8 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
     }
     ```
 
-2. Property declarations
+2. **Property declarations**
+
     Now list all standard property declarations, anything that isn't an `@extend`, `@include`, or a nested selector.
 
     ```scss
@@ -199,7 +201,8 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
     }
     ```
 
-3. `@include` declarations
+3. **`@include` declarations**
+
     Grouping `@include`s at the end makes it easier to read the entire selector, and it also visually separates them from `@extend`s.
 
     ```scss
@@ -216,7 +219,8 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
     }
     ```
 
-4. Nested selectors
+4. **Nested selectors**
+
     Try not to nest selectors where possible. _If necessary_, they should go last, and nothing goes after them. Add whitespace between your rule declarations and nested selectors, as well as between adjacent nested selectors. Apply the same guidelines as above to your nested selectors.
 
     ```scss
