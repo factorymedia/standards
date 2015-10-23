@@ -464,7 +464,7 @@ As with most things this is a combination of sources from people a lot smarter t
 + [Trello CSS](https://gist.github.com/bobbygrace/9e961e8982f42eb91b80)
 + [Airbnb CSS](https://github.com/airbnb/css)
 + [ITCSS](https://www.youtube.com/watch?v=1OKZOV-iLj4)
-+ [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
++ [Harry Robers - CSS Wizardry](http://csswizardry.com/)
 + [@mdo's Code Guide](http://codeguide.co/#css-syntax)
 
 
