@@ -40,7 +40,7 @@ Inspired by: [GitHub](http://primercss.io/guidelines/), [Trello](https://gist.gi
 + Grouped selectors should be on their own single line.
 + Place the `}` closing braces of declaration blocks on a new line.
 + Each declaration should appear on its own line for more accurate error reporting.
-+ End all declarations with a semi-colon `;`. The last declaration's is optional, but your code is more error prone without it.
++ End all declarations with a semi-colon `;`.
 + Comma-separated property values should include a space after each comma `box-shadow: 0 1px 2px #ccc, inset 0 1px 0 #fff;`.
 + Don't include spaces after commas within: `rgb()`, `rgba()`, `hsl()`, `hsla()`, or `rect()` values. This helps differentiate multiple color values (comma, no space) from multiple property values (comma with space) `background-color: rgba(0,0,0,.5);`.
 + Don't prefix property values or color parameters with a leading zero: `.5` instead of `0.5` and `-.5px` instead of `-0.5px`.
