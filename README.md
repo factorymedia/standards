@@ -6,3 +6,4 @@ Standard guideline for all factorymedia dev related
 - [PHP](coding-styles/php)
 - [JavaScript](coding-styles/javascript)
 - [HTML](coding-styles/html)
+- [CSS](coding-styles/css)
