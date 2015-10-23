@@ -1,6 +1,8 @@
 # Factory Media CSS / SCSS Style Guide
 
-Inspired by: [GitHub](http://primercss.io/guidelines/), [Trello](https://gist.github.com/bobbygrace/9e961e8982f42eb91b80), [Airbnb](https://github.com/airbnb/css), [ITCSS](https://www.youtube.com/watch?v=1OKZOV-iLj4), [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) & [@mdo's Code Guide](http://codeguide.co/#css-syntax)
+Inspired by a lot of smart people, please take the time to read through their [invaluable contributions](#credits)
+
+## Contents
 
   1. [Basics](#basics)
   1. [Formatting](#formatting)
@@ -82,6 +84,7 @@ Inspired by: [GitHub](http://primercss.io/guidelines/), [Trello](https://gist.gi
 
 
 ## Declaration Order
+
 Related property declarations should be grouped together following the order:
 
 1. Positioning
@@ -128,6 +131,7 @@ Everything else takes place inside the component or without impacting the previo
 
 
 ## Comments
+
 Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post, add the link to a comment so future people know what’s up. It’s good to explain the purpose of the file in a comment at the top.
 
 + Prefer line comments `//...` (in Sass-land) to block comments `/* ... */`.
@@ -137,6 +141,7 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
 
 
 ## BEM And OOCSS
+
 + It helps create clear, strict relationships between CSS and HTML
 + It helps us create reusable, composable components
 + It allows for less nesting and lower specificity
@@ -152,6 +157,7 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
 
 
 **Example**
+
 ```html
 <article class="listing-card listing-card--featured">
 
@@ -177,6 +183,7 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
 
 
 ## SCSS Ordering Of Property Declarations
+
 1. **`@extend` declarations**
 
     Just as in other OOP languages, it's helpful to know right away that this `class` inherits from another.
@@ -241,9 +248,11 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
     ```
 
 ## Mixins
+
 Mixins, defined via `@mixin` and called with `@include`, should be used sparingly and only when function arguments are necessary. A mixin without function arguments (i.e. `@mixin hide { display: none; }`) is better accomplished using a placeholder selector (see below) in order to prevent code duplication.
 
 ## Placeholders
+
 Placeholders in Sass, defined via `%selector` and used with `@extend`, are a way of defining rule declarations that aren't automatically output in your compiled stylesheet. Instead, other selectors “inherit” from the placeholder, and the relevant selectors are copied to the point in the stylesheet where the placeholder is defined. This is best illustrated with the example below.
 
 Placeholders are powerful but easy to abuse, especially when combined with nested selectors. **As a rule of thumb, avoid creating placeholders with nested rule declarations, or calling `@extend` inside nested selectors.** Placeholders are great for simple inheritance, but can easily result in the accidental creation of additional selectors without paying close attention to how and where they are used.
@@ -286,7 +295,9 @@ Placeholders are powerful but easy to abuse, especially when combined with neste
 
 
 ## Namespacing CSS With Prefixes
+
 We prefix almost all CSS classes with a single character to quickly differentiate them
+
 + `.c-`: **Component** - This is a concrete, implementation-specific piece of UI. All of the changes you make to its styles should be detectable in the context you’re currently looking at. Modifying these styles should be safe and have no side effects. `.c-btn`
 + `.o-`: **Object** - It may be used in any number of unrelated contexts to the one you can currently see it in. Making modifications to these types of class could potentially have knock-on effects in a lot of other unrelated places. Tread carefully. `.o-grid`
 + `.u-`: **Utillity** - It has a very specific role (often providing only one declaration) and should not be bound onto or changed. It can be reused and is not tied to any specific piece of UI. `.u-clearfix`
@@ -297,6 +308,7 @@ For more info [read this in-depth namespacing guide](http://csswizardry.com/2015
 
 
 ## JavaScript
+
 Separate style and behavior concerns by using `.js-` prefixed classes for behavior.
 
 For example:
@@ -323,6 +335,7 @@ Be sure to **use a descriptive class name**. The intent of `.js-open-content-men
 
 
 ## Media Query Placement
+
 Place media queries as close to their relevant rule sets whenever possible. Don't bundle them all in a separate stylesheet or at the end of the document. Doing so only makes it easier for folks to miss them in the future. Here's a typical setup.
 
 Use a  `@mixin` like: `@include media-breakpoint-up(lg)` / `@include media-breakpoint-down(md)` / `@include breakpoint(tablet)` within the element rule set
@@ -350,16 +363,19 @@ Use a  `@mixin` like: `@include media-breakpoint-up(lg)` / `@include media-break
 ```
 
 ## Mobile First Media Queries
+
 Always style for mobile first. Media queries should be used to adjust for larger devices, so generally you should almost always use the '-up' media queries `@include media-breakpoint-up()` not '-down'.
 
 
 ## Browser Prefixes
+
 **Don't do it!** [Autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer) should be added to the project to take care of this.
 
 Autoprefixer, as the name suggests will automatically add all relevant browser prefixes (`-moz`, `-webkit`, `-o`, `-ms`), so keep them out of your source files.
 
 
 ## Shorthand Notation
+
 Strive to limit use of shorthand declarations to instances where you must explicitly set all the available values. Common overused shorthand properties include:
 
 + `padding`
@@ -393,6 +409,7 @@ The Mozilla Developer Network has a great article on [shorthand properties](http
 ```
 
 ## Operators In Sass
+
 For improved readability, wrap all math operations in parentheses with a single space between values, variables, and operators.
 
 **Bad**
@@ -410,7 +427,9 @@ For improved readability, wrap all math operations in parentheses with a single 
 ```
 
 ## Units
+
 Try to avoid using fixed pixel values and use <abbr title="Root Em">`rem`</abbr>s or `em`s where possible. In order of preferred use:
+
 + **rem**: `margin`, `padding`, `font-size`
 + **%**: `width`, `position`
 + **em**: `font-size`, `line-height`
@@ -419,6 +438,7 @@ Try to avoid using fixed pixel values and use <abbr title="Root Em">`rem`</abbr>
 
 
 ## Miscellanious
+
 **Leave the place nicer than you found it**. Our CSS isn't always in great shape so when updating CSS you should rewrite sections according to these rules.
 
 Some additional things to keep in mind:
@@ -432,3 +452,43 @@ Some additional things to keep in mind:
 
 + Explicitly write out class names in selectors. Don’t concatenate strings or use preprocessor trickery to build a class name. We want to be able to search for class names. This goes for `.js-` classes in JavaScript, too.
 + If you are worried about long selector names making our CSS huge, don’t be. Compression takes care of this.
+
+
+## Credits
+
+As with most things this is a combination of sources from people a lot smarter than us. Please take time to read through these invaluable repo's / resources.
+
++ [GitHub Primer](http://primercss.io/guidelines/)
++ [Trello CSS](https://gist.github.com/bobbygrace/9e961e8982f42eb91b80)
++ [Airbnb CSS](https://github.com/airbnb/css)
++ [ITCSS](https://www.youtube.com/watch?v=1OKZOV-iLj4)
++ [BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
++ [@mdo's Code Guide](http://codeguide.co/#css-syntax)
+
+
+## License
+
+(The MIT License)
+
+Copyright (c) 2015 Factory Media Ltd
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+**[⬆ back to top](#contents)**
