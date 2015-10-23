@@ -477,6 +477,27 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
     foo(4).bar(8)
     ```
 
+  - [10.6](#10.6)<a name='10.6'></a> Prefer the fat arrow(=>) when define a function to bind current value of this (instead of binding explicitly).
+
+    ```coffeescript    
+    # bad
+    Account = (customer, cart) ->
+      @customer = customer
+      @cart = cart
+
+      $('.shopping_cart').on 'click', (event) ->
+        @customer.purchase @cart
+      .bind(this)
+
+    # good
+    Account = (customer, cart) ->
+      @customer = customer
+      @cart = cart
+
+      $('.shopping_cart').on 'click', (event) =>
+        @customer.purchase @cart
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Strings
