@@ -32,8 +32,8 @@ Inspired by: [GitHub](http://primercss.io/guidelines/), [Trello](https://gist.gi
 ## Formatting
 
 + Use two space indents, not tabs.
-+ Use dashes, not camelCasing in class names. Underscores are only OK for BEM Modules `.main-nav__menu-item {}` (see [BEM and OOCSS](#bem-and-oocss) below).
-+ Do not use ID selectors `#hash-is-a-bad {}`.
++ Use dashes, not camelCasing in class names. Underscores are only OK for BEM Modules `.main-nav__item {}` (see [BEM and OOCSS](#bem-and-oocss) below).
++ Do not use ID selectors `#hash-is-bad {}`.
 + Put spaces after `:` in property declarations `color:∙#f00;`.
 + Put spaces before `{` in rule declarations `.selector∙{}`.
 + Put line breaks between rulesets.
