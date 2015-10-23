@@ -4,27 +4,27 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
 ## Table of Contents
 
-  1. [Whitespace](#types)
-  1. [Maximum Line Length](#references)
-  1. [Blank lines](#objects)
-  1. [Remove Trailing Spaces](#arrays)
-  1. [Optional Commas](#destructuring)
-  1. [Encoding](#strings)
-  1. [Module Imports](#functions)
-  1. [Comments](#arrow-functions)
-  1. [Naming Conventions](#constructors)
-  1. [Functions](#modules)
-  1. [Strings](#iterators-and-generators)
-  1. [Conditionals](#properties)
-  1. [Looping and Comprehensions](#variables)
-  1. [Extending Native Objects](#hoisting)
-  1. [Exceptions](#comparison-operators--equality)
-  1. [Annotations](#blocks)
-  1. [Miscellaneous](#comments)
+  1. [Whitespace](#whitespace)
+  1. [Maximum Line Length](#maximum-line-length)
+  1. [Blank lines](#blank-lines)
+  1. [Remove Trailing Spaces](#remove-trailing-spaces)
+  1. [Optional Commas](#optional-commas)
+  1. [Encoding](#encoding)
+  1. [Module Imports](#module-imports)
+  1. [Comments](#comments)
+  1. [Naming Conventions](#naming-conventions)
+  1. [Functions](#functions)
+  1. [Strings](#strings)
+  1. [Conditionals](#conditionals)
+  1. [Looping and Comprehensions](#looping-and-comprehensions)
+  1. [Extending Native Objects](#extending-native-objects)
+  1. [Exceptions](#exceptions)
+  1. [Annotations](#annotations)
+  1. [Miscellaneous](#miscellaneous)
 
 ## Whitespace
 
-  - [1.1](#1.1)<a name='1.1'></a> Use soft tabs set to 2 spaces. Never mix tabs and spaces
+  - [1.1](#1.1)<a name='1.1'></a> Use soft tabs set to 2 spaces. Never mix tabs and spaces.
     ```coffeescript
     # bad
     if yes
@@ -42,7 +42,7 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
     }
     ```
 
-  - [1.2](#1.2)<a name='1.2'></a> Avoid extraneous whitespace in the following situations:
+  - [1.2](#1.2)<a name='1.2'></a> Avoid extraneous whitespace in the following situations.
   > Immediately inside parentheses, brackets or braces
 
     ```coffeescript
@@ -57,12 +57,12 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
     ```coffeescript
     # good
-    console.log x, y
+    console.log(x, y)
 
     # bad
-    console.log x , y
+    console.log(x , y)
     ```
-  - [1.3](#1.3)<a name='1.3'></a> Always surround these binary operators with a `single space` on either side:
+  - [1.3](#1.3)<a name='1.3'></a> Always surround these binary operators with a `single space` on either side.
 
   > assignment: =
 
@@ -129,7 +129,7 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
 ## Maximum Line Length
 
-  - [2.1](#2.1)<a name='2.1'></a> Limit all lines to a maximum of 80 characters
+  - [2.1](#2.1)<a name='2.1'></a> Limit all lines to a maximum of 80 characters.
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -212,7 +212,7 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
 ## Module Imports
 
-  - [7.1](#7.1)<a name='7.1'></a> All require statements should be placed on separate lines in the following order:
+  - [7.1](#7.1)<a name='7.1'></a> All require statements should be placed on separate lines in the following order.
   > - Standard library imports (if a standard library exists)
   > - Third party library imports
   > - Local imports (imports specific to this application or library)
@@ -322,37 +322,412 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
 ## Naming Conventions
 
+  - [9.1](#9.1)<a name='9.1'></a> Use camelCase (with a leading lowercase character) to name all variables, methods, and object properties.
+
+    ```coffeescript
+    # bad
+    Foo = 0
+
+    # bad
+    Bar: (BeerBottle) ->
+
+    # bad
+    Object:
+      Key: 'value'
+
+    # good
+    foo = 0
+
+    # good
+    bar: (beerBottle) ->
+
+    #good
+    object:
+      key: 'value'
+    ```
+
+  - [9.2](#9.2)<a name='9.2'></a> Use CamelCase (with a leading uppercase character) to name all classes. (This style is also commonly referred to as PascalCase, CamelCaps, or CapWords, among [other alternatives](https://en.wikipedia.org/wiki/CamelCase#Variations_and_synonyms).)
+
+    ```coffeescript
+    # bad
+    class animal
+
+    # good
+    class Animal
+    ```
+
+  > The official CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here](https://github.com/jashkenas/coffeescript/issues/425).)
+
+  - [9.3](#9.3)<a name='9.3'></a> For constants, use all uppercase with underscores.
+
+    ```coffeescript
+    # bad
+    constant_like_this
+
+    # bad
+    CONTANTLIKETHIS
+
+    # worst :(
+    Constant_Like_This
+
+    # good
+    CONSTANT_LIKE_THIS
+    ```
+
+  - [9.4](#9.4)<a name='9.4'></a> Methods and variables that are intended to be "private" should begin with a leading underscore.
+
+    ```coffeescript
+    # bad
+    privateMethod: ->
+
+    # good
+    _privateMethod: ->
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Functions
+
+> These guidelines also apply to the methods of a class
+
+  - [10.1](#10.1)<a name='10.1'></a> When declaring a function that takes arguments, always use a single space after the closing parenthesis of the arguments list.
+
+    ```coffeescript
+    # bad
+    foo = (arg1, arg2)->
+
+    # good
+    foo = (arg1, arg2) ->
+    ```
+
+  - [10.2](#10.2)<a name='10.2'></a> Do not use parentheses when declaring functions that take no arguments.
+
+    ```coffeescript
+    # bad
+    bar = () ->
+
+    # good
+    bar = ->
+    ```
+
+  - [10.3](#10.3)<a name='10.3'></a> In cases where method calls are being chained and the code does not fit on a single line, each call should be placed on a separate line and indented by one level (i.e., two spaces), with a leading `.`.
+
+    ```coffeescript
+    # bad
+    [1..3].map((x) -> x * x).concat([10..12])
+      .filter((x) -> x < 11)
+      .reduce((x, y) -> x + y)
+
+    # bad
+    [1..3].map((x) -> x * x)
+        .filter((x) -> x < 11)
+        .reduce((x, y) -> x + y)
+
+    # bad
+    [1..3].
+      map((x) -> x * x).
+      filter((x) -> x < 11).
+      reduce((x, y) -> x + y)
+
+    # good
+    [1..3]
+      .map((x) -> x * x)
+      .concat([10..12])
+      .filter((x) -> x < 11)
+      .reduce((x, y) -> x + y)
+    ```
+
+  - [10.4](#10.4)<a name='10.4'></a> When calling functions, always include parentheses in such a way that optimizes for readability.
+
+    ```coffeescript
+    # bad
+    baz 12
+
+    brush.ellipse x: 10, y: 20
+
+    print inspect value
+
+    # good
+    baz(12)
+
+    brush.ellipse(x: 10, y: 20)
+
+    print(inspect(value))
+
+    foo(4).bar(8)
+
+    obj.value(10, 20) / obj.value(20, 10)
+
+    new Tag(new Value(a, b), new Arg(c))
+    ```
+
+  - [10.5](#10.5)<a name='10.5'></a> You will sometimes see parentheses used to group functions (instead of being used to group function parameters). Examples of using this style (hereafter referred to as the "function grouping style").
+
+    ```coffeescript
+    # bad
+    ($ '#selektor').addClass('klass')
+
+    # bad
+    (foo 4).bar(8)
+
+    # good
+    $('#selektor').addClass('klass')
+
+    # good
+    foo(4).bar(8)
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Strings
 
+  - [11.1](#11.1)<a name='11.1'></a> Use string interpolation instead of string concatenation.
+
+    ```coffeescript    
+    # bad
+    "this is an " + adjective + " string"
+
+    # good
+    "this is an #{adjective} string"
+    ```
+
+  - [11.2](#11.2)<a name='11.2'></a> Prefer single quoted strings ('') instead of double quoted ("") strings, unless features like string interpolation are being used for the given string.
+
+    ```coffeescript
+    # bad
+    "this is a string"
+
+    # good
+    'this is a string'
+
+    # good
+    "this is an #{adjective} string"
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Conditionals
+
+  - [12.1](#12.1)<a name='12.1'></a> Use unless over if for negative conditions.
+
+    ```coffeescript    
+    # bad
+    if false
+
+    # good
+    unless true
+    ```
+
+  - [12.2](#12.2)<a name='12.2'></a> Instead of using unless...else, use if...else.
+
+    ```coffeescript    
+    # bad
+    unless true
+      ...
+    else
+      ...
+
+    # good
+    if false
+      ...
+    else
+      ...
+    ```
+
+  - [12.3](#12.3)<a name='12.3'></a> Multi-line if/else clauses should use indentation.
+
+    ```coffeescript    
+    # bad
+    if true then ...      
+    else ...
+
+    # good
+    if true
+      ...
+    else
+      ...
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Looping and Comprehensions
 
+  - [13.1](#13.1)<a name='13.1'></a> Take advantage of comprehensions whenever possible.
+
+    ```coffeescript    
+    # bad
+    results = []
+    for item in array
+      results.push item.name
+
+    # good
+    result = (item.name for item in array)
+    ```
+
+  - [13.2](#13.2)<a name='13.2'></a> To filter
+
+    ```coffeescript    
+    # good
+    result = (item for item in array when item.name is "test")
+    ```
+
+  - [13.3](#13.3)<a name='13.3'></a> To iterate over the keys and values of objects.
+
+    ```coffeescript        
+    # good
+    object = (one: 1, two: 2)
+    alert("#{key} = #{value}") for key, value of object
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Extending Native Objects
+
+  - [14.1](#14.1)<a name='14.1'></a> Do not modify native objects.
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Exceptions
 
+  - [15.1](#15.1)<a name='15.1'></a> Do not suppress exceptions.
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Annotations
 
+  - [16.1](#16.1)<a name='16.1'></a> Use annotations when necessary to describe a specific action that must be taken against the indicated block of code.
+  > Write the annotation on the line immediately above the code that the annotation is describing.
+
+  > The annotation keyword should be followed by a colon and a space, and a descriptive note.
+
+    ```coffeescript
+    # FIXME: The client's current state should *not* affect payload processing.
+    resetClientState()
+    processPayload()
+    ```
+
+  > If multiple lines are required by the description, indent subsequent lines with two spaces:
+
+    ```coffeescript
+    # TODO: Ensure that the value returned by this call falls within a certain
+    #   range, or throw an exception.
+    analyze()  
+    ```
+
+  - [16.2](#16.2)<a name='16.2'></a> Annotation types
+    - `TODO`: describe missing functionality that should be added at a later date
+    - `FIXME`: describe broken code that must be fixed
+    - `OPTIMIZE`: describe code that is inefficient and may become a bottleneck
+    - `HACK`: describe the use of a questionable (or ingenious) coding practice
+    - `REVIEW`: describe code that should be reviewed to confirm implementation
+
+  - [16.3](#16.3)<a name='16.3'></a> If a custom annotation is required, the annotation should be documented in the project's README.
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Miscellaneous
+
+  - [17.1](#17.1)<a name='17.1'></a> and is preferred over &&.
+
+    ```coffeescript
+    # bad
+    if a && b
+
+    # good
+    if a and b
+    ```
+
+  - [17.2](#17.2)<a name='17.2'></a> or is preferred over ||.
+
+    ```coffeescript
+    # bad
+    if a && b
+
+    # good
+    if a and b
+    ```
+
+  - [17.3](#17.3)<a name='17.3'></a> is is preferred over ==.
+
+    ```coffeescript
+    # bad
+    if a == b
+
+    # good
+    if a is b
+    ```
+
+  - [17.4](#17.4)<a name='17.4'></a> isnt is preferred over !=.
+
+    ```coffeescript
+    # bad
+    if a != b
+
+    # good
+    if a isnt b
+    ```
+
+  - [17.5](#17.5)<a name='17.5'></a> not is preferred over !.
+
+    ```coffeescript
+    # bad
+    if not b
+
+    # good
+    if !b
+    ```
+
+  - [17.6](#17.6)<a name='17.6'></a> or= should be used when possible.
+
+    ```coffeescript
+    # bad
+    temp = temp || {}
+
+    # good
+    temp or= {}
+    ```
+
+  - [17.7](#17.7)<a name='17.7'></a> Prefer shorthand notation (::) for accessing an object's prototype.
+
+    ```coffeescript
+    # bad
+    Array.prototype.slice
+
+    # good
+    Array::slice
+    ```
+
+  - [17.8](#17.8)<a name='17.8'></a> Prefer @property over this.property.
+
+    ```coffeescript
+    # bad
+    return this.property
+
+    # good
+    return @property
+    ```
+
+  - [17.9](#17.9)<a name='17.9'></a> However, avoid the use of standalone @.
+
+    ```coffeescript
+    # bad
+    return @
+
+    # good
+    return this
+    ```
+
+  - [17.10](#17.10)<a name='17.10'></a> Avoid return where not required, unless the explicit return increases clarity.
+
+  - [17.11](#17.11)<a name='17.11'></a> Use splats (...) when working with functions that accept variable numbers of arguments.
+
+    ```coffeescript
+    # good
+    (a, b, c, rest...)
+
+    # good
+    console.log(args...)
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
