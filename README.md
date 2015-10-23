@@ -8,3 +8,7 @@ Standard guideline for all factorymedia dev related
 - [CoffeeScript](coding-styles/coffeescript)
 - [HTML](coding-styles/html)
 - [CSS](coding-styles/css)
+
+## Code Review Guide
+
+- [General Rule / Checklist](code-review)
