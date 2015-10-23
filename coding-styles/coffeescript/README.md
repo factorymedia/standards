@@ -641,11 +641,12 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
     ```coffeescript
     # bad
-    if a && b
+    if a || b
 
     # good
-    if a and b
+    if a or b
     ```
+
 
   - [17.3](#17.3)<a name='17.3'></a> is is preferred over ==.
 
@@ -671,10 +672,10 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
 
     ```coffeescript
     # bad
-    if not b
+    if !b
 
     # good
-    if !b
+    if not b
     ```
 
   - [17.6](#17.6)<a name='17.6'></a> or= should be used when possible.
