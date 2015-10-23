@@ -106,11 +106,11 @@ Everything else takes place inside the component or without impacting the previo
   // Box-model
   display: block;
   float: right;
-  width: 100px;
-  height: 100px;
+  width: 50vw;
+  height: 50vh;
 
   // Typography
-  font: normal 13px "Helvetica Neue", sans-serif;
+  font: normal 1.2rem "Helvetica Neue", sans-serif;
   line-height: 1.5;
   color: #333;
   text-align: center;
@@ -235,7 +235,7 @@ Comments rarely hurt. If you find an answer on Stack Overflow or in a blog post,
       }
 
       .icon {
-        margin-right: 10px;
+        margin-right: 1rem;
       }
     }
     ```
@@ -376,7 +376,7 @@ The Mozilla Developer Network has a great article on [shorthand properties](http
 ```css
 /* Bad example */
 .element {
-  margin: 0 0 10px;
+  margin: 0 0 1rem;
   background: red;
   background: url("image.jpg");
   border-radius: 3px 3px 0 0;
@@ -384,8 +384,8 @@ The Mozilla Developer Network has a great article on [shorthand properties](http
 
 /* Good example */
 .element {
-  margin-bottom: 10px;
-  background-color: red;
+  margin-bottom: 1rem;
+  background-color: #f00;
   background-image: url("image.jpg");
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -398,19 +398,19 @@ For improved readability, wrap all math operations in parentheses with a single 
 **Bad**
 ```css
 .element {
-  margin: 10px 0 @variable*2 10px;
+  margin: 1rem 0 @variable*2 1rem;
 }
 ```
 
 **Good**
 ```css
 .element {
-  margin: 10px 0 (@variable * 2) 10px;
+  margin: 1rem 0 (@variable * 2) 1rem;
 }
 ```
 
 ## Units
-Try to avoid using fixed pixel values and use REMs or EMs where possible. In order of preferred use:
+Try to avoid using fixed pixel values and use <abbr title="Root Em">`rem`</abbr>s or `em`s where possible. In order of preferred use:
 + **rem**: `margin`, `padding`, `font-size`
 + **%**: `width`, `position`
 + **em**: `font-size`, `line-height`
