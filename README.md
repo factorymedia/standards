@@ -7,3 +7,4 @@ Standard guideline for all factorymedia dev related
 - [JavaScript](coding-styles/javascript)
 - [CoffeeScript](coding-styles/coffeescript)
 - [HTML](coding-styles/html)
+- [CSS](coding-styles/css)
