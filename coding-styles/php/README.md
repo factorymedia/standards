@@ -17,6 +17,7 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
   1. [Ternary Operator](#ternary-operator)
   1. [Yoda Conditions](#yoda-conditions)
   1. [Clever Code](#clever-code)
+  1. [Inline Logic](#inline-logic)
   1. [Error Control Operator](#error-control-operator)
   1. [Don’t extract](#dont-extract)
 
@@ -417,6 +418,23 @@ Although the above line is clever, it takes a while to grok if you’re not fami
       $var = some_function();
   }
   ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Inline Logic
+
+In general, it is best to avoid using inline logic, but in some cases it may be necessary (e.g. when code it used inside html).
+Try to use sparingly
+
+```php
+  // good
+  if (condition) {
+    ...
+  }
+
+  // bad
+  if (condition) { ... }
+```
 
 **[⬆ back to top](#table-of-contents)**
 
