@@ -100,6 +100,7 @@ Furthermore, if you have a really long block, consider whether it can be broken 
 Braces should always be used, even when they are not required:
 
   ```php
+  // good
   if (condition) {
     action0();
   }
@@ -114,6 +115,12 @@ Braces should always be used, even when they are not required:
   foreach ($items as $item) {
     process_item($item);
   }
+
+  if (condition) { action(); }
+
+  // bad
+  if (condition) action();
+
   ```
 
 Note that requiring the use of braces just means that single-statement inline control structures are prohibited. You are free to use the alternative syntax for control structures (e.g. `if`/`endif`, `while`/`endwhile`)—especially in your templates where PHP code is embedded within HTML, for instance:
