@@ -75,7 +75,7 @@ Braces shall be used for all blocks in the style shown here:
 
   ```php
   // bad
-  if ( codition ) {
+  if ( condition ) {
   }
 
   // bad
