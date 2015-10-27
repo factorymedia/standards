@@ -750,6 +750,17 @@ It was inspired by [polarmobile's CoffeeScript Style Guide](https://github.com/p
     # good
     console.log(args...)
     ```
+  
+  - [17.12](#17.12)<a name='17.12'></a> Use ? to check if a varible is not undefined or null.
+  
+    ```coffeescript
+    # good
+    if importantVar? 
+      ...
+  
+    # bad
+    if typeof importantVar != 'undefined' or importantVar != null
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
