@@ -2,6 +2,11 @@
 
 Inspired by a lot of smart people, please take the time to read through their [invaluable contributions](#credits)
 
+## New project template
+
+If you are starting a new project; Copy the files from the [sass directory](sass/) above into the sass directory of
+your new project to give you ITCSS named template files for you to customise accordingly.
+
 ## Contents
 
   1. [Basics](#basics)
@@ -38,6 +43,7 @@ Watch the following [video](https://www.youtube.com/watch?v=1OKZOV-iLj4) to for 
 
 #### Simple example
 [This is a simple example](https://github.com/itcss/itcss-netmag) of how ITCSS should be used.
+
 #### File structure
 
 Each file has name of the layer and then the name of the file itself.

@@ -1,0 +1,30 @@
+/*
+  COMPONENTS Layer
+  What goes in here?
+  - ONLY classes
+  - Explicitly named
+  - Designed pieces of UI
+
+  ===EXAMPLES===
+
+  _components.products-list.scss
+  ------------------------------
+    .products-list{
+      @include font-brand();
+      border-top: 1px solid $color-ui;
+    }
+
+  _components.buttons.scss
+  ------------------------
+    .btn {
+      text-align: center;
+      transition: ease-in-out 0.2s;
+      font-family: $font-heading;
+      display: inline-block;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+*/

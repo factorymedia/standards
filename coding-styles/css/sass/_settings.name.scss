@@ -1,0 +1,21 @@
+/*
+  SETTINGS Layer
+  What goes in here?
+  - Globally available settings
+  - Config switches
+  - Brand colours etc.
+
+  ===EXAMPLES===
+
+  _settings.colours.scss
+  ----------------------
+    $color-primary: #fc560d !default;
+    $color-primary-text: white !default;
+
+    $color-secondary: #fc560d !default;
+    $color-secondary-text: white !default;
+
+    $color-link: $color-primary;
+    $color-link-hover: darken($color-link, 15%) !default;
+
+*/

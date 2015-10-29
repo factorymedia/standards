@@ -1,0 +1,20 @@
+/*
+  BASE Layer
+  What goes in here?
+  - Unclassed HTML elements
+  - H1-H6, basic links, lists, etc.
+
+  ===EXAMPLES===
+
+  _base.headers.scss
+  ------------------
+    h1, h2, h3, h4, h5 {
+      font-family: $font-heading;
+      font-weight: 500;
+    }
+
+    h1 {
+      @include font-size(32px);
+    }
+
+*/

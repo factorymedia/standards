@@ -1,0 +1,20 @@
+// SETTINGS
+// e.g. @import "settings.global";
+
+// #TOOLS - mixins, functions & other helpers
+// e.g. @import "tools.mixins";
+
+// #GENERIC - bring it all back to zero
+// e.g. @import "generic.reset";
+
+// #BASE - base level html elements, no classes here!
+// e.g. @import "base.headings";
+
+// #OBJECTS - non styled, layout / structural classes
+// e.g. @import "objects.layout";
+
+// #COMPONENTS - ui components
+// e.g. @import "components.buttons";
+
+// ALPHAS - highest specifity classes, mostly utilities
+// e.g. @import "alpha.utility";
