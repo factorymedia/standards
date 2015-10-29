@@ -4,7 +4,7 @@ Inspired by a lot of smart people, please take the time to read through their [i
 
 ## New project template
 
-If you are starting a new project; Copy the files from the [sass directory](sass/) above into the sass directory of
+If you are starting a new project; Copy the files from the [SASS directory](sass/) above into the sass directory of
 your new project to give you ITCSS named template files for you to customise accordingly.
 
 ## Contents
