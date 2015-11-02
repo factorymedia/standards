@@ -854,6 +854,393 @@ Portions of this section borrow heavily from the Google
 
 ## Syntax
 
+  - [7.1](#7.1) <a name='7.1'> Do not use `for`, unless you know exactly why. Most of the time iterators should be used instead. `for` is implemented in terms of `each` (so you're adding a level of indirection), but with a twist - `for` doesn't introduce a new scope (unlike `each`) and variables defined in its block will be visible outside it.
+
+    ```ruby
+    arr = [1, 2, 3]
+
+    # bad
+    for elem in arr do
+      puts elem
+    end
+
+    # note that elem is accessible outside of the for loop
+    elem # => 3
+
+    # good
+    arr.each { |elem| puts elem }
+
+    # elem is not accessible outside each's block
+    elem # => NameError: undefined local variable or method `elem'
+    ```
+
+  - [7.2](#7.2) <a name='7.2'> Prefer `{...}` over `do...end` for single-line blocks. Avoid using `{...}` for multi-line blocks (multiline chaining is always ugly). Always use `do...end` for "control flow" and "method definitions" (e.g. in Rakefiles and certain DSLs). Avoid `do...end` when chaining.
+
+    ```ruby
+    names = %w(Bozhidar Steve Sarah)
+
+    # bad
+    names.each do |name|
+      puts name
+    end
+
+    # good
+    names.each { |name| puts name }
+
+    # bad
+    names.select do |name|
+      name.start_with?('S')
+    end.map { |name| name.upcase }
+
+    # good
+    names.select { |name| name.start_with?('S') }.map(&:upcase)
+    ```
+
+  - [7.3](#7.3) <a name='7.3'> Consider using explicit block argument to avoid writing block literal that just passes its arguments to another block. Beware of the performance impact, though, as the block gets converted to a Proc.
+
+    ```ruby
+    require 'tempfile'
+
+    # bad
+    def with_tmp_dir
+      Dir.mktmpdir do |tmp_dir|
+        Dir.chdir(tmp_dir) { |dir| yield dir }  # block just passes arguments
+      end
+    end
+
+    # good
+    def with_tmp_dir(&block)
+      Dir.mktmpdir do |tmp_dir|
+        Dir.chdir(tmp_dir, &block)
+      end
+    end
+
+    with_tmp_dir do |dir|
+      puts "dir is accessible as a parameter and pwd is set: #{dir}"
+    end
+    ```
+
+  - [7.4](#7.4) <a name='7.4'> Avoid `return` where not required for flow of control.
+
+    ```ruby
+    # bad
+    def some_method(some_arr)
+      return some_arr.size
+    end
+
+    # good
+    def some_method(some_arr)
+      some_arr.size
+    end
+    ```
+
+  - [7.5](#7.5) <a name='7.5'> Avoid `self` where not required. (It is only required when calling a self write accessor.)
+
+    ```ruby
+    # bad
+    def ready?
+      if self.last_reviewed_at > self.last_updated_at
+        self.worker.update(self.content, self.options)
+        self.status = :in_progress
+      end
+      self.status == :verified
+    end
+
+    # good
+    def ready?
+      if last_reviewed_at > last_updated_at
+        worker.update(content, options)
+        self.status = :in_progress
+      end
+      status == :verified
+    end
+    ```
+
+  - [7.6](#7.6) <a name='7.6'> Don't use the return value of `=` (an assignment) in conditional expressions unless the assignment is wrapped in parentheses. This is a fairly popular idiom among Rubyists that's sometimes referred to as safe assignment in condition.
+
+    ```ruby
+    # bad (+ a warning)
+    if v = array.grep(/foo/)
+      do_something(v)
+      ...
+    end
+
+    # good (MRI would still complain, but RuboCop won't)
+    if (v = array.grep(/foo/))
+      do_something(v)
+      ...
+    end
+
+    # good
+    v = array.grep(/foo/)
+    if v
+      do_something(v)
+      ...
+    end
+    ```
+
+  - [7.7](#7.7) <a name='7.7'> Use shorthand self assignment operators whenever applicable.
+
+    ```ruby
+    # bad
+    x = x + y
+    x = x * y
+    x = x**y
+    x = x / y
+    x = x || y
+    x = x && y
+
+    # good
+    x += y
+    x *= y
+    x **= y
+    x /= y
+    x ||= y
+    x &&= y
+    ```
+
+  - [7.8](#7.8) <a name='7.8'> Use `||=` to initialize variables only if they're not already initialized.
+
+    ```ruby
+    # bad
+    name = name ? name : 'Bozhidar'
+
+    # bad
+    name = 'Bozhidar' unless name
+
+    # good - set name to Bozhidar, only if it's nil or false
+    name ||= 'Bozhidar'
+    ```
+
+  - [7.9](#7.9) <a name='7.9'> Don't use `||=` to initialize boolean variables. (Consider what would happen if the current value happened to be `false`.)
+
+    ```ruby
+    # bad - would set enabled to true even if it was false
+    enabled ||= true
+
+    # good
+    enabled = true if enabled.nil?
+    ```
+
+  - [7.10](#7.10) <a name='7.10'> Avoid using Perl-style special variables (like `$:`, `$;`, etc. ).
+
+    ```ruby
+    # bad
+    $:.unshift File.dirname(__FILE__)
+
+    # good
+    require 'English'
+    $LOAD_PATH.unshift File.dirname(__FILE__)
+    ```
+
+  - [7.11](#7.11) <a name='7.11'> Use the new lambda literal syntax for single line body blocks. Use the `lambda` method for multi-line blocks.
+
+    ```ruby
+    # bad
+    l = lambda { |a, b| a + b }
+    l.call(1, 2)
+
+    # correct, but looks extremely awkward
+    l = ->(a, b) do
+      tmp = a * 7
+      tmp * b / 50
+    end
+
+    # good
+    l = ->(a, b) { a + b }
+    l.call(1, 2)
+
+    l = lambda do |a, b|
+      tmp = a * 7
+      tmp * b / 50
+    end
+    ```
+
+  - [7.12](#7.12) <a name='7.12'> Don't omit the parameter parentheses when defining a stabby lambda with parameters.
+
+    ```ruby
+    # bad
+    l = ->x, y { something(x, y) }
+
+    # good
+    l = ->(x, y) { something(x, y) }
+    ```
+
+  - [7.13](#7.13) <a name='7.13'> Omit the parameter parentheses when defining a stabby lambda with no parameters.
+
+    ```ruby
+    # bad
+    l = ->() { something }
+
+    # good
+    l = -> { something }
+    ```
+
+  - [7.14](#7.14) <a name='7.14'> Prefer `proc` over `Proc.new`.
+
+    ```ruby
+    # bad
+    p = Proc.new { |n| puts n }
+
+    # good
+    p = proc { |n| puts n }
+    ```
+
+  - [7.15](#7.15) <a name='7.15'> Prefer `proc.call()` over `proc[]` or `proc.()` for both lambdas and procs.
+
+    ```ruby
+    # bad - looks similar to Enumeration access
+    l = ->(v) { puts v }
+    l[1]
+
+    # also bad - uncommon syntax
+    l = ->(v) { puts v }
+    l.(1)
+
+    # good
+    l = ->(v) { puts v }
+    l.call(1)
+    ```
+
+  - [7.16](#7.16) <a name='7.16'> Prefix with `_` unused block parameters and local variables.
+
+    ```ruby
+    # bad
+    result = hash.map { |k, v| v + 1 }
+
+    def something(x)
+      unused_var, used_var = something_else(x)
+      # ...
+    end
+
+    # good
+    result = hash.map { |_k, v| v + 1 }
+
+    def something(x)
+      _unused_var, used_var = something_else(x)
+      # ...
+    end
+
+    # good
+    result = hash.map { |_, v| v + 1 }
+
+    def something(x)
+      _, used_var = something_else(x)
+      # ...
+    end
+    ```
+
+  - [7.17](#7.17) <a name='7.17'> Use ranges or `Comparable#between?` instead of complex comparison logic when possible.
+
+    ```ruby
+    # bad
+    do_something if x >= 1000 && x <= 2000
+
+    # good
+    do_something if (1000..2000).include?(x)
+
+    # good
+    do_something if x.between?(1000, 2000)
+    ```
+
+  - [7.18](#7.18) <a name='7.18'> Avoid the use of `BEGIN` blocks.
+
+    ```ruby
+    # bad
+    begin
+      @splines.reticulate
+    end if false
+
+    # good
+    @splines.reticulate if false
+    ```
+
+  - [7.19](#7.19) <a name='7.19'> Do not use `END` blocks. Use `Kernel#at_exit` instead.
+
+    ```ruby
+    # bad
+    END { puts 'Goodbye!' }
+
+    # good
+    at_exit { puts 'Goodbye!' }
+
+    ```
+
+  - [7.20](#7.20) <a name='7.20'> Prefer a guard clause when you can assert invalid data. A guard clause is a conditional statement at the top of a function that bails out as soon as it can.
+
+    ```ruby
+    # bad
+    def compute_thing(thing)
+      if thing[:foo]
+        update_with_bar(thing)
+        if thing[:foo][:bar]
+          partial_compute(thing)
+        else
+          re_compute(thing)
+        end
+      end
+    end
+
+    # good
+    def compute_thing(thing)
+      return unless thing[:foo]
+      update_with_bar(thing[:foo])
+      return re_compute(thing) unless thing[:foo][:bar]
+      partial_compute(thing)
+    end
+    ```
+
+  - [7.21](#7.21) <a name='7.21'> Prefer `next` in loops instead of conditional blocks.
+
+    ```ruby
+    # bad
+    [0, 1, 2, 3].each do |item|
+      if item > 1
+        puts item
+      end
+    end
+
+    # good
+    [0, 1, 2, 3].each do |item|
+      next unless item > 1
+      puts item
+    end
+    ```
+
+  - [7.22](#7.22) <a name='7.22'> Prefer `map` over `collect`, `find` over `detect`, `select` over `find_all`, `reduce` over `inject` and `size` over `length`. This is not a hard requirement
+
+  - [7.23](#7.23) <a name='7.23'> Don't use `count` as a substitute for `size`. For Enumerable objects other than `Array` it will iterate the entire collection in order to determine its size.
+
+    ```ruby
+    # bad
+    some_hash.count
+
+    # good
+    some_hash.size
+    ```
+
+  - [7.24](#7.24) <a name='7.24'> Prefer `reverse_each` to `reverse.each` because some classes that `include Enumerable` will provide an efficient implementation. Even in the worst case where a class does not provide a specialized implementation, the general implementation inherited from `Enumerable` will be at least as efficient as using `reverse.each`.
+
+    ```ruby
+    # bad
+    array.reverse.each { ... }
+
+    # good
+    array.reverse_each { ... }
+    ```
+
+  - [7.25](#7.25) <a name='7.25'> When a method block takes only one argument, and the body consists solely of reading an attribute or calling one method with no arguments, use the &: shorthand.
+
+    ```ruby
+    # bad
+    bluths.map { |bluth| bluth.occupation }
+    bluths.select { |bluth| bluth.blue_self? }
+
+    # good
+    bluths.map(&:occupation)
+    bluths.select(&:blue_self?)
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Naming
@@ -869,6 +1256,11 @@ Portions of this section borrow heavily from the Google
 **[⬆ back to top](#table-of-contents)**
 
 ## Collections
+
+  Favor the use of Array#join over the fairly cryptic Array#* with [link] a string argument.
+
+  Use `[*var]` or `Array()` instead of explicit Array check, when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
+
 
 **[⬆ back to top](#table-of-contents)**
 
