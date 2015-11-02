@@ -631,6 +631,225 @@ Portions of this section borrow heavily from the Google
 
 ## Conditional Expressions
 
+  - [6.1](#6.1) <a name='6.1'> Do not use `then` for multi-line `if/unless`
+
+    ```ruby
+    # bad
+    if some_condition then
+      ...
+    end
+
+    # good
+    if some_condition
+      ...
+    end
+    ```
+
+  - [6.2](#6.2) <a name='6.2'> Always put the condition on the same line as the `if/unless` in a multi-line conditional.
+
+    ```ruby
+    # bad
+    if
+      some_condition
+      do_something
+      do_something_else
+    end
+
+    # good
+    if some_condition
+      do_something
+      do_something_else
+    end
+    ```
+
+  - [6.3](#6.3) <a name='6.3'> The `and`, `or`, and `not` keywords are banned. It's just not worth it. Always use `&&`, `||`, and `!` instead.
+
+    ```ruby
+    # bad
+    # boolean expression
+    if some_condition and some_other_condition
+      do_something
+    end
+
+    # control flow
+    document.saved? or document.save!
+
+    # braces are required because of op precedence
+    x = (not something)
+
+    # good
+    # boolean expression
+    if some_condition && some_other_condition
+      do_something
+    end
+
+    # control flow
+    document.saved? || document.save!
+
+    # good
+    x = !something
+    ```
+
+  - [6.4](#6.4) <a name='6.4'> Avoid the use of `!!`
+
+    ```ruby
+    # bad
+    x = 'test'
+    # obscure nil check
+    if !!x
+      # body omitted
+    end
+
+    x = false
+    # double negation is useless on booleans
+    !!x # => false
+
+    # good
+    x = 'test'
+    unless x.nil?
+      # body omitted
+    end
+    ```
+
+  - [6.5](#6.5) <a name='6.5'> Favor modifier `if/unless` usage when you have a single-line body. Another good alternative is the usage of control flow `&&/||`.
+
+    ```ruby
+    # bad
+    if some_condition
+      do_something
+    end
+
+    # good
+    do_something if some_condition
+
+    # another good option
+    some_condition && do_something
+    ```
+
+  - [6.6](#6.6) <a name='6.6'> Favor `unless` over if for negative conditions (or control flow `||`).
+
+    ```ruby
+    # bad
+    do_something if !some_condition
+
+    # bad
+    do_something if not some_condition
+
+    # good
+    do_something unless some_condition
+
+    # another good option
+    some_condition || do_something
+    ```
+
+  - [6.7](#6.7) <a name='6.7'> Never use `unless` with `else`. Rewrite these with the positive case first.  
+
+    ```ruby
+    # bad
+    unless success?
+      puts 'failure'
+    else
+      puts 'success'
+    end
+
+    # good
+    if success?
+      puts 'success'
+    else
+      puts 'failure'
+    end
+    ```
+
+  - [6.8](#6.8) <a name='6.8'> Avoid unless with multiple conditions.
+
+    ```ruby
+    # bad
+    unless foo? && bar?
+      ...
+    end
+
+    # okay
+    if !(foo? && bar?)
+      ...
+    end
+    ```
+
+  - [6.9](#6.9) <a name='6.9'> Don't use parentheses around the condition of an `if/unless/while`.
+
+    ```ruby
+    # bad
+    if (x > 10)
+      ...
+    end
+
+    # good
+    if x > 10
+      ...
+    end
+    ```
+
+  - [6.10](#6.10) <a name='6.10'> Avoid modifier `if/unless` usage at the end of a non-trivial multi-line block.
+
+    ```ruby
+    # bad
+    10.times do
+      # multi-line body omitted
+    end if some_condition
+
+    # good
+    if some_condition
+      10.times do
+        # multi-line body omitted
+      end
+    end
+    ```
+
+  - [6.11](#6.11) <a name='6.11'> Avoid nested modifier `if/unless/while/until` usage. Favor `&&/||` if appropriate.
+
+    ```ruby
+    # bad
+    do_something if other_condition if some_condition
+
+    # good
+    do_something if some_condition && other_condition
+    ```
+
+  - [6.12](#6.12) <a name='6.12'> Favor the ternary operator(`?:`) over `if/then/else/end` constructs. It's more common and obviously more concise.
+
+    ```ruby
+    # bad
+    result = if some_condition then something else something_else end
+
+    # good
+    result = some_condition ? something : something_else
+    ```
+
+  - [6.13](#6.13) <a name='6.13'> Use one expression per branch in a ternary operator. This also means that ternary operators must not be nested. Prefer `if/else` constructs in these cases.
+
+    ```ruby
+    # bad
+    some_condition ? (nested_condition ? nested_something : nested_something_else) : something_else
+
+    # good
+    if some_condition
+      nested_condition ? nested_something : nested_something_else
+    else
+      something_else
+    end
+    ```
+
+  - [6.14](#6.14) <a name='6.14'> Do not use `if x; ....` Use the ternary operator instead
+
+    ```ruby
+    # bad
+    result = if some_condition; something else something_else end
+
+    # good
+    result = some_condition ? something : something_else
+    ```
+
+  - [6.15](#6.15) <a name='6.15'> Avoid multi-line `?:` (the ternary operator); use `if/unless` instead.
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Syntax
@@ -642,10 +861,6 @@ Portions of this section borrow heavily from the Google
 **[⬆ back to top](#table-of-contents)**
 
 ## Classes
-
-**[⬆ back to top](#table-of-contents)**
-
-## Syntax
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -663,7 +878,7 @@ Portions of this section borrow heavily from the Google
 
 ## Misc
 
-- [14.1](#14.1) <a name='14.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+- [13.1](#13.1) <a name='13.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
 
   ```ruby
   # bad
@@ -678,7 +893,7 @@ Portions of this section borrow heavily from the Google
                 ' and second part of the long string'
   ```
 
-- [14.2](#14.2) <a name='14.2'></a> Add underscores to large numeric literals to improve their readability.
+- [13.2](#13.2) <a name='13.2'></a> Add underscores to large numeric literals to improve their readability.
 
   ```ruby
   # bad - how many 0s are there?
