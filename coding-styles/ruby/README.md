@@ -262,7 +262,327 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
 
 **[⬆ back to top](#table-of-contents)**
 
+## Line Length
 
+  - [2.1](#2.1) <a name='2.1'></a> Keep each line of code to a readable length. Unless you have a reason to, keep lines to fewer than 80 characters.
+
+  - [2.2](#2.2) <a name='2.2'> Adopt a consistent multi-line method chaining style. When continuing a chained method invocation on another line keep the `.` on the second line.
+
+    ```ruby
+    # bad - need to consult first line to understand second line
+    one.two.three.
+     four
+
+    # good - it's immediately clear what's going on the second line
+    one.two.three
+     .four
+    ```  
+
+  - [2.3](#2.3) <a name='2.3'> Liberal use of linebreaks inside unclosed `(` `{` `[`
+
+    ```ruby
+    scope = Translation::Phrase.includes(:phrase_translations).
+    joins(:phrase_screenshots).
+    where(:phrase_screenshots => {
+      :controller => controller_name,
+      :action => JAROMIR_JAGR_SALUTE,
+    })
+    ```
+
+  - [2.4](#2.4) <a name='2.4'> Composing long strings by putting strings next to each other, separated by a backslash-then-newline.
+
+    ```ruby
+    translation = FactoryGirl.create(
+      :phrase_translation,
+      :locale => :is,
+      :phrase => phrase,
+      :key => 'phone_number_not_revealed_time_zone',
+      :value => 'Símanúmerið þitt verður ekki birt. Það er aðeins hægt að hringja á '\
+                'milli 9:00 og 21:00 %{time_zone}.'
+    )
+    ```
+
+  - [2.5](#2.5) <a name='2.5'> Breaking long logical statements with linebreaks after operators like `&&` and `||`.
+
+    ```ruby
+    if @reservation_alteration.checkin == @reservation.start_date &&
+      @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
+
+      redirect_to_alteration @reservation_alteration
+    end
+    ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Encoding
+
+  - [3.1](#3.1) <a name='3.1'> Use UTF-8 as the source file encoding
+
+**[⬆ back to top](#table-of-contents)**
+
+## Comments
+
+> Though a pain to write, comments are absolutely vital to keeping our code
+> readable. The following rules describe what you should comment and where. But
+> remember: while comments are very important, the best code is
+> self-documenting. Giving sensible names to types and variables is much better
+> than using obscure names that you must then explain through comments.
+
+> When writing your comments, write for your audience: the next contributor who
+> will need to understand your code. Be generous — the next one may be you!
+
+&mdash;[Google C++ Style Guide](http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml)
+
+Portions of this section borrow heavily from the Google
+[C++](https://google.github.io/styleguide/cppguide.html) and [Python](https://google.github.io/styleguide/pyguide.html) style guides.
+
+  - [4.1](#4.1) <a name='4.1'> File/class-level comments
+
+    Every class definition should have an accompanying comment that describes what
+    it is for and how it should be used.
+
+    A file that contains zero classes or more than one class should have a comment
+    at the top describing its contents.
+
+    ```ruby
+    # Automatic conversion of one locale to another where it is possible, like
+    # American to British English.
+    module Translation
+      # Class for converting between text between similar locales.
+      # Right now only conversion between American English -> British, Canadian,
+      # Australian, New Zealand variations is provided.
+      class PrimAndProper
+        def initialize
+          @converters = { :en => { :"en-AU" => AmericanToAustralian.new,
+                                   :"en-CA" => AmericanToCanadian.new,
+                                   :"en-GB" => AmericanToBritish.new,
+                                   :"en-NZ" => AmericanToKiwi.new,
+                                 } }
+        end
+
+      ...
+
+      # Applies transforms to American English that are common to
+      # variants of all other English colonies.
+      class AmericanToColonial
+        ...
+      end
+
+      # Converts American to British English.
+      # In addition to general Colonial English variations, changes "apartment"
+      # to "flat".
+      class AmericanToBritish < AmericanToColonial
+        ...
+      end
+    ```
+
+    All files, including data and config files, should have file-level comments. From     ```translation/config/colonial_spelling_variants.yml```:
+
+    ```ruby
+    # List of American-to-British spelling variants.
+    #
+    # This list is made with
+    # lib/tasks/list_american_to_british_spelling_variants.rake.
+    #
+    # It contains words with general spelling variation patterns:
+    #   [trave]led/lled, [real]ize/ise, [flav]or/our, [cent]er/re, plus
+    # and these extras:
+    #   learned/learnt, practices/practises, airplane/aeroplane, ...
+
+    sectarianizes: sectarianises
+    neutralization: neutralisation
+    ...
+    ```
+
+  - [4.2](#4.2) <a name='4.2'> Function comments
+
+    Every function declaration should have comments immediately preceding it that
+    describe what the function does and how to use it. These comments should be
+    descriptive ("Opens the file") rather than imperative ("Open the file"); the
+    comment describes the function, it does not tell the function what to do. In
+    general, these comments do not describe how the function performs its task.
+    Instead, that should be left to comments interspersed in the function's code.
+
+    Every function should mention what the inputs and outputs are, unless it meets
+    all of the following criteria:
+
+    * not externally visible
+    * very short
+    * obvious
+
+    You may use whatever format you wish. In Ruby, two popular function
+    documentation schemes are [TomDoc](http://tomdoc.org/) and
+    [YARD](http://rubydoc.info/docs/yard/file/docs/GettingStarted.md). You can also
+    just write things out concisely:
+
+    ```ruby
+    # Returns the fallback locales for the_locale.
+    # If opts[:exclude_default] is set, the default locale, which is otherwise
+    # always the last one in the returned list, will be excluded.
+    #
+    # For example:
+    #   fallbacks_for(:"pt-BR")
+    #     => [:"pt-BR", :pt, :en]
+    #   fallbacks_for(:"pt-BR", :exclude_default => true)
+    #     => [:"pt-BR", :pt]
+    def fallbacks_for(the_locale, opts = {})
+      ...
+    end
+    ```
+
+  - [4.3](#4.3) <a name='4.3'> Block and inline comments
+
+    The final place to have comments is in tricky parts of the code. If you're
+    going to have to explain it at the next code review, you should comment it now.
+    Complicated operations get a few lines of comments before the operations
+    commence. Non-obvious ones get comments at the end of the line.
+
+    ```ruby
+    def fallbacks_for(the_locale, opts = {})
+      # dup() to produce an array that we can mutate.
+      ret = @fallbacks[the_locale].dup
+
+      # We make two assumptions here:
+      # 1) There is only one default locale (that is, it has no less-specific
+      #    children).
+      # 1) The default locale is just a language. (Like :en, and not :"en-US".)
+      if opts[:exclude_default] &&
+          ret.last == default_locale &&
+          ret.last != language_from_locale(the_locale)
+        ret.pop
+      end
+
+      ret
+    end
+    ```
+
+    On the other hand, never describe the code. Assume the person reading the code
+    knows the language (though not what you're trying to do) better than you do.
+
+  - [4.4](#4.4) <a name='4.4'> TODO comments
+
+    Use TODO comments for code that is temporary, a short-term solution, or
+    good-enough but not perfect.
+
+    TODOs should include the string TODO in all caps, followed by the full name
+    of the person who can best provide context about the problem referenced by the
+    TODO, in parentheses. A colon is optional. A comment explaining what there is
+    to do is required. The main purpose is to have a consistent TODO format that
+    can be searched to find the person who can provide more details upon request.
+    A TODO is not a commitment that the person referenced will fix the problem.
+    Thus when you create a TODO, it is almost always your name that is given.
+
+    ```ruby
+      # bad
+      # TODO(RS): Use proper namespacing for this constant.
+
+      # bad
+      # TODO(drumm3rz4lyfe): Use proper namespacing for this constant.
+
+      # good
+      # TODO(Ringo Starr): Use proper namespacing for this constant.
+    ```
+
+  - [4.5](#4.5) <a name='4.5'> Commented-out code
+
+    Never leave commented-out code in our codebase.
+
+**[⬆ back to top](#table-of-contents)**
+
+## Methods
+
+
+
+ Align the parameters of a method call if they span more than one line. When aligning parameters is not appropriate due to line-length constraints, single indent for the lines after the first is also acceptable. [link]
+
+# starting point (line is too long)
+def send_mail(source)
+ Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
+end
+
+# bad (double indent)
+def send_mail(source)
+ Mailer.deliver(
+     to: 'bob@example.com',
+     from: 'us@example.com',
+     subject: 'Important message',
+     body: source.text)
+end
+
+# good
+def send_mail(source)
+ Mailer.deliver(to: 'bob@example.com',
+                from: 'us@example.com',
+                subject: 'Important message',
+                body: source.text)
+end
+
+# good (normal indent)
+def send_mail(source)
+ Mailer.deliver(
+   to: 'bob@example.com',
+   from: 'us@example.com',
+   subject: 'Important message',
+   body: source.text
+ )
+end
+
+**[⬆ back to top](#table-of-contents)**
+
+## Syntax
+
+**[⬆ back to top](#table-of-contents)**
+
+## Naming
+
+**[⬆ back to top](#table-of-contents)**
+
+## Classes
+
+**[⬆ back to top](#table-of-contents)**
+
+## Syntax
+
+**[⬆ back to top](#table-of-contents)**
+
+## Exceptions
+
+**[⬆ back to top](#table-of-contents)**
+
+## Collections
+
+**[⬆ back to top](#table-of-contents)**
+
+## Strings
+
+**[⬆ back to top](#table-of-contents)**
+
+## Misc
+
+- [13.1](#13.1) <a name='13.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+
+  ```ruby
+  # bad
+  result = 1 - \
+           2
+
+  # good (but still ugly as hell)
+  result = 1 \
+           - 2
+
+  long_string = 'First part of the long string' \
+                ' and second part of the long string'
+  ```
+
+
+  Add underscores to large numeric literals to improve their readability.
+
+  # bad - how many 0s are there?
+num = 1000000
+
+# good - much easier to parse for the human brain
+num = 1_000_000
+**[⬆ back to top](#table-of-contents)**
 
 ## License
 
