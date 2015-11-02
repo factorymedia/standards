@@ -8,6 +8,8 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
   1. [Line Length](#line-length)
   1. [Encoding](#encoding)
   1. [Comments](#comments)
+  1. [Methods](#methods)
+  1. [Conditional Expressions](#conditional-expressions)
   1. [Syntax](#syntax)
   1. [Naming](#naming)
   1. [Classes](#classes)
@@ -459,17 +461,17 @@ Portions of this section borrow heavily from the Google
     On the other hand, never describe the code. Assume the person reading the code
     knows the language (though not what you're trying to do) better than you do.
 
-  - [4.4](#4.4) <a name='4.4'> TODO comments
+  - [4.4](#4.4) <a name='4.4'> `TODO` comments
 
-    Use TODO comments for code that is temporary, a short-term solution, or
+    Use `TODO` comments for code that is temporary, a short-term solution, or
     good-enough but not perfect.
 
-    TODOs should include the string TODO in all caps, followed by the full name
+    `TODO`s should include the string `TODO` in all caps, followed by the full name
     of the person who can best provide context about the problem referenced by the
-    TODO, in parentheses. A colon is optional. A comment explaining what there is
-    to do is required. The main purpose is to have a consistent TODO format that
+    `TODO`, in parentheses. A colon is optional. A comment explaining what there is
+    to do is required. The main purpose is to have a consistent `TODO` format that
     can be searched to find the person who can provide more details upon request.
-    A TODO is not a commitment that the person referenced will fix the problem.
+    A `TODO` is not a commitment that the person referenced will fix the problem.
     Thus when you create a TODO, it is almost always your name that is given.
 
     ```ruby
@@ -491,41 +493,143 @@ Portions of this section borrow heavily from the Google
 
 ## Methods
 
+  - [5.1](#5.1) <a name='5.1'> Use `def` with parentheses when there are parameters. Omit the parentheses when the method doesn't accept any parameters.
 
+    ```ruby
+    # bad
+    def some_method()
+      ...
+    end
 
- Align the parameters of a method call if they span more than one line. When aligning parameters is not appropriate due to line-length constraints, single indent for the lines after the first is also acceptable. [link]
+    # good
+    def some_method
+      ...
+    end
 
-# starting point (line is too long)
-def send_mail(source)
- Mailer.deliver(to: 'bob@example.com', from: 'us@example.com', subject: 'Important message', body: source.text)
-end
+    # bad
+    def some_method_with_parameters param1, param2
+      ...
+    end
 
-# bad (double indent)
-def send_mail(source)
- Mailer.deliver(
-     to: 'bob@example.com',
-     from: 'us@example.com',
-     subject: 'Important message',
-     body: source.text)
-end
+    # good
+    def some_method_with_parameters(param1, param2)
+      ...
+    end
+    ```
 
-# good
-def send_mail(source)
- Mailer.deliver(to: 'bob@example.com',
-                from: 'us@example.com',
-                subject: 'Important message',
-                body: source.text)
-end
+  - [5.2](#5.2) <a name='5.2'> Define optional arguments at the end of the list of arguments. Ruby has some unexpected results when calling methods that have optional arguments at the front of the list.
 
-# good (normal indent)
-def send_mail(source)
- Mailer.deliver(
-   to: 'bob@example.com',
-   from: 'us@example.com',
-   subject: 'Important message',
-   body: source.text
- )
-end
+    ```ruby
+    # bad
+    def some_method(a = 1, b = 2, c, d)
+      puts "#{a}, #{b}, #{c}, #{d}"
+    end
+
+    some_method('w', 'x') # => '1, 2, w, x'
+    some_method('w', 'x', 'y') # => 'w, 2, x, y'
+    some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+
+    # good
+    def some_method(c, d, a = 1, b = 2)
+      puts "#{a}, #{b}, #{c}, #{d}"
+    end
+
+    some_method('w', 'x') # => 'w, x, 1, 2'
+    some_method('w', 'x', 'y') # => 'w, x, y, 2'
+    some_method('w', 'x', 'y', 'z') # => 'w, x, y, z'
+    ```
+
+  - [5.3](#5.3) <a name='5.3'> Use `keyword arguments` if possible instead of `hash` (ruby >= 2.1)
+
+    ```ruby
+    # bad
+    def obvious_total(options = {})
+      options[:subtotal] + options[:tax] - options[:discount]        
+      ...
+    end
+
+    # good
+    def obvious_total(subtotal:, tax:, discount:)
+      subtotal + tax - discount
+    end
+    ```
+
+  - [5.4](#5.4) <a name='5.4'> Always use parentheses for a method call except for a method call if the method accepts no arguments.
+
+    ``` ruby
+    # bad
+    @current_user = User.find_by_id 1964192
+
+    # bad
+    put! (x + y) % len, value
+
+    # bad
+    nil?()
+
+    # good
+    @current_user = User.find_by_id(1964192)
+
+    # good
+    put!((x + y) % len, value)
+
+    # good
+    nil?
+    ```
+
+  - [5.5](#5.5) <a name='5.5'> Never put a space between a method name and the opening parenthesis.
+
+    ```ruby
+    # bad
+    f (3 + 2) + 1
+
+    # good
+    f(3 + 2) + 1
+    ```
+
+  - [5.6](#5.6) <a name='5.6'> If a method accepts an options hash as the last argument, do not use { } during invocation
+
+    ```ruby
+    # bad
+    get '/v1/reservations', { :id => 54875 }
+
+    # good
+    get('/v1/reservations', :id => 54875)
+    ```
+
+  - [5.7](#5.7) <a name='5.7'> Align the parameters of a method call if they span more than one line. When aligning parameters is not appropriate due to line-length constraints, single indent for the lines after the first is also acceptable.
+
+    ```ruby
+    # bad (double indent)
+    def send_mail(source)
+     Mailer.deliver(
+         to: 'bob@example.com',
+         from: 'us@example.com',
+         subject: 'Important message',
+         body: source.text)
+    end
+
+    # good
+    def send_mail(source)
+     Mailer.deliver(to: 'bob@example.com',
+                    from: 'us@example.com',
+                    subject: 'Important message',
+                    body: source.text)
+    end
+
+    # good (normal indent)
+    def send_mail(source)
+     Mailer.deliver(
+       to: 'bob@example.com',
+       from: 'us@example.com',
+       subject: 'Important message',
+       body: source.text
+     )
+    end
+    ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Conditional Expressions
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -559,7 +663,7 @@ end
 
 ## Misc
 
-- [13.1](#13.1) <a name='13.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+- [14.1](#14.1) <a name='14.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
 
   ```ruby
   # bad
@@ -574,14 +678,16 @@ end
                 ' and second part of the long string'
   ```
 
+- [14.2](#14.2) <a name='14.2'></a> Add underscores to large numeric literals to improve their readability.
 
-  Add underscores to large numeric literals to improve their readability.
-
+  ```ruby
   # bad - how many 0s are there?
-num = 1000000
+  num = 1000000
 
-# good - much easier to parse for the human brain
-num = 1_000_000
+  # good - much easier to parse for the human brain
+  num = 1_000_000
+  ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## License
