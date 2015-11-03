@@ -12,7 +12,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
   1. [Conditional Expressions](#conditional-expressions)
   1. [Syntax](#syntax)
   1. [Naming](#naming)
-  1. [Classes](#classes)
+  1. [Classes & Modules](#classes--modules)
   1. [Exceptions](#exceptions)
   1. [Collections](#collections)
   1. [Strings](#strings)
@@ -1413,7 +1413,329 @@ Portions of this section borrow heavily from the Google
 
 **[⬆ back to top](#table-of-contents)**
 
-## Classes
+## Classes & Modules
+
+  - [9.1](#9.1) <a name='9.1'> Use a consistent structure in your class definitions.
+
+    ```ruby
+    class Person
+      # extend and include go first
+      extend SomeModule
+      include AnotherModule
+
+      # inner classes
+      CustomErrorKlass = Class.new(StandardError)
+
+      # constants are next
+      SOME_CONSTANT = 20
+
+      # afterwards we have attribute macros
+      attr_reader :name
+
+      # followed by other macros (if any)
+      validates :name
+
+      # public class methods are next in line
+      def self.some_method
+      end
+
+      # initialization goes between class methods and other instance methods
+      def initialize
+      end
+
+      # followed by other public instance methods
+      def some_method
+      end
+
+      # protected and private methods are grouped near the end
+      protected
+
+      def some_protected_method
+      end
+
+      private
+
+      def some_private_method
+      end
+    end
+    ```
+
+  - [9.2](#9.2) <a name='9.2'> Don't nest multi line classes within classes. Try to have such nested classes each in their own file in a folder named like the containing class.
+
+    ```ruby
+    # bad
+
+    # foo.rb
+    class Foo
+      class Bar
+        # 30 methods inside
+      end
+
+      class Car
+        # 20 methods inside
+      end
+
+      # 30 methods inside
+    end
+
+    # good
+
+    # foo.rb
+    class Foo
+      # 30 methods inside
+    end
+
+    # foo/bar.rb
+    class Foo
+      class Bar
+        # 30 methods inside
+      end
+    end
+
+    # foo/car.rb
+    class Foo
+      class Car
+        # 20 methods inside
+      end
+    end
+    ```
+
+  - [9.3](#9.3) <a name='9.3'> Prefer modules to classes with only class methods. Classes should be used only when it makes sense to create instances out of them.
+
+    ```ruby
+    # bad
+    class SomeClass
+      def self.some_method
+        ...
+      end
+
+      def self.some_other_method
+        ...
+      end
+    end
+
+    # good
+    module SomeModule
+      extend self
+
+      def some_method
+        ...
+      end
+
+      def some_other_method
+        ...
+      end
+    end
+    ```
+
+  - [9.4](#9.4) <a name='9.4'> Always supply a proper `to_s` method for classes that represent domain objects.
+
+    ```ruby
+    class Person
+      attr_reader :first_name, :last_name
+
+      def initialize(first_name, last_name)
+        @first_name = first_name
+        @last_name = last_name
+      end
+
+      def to_s
+        "#{@first_name} #{@last_name}"
+      end
+    end
+    ```
+
+  - [9.5](#9.5) <a name='9.5'> Use the `attr` family of functions to define trivial accessors or mutators.
+
+    ```ruby
+    # bad
+    class Person
+      def initialize(first_name, last_name)
+        @first_name = first_name
+        @last_name = last_name
+      end
+
+      def first_name
+        @first_name
+      end
+
+      def last_name
+        @last_name
+      end
+    end
+
+    # good
+    class Person
+      attr_reader :first_name, :last_name
+
+      def initialize(first_name, last_name)
+        @first_name = first_name
+        @last_name = last_name
+      end
+    end
+    ```
+
+  - [9.6](#9.6) <a name='9.6'> Avoid the use of `attr`. Use `attr_reader` and `attr_accessor` instead.
+
+    ```ruby
+    # bad - creates a single attribute accessor (deprecated in 1.9)
+    attr :something, true
+    attr :one, :two, :three # behaves as attr_reader
+
+    # good
+    attr_accessor :something
+    attr_reader :one, :two, :three
+    ```
+
+  - [9.7](#9.7) <a name='9.7'> Consider using `Struct.new`, which defines the trivial accessors, constructor and comparison operators for you.
+
+    ```ruby
+    # good
+    class Person
+      attr_accessor :first_name, :last_name
+
+      def initialize(first_name, last_name)
+        @first_name = first_name
+        @last_name = last_name
+      end
+    end
+
+    # better
+    Person = Struct.new(:first_name, :last_name) do
+    end
+    ```
+
+  - [9.8](#9.8) <a name='9.8'> Don't extend an instance initialized by `Struct.new`. Extending it introduces a superfluous class level and may also introduce weird errors if the file is required multiple times.
+
+    ```ruby
+    # bad
+    class Person < Struct.new(:first_name, :last_name)
+    end
+
+    # good
+    Person = Struct.new(:first_name, :last_name)
+    ```
+
+  - [9.9](#9.9) <a name='9.9'> Consider adding factory methods to provide additional sensible ways to create instances of a particular class.
+
+    ```ruby
+    class Person
+      def self.create(options_hash)
+        ...
+      end
+    end
+    ```
+
+  - [9.10](#9.10) <a name='9.10'> Avoid the usage of class (`@@`) variables due to their "nasty" behavior in inheritance.
+
+    ```ruby
+    class Parent
+      @@class_var = 'parent'
+
+      def self.print_class_var
+        puts @@class_var
+      end
+    end
+
+    class Child < Parent
+      @@class_var = 'child'
+    end
+
+    Parent.print_class_var # => will print "child"
+    ```
+
+  - [9.11](#9.11) <a name='9.11'> Indent the `public`, `protected`, and `private` methods as much as the method definitions they apply to. Leave one blank line above the visibility modifier and one blank line below.
+
+    ```ruby
+    class SomeClass
+      def public_method
+        # ...
+      end
+
+      private
+
+      def private_method
+        # ...
+      end
+
+      def another_private_method
+        # ...
+      end
+    end
+    ```
+
+  - [9.12](#9.12) <a name='9.12'> Use `def self.method` to define singleton methods. This makes the methods more resistant to refactoring changes.
+
+    ```ruby
+    class TestClass
+      # bad
+      def TestClass.some_method
+        ...
+      end
+
+      # good
+      def self.some_other_method
+        ...
+      end
+    end
+    ```
+
+  - [9.13](#9.13) <a name='9.13'> Avoid `class << self` except when necessary, e.g. single accessors and aliased attributes.
+
+    ```ruby
+    class TestClass
+      # bad
+      class << self
+        def first_method
+          ...
+        end
+
+        def second_method_etc
+          ...
+        end
+      end
+
+      # good
+      class << self
+        attr_accessor :per_page
+        alias_method :nwo, :find_by_name_with_owner
+      end
+
+      def self.first_method
+        ...
+      end
+
+      def self.second_method_etc
+        ...
+      end
+    end
+    ```
+
+  - [9.14](#9.14) <a name='9.14'> Prefer `alias` when aliasing methods in lexical class scope as the resolution of `self` in this context is also lexical, and it communicates clearly to the user that the indirection of your alias will not be altered at runtime or by any subclass unless made explicit.
+
+    ```ruby
+    class Westerner
+      def first_name
+        @names.first
+      end
+
+      alias given_name first_name
+    end
+    ```
+
+  - [9.15](#9.15) <a name='9.15'> Always use `alias_method` when aliasing methods of modules, classes, or singleton classes at runtime, as the lexical scope of `alias` leads to unpredictability in these cases.
+
+    ```ruby
+    module Mononymous
+      def self.included(other)
+        other.class_eval { alias_method :full_name, :given_name }
+      end
+    end
+
+    class Sting < Westerner
+      include Mononymous
+    end
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
