@@ -1245,6 +1245,172 @@ Portions of this section borrow heavily from the Google
 
 ## Naming
 
+  - [8.1](#8.1) <a name='8.1'> Name identifiers in English.
+
+    ```ruby
+    # bad - identifier using non-ascii characters
+    заплата = 1_000
+
+    # bad - identifier is a Bulgarian word, written with Latin letters (instead of Cyrillic)
+    zaplata = 1_000
+
+    # good
+    salary = 1_000
+    ```
+
+  - [8.2](#8.2) <a name='8.2'> Use `snake_case` for symbols, methods and variables.
+
+    ```ruby
+    # bad
+    :'some symbol'
+    :SomeSymbol
+    :someSymbol
+
+    someVar = 5
+
+    def someMethod
+      ...
+    end
+
+    def SomeMethod
+      ...
+    end
+
+    # good
+    :some_symbol
+
+    def some_method
+      ...
+    end
+    ```
+
+  - [8.3](#8.3) <a name='8.3'> Use `CamelCase` for classes and modules. (Keep acronyms like HTTP, RFC, XML uppercase.)
+
+    ```ruby
+    # bad
+    class Someclass
+      ...
+    end
+
+    class Some_Class
+      ...
+    end
+
+    class SomeXml
+      ...
+    end
+
+    class XmlSomething
+      ...
+    end
+
+    # good
+    class SomeClass
+      ...
+    end
+
+    class SomeXML
+      ...
+    end
+
+    class XMLSomething
+      ...
+    end
+    ```
+
+  - [8.4](#8.4) <a name='8.4'> Use `snake_case` for naming files, e.g. `hello_world.rb`.
+
+  - [8.5](#8.5) <a name='8.5'> Use `snake_case` for naming directories, e.g. `lib/hello_world/hello_world.rb`.
+
+  - [8.6](#8.6) <a name='8.6'> Aim to have just a single class/module per source file. Name the file name as the class/module, but replacing CamelCase with snake_case.
+
+  - [8.7](#8.7) <a name='8.7'> Use `SCREAMING_SNAKE_CASE` for other constants.
+
+    ```ruby
+    # bad
+    SomeConst = 5
+
+    # good
+    SOME_CONST = 5
+    ```
+
+  - [8.8](#8.8) <a name='8.8'> The names of predicate methods (methods that return a boolean value) should end in a question mark. (i.e. `Array#empty?`). Methods that don't return a boolean, shouldn't end in a question mark.
+
+    ```ruby
+    # bad
+    def size?
+      ...
+      1
+    end
+
+    # good
+    def empty?
+      ...
+      true
+    end
+    ```
+
+  - [8.9](#8.9) <a name='8.9'> The names of potentially dangerous methods (i.e. methods that modify `self` or the arguments, `exit!` (doesn't run the finalizers like `exit` does), etc.) should end with an exclamation mark if there exists a safe version of that dangerous method.
+
+    ```ruby
+    # bad - there is no matching 'safe' method
+    class Person
+      def update!
+      end
+    end
+
+    # good
+    class Person
+      def update
+      end
+    end
+
+    # good
+    class Person
+      def update!
+      end
+
+      def update
+      end
+    end
+    ```
+
+  - [8.10](#8.10) <a name='8.10'> Define the non-bang (safe) method in terms of the bang (dangerous) one if possible.
+
+    ```ruby
+    class Array
+      def flatten_once!
+        res = []
+
+        each do |e|
+          [*e].each { |f| res << f }
+        end
+
+        replace(res)
+      end
+
+      def flatten_once
+        dup.flatten_once!
+      end
+    end
+    ```
+
+  - [8.11](#8.11) <a name='8.11'> When defining binary operators, name the parameter `other`(`<<` and `[]` are exceptions to the rule, since their semantics are different).
+
+    ```ruby
+    def +(other)
+      # body omitted
+    end
+    ```
+
+  - [8.12](#8.12) <a name='8.12'> Name throwaway variables `_`.
+
+    ```ruby
+    payment, _ = Payment.complete_paypal_payment!(params[:token],
+                                                  native_currency,
+                                                  created_at)
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Classes
