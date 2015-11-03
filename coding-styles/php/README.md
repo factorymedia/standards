@@ -17,6 +17,7 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
   1. [Ternary Operator](#ternary-operator)
   1. [Yoda Conditions](#yoda-conditions)
   1. [Clever Code](#clever-code)
+  1. [Inline Logic](#inline-logic)
   1. [Error Control Operator](#error-control-operator)
   1. [Don’t extract](#dont-extract)
 
@@ -75,7 +76,7 @@ Braces shall be used for all blocks in the style shown here:
 
   ```php
   // bad
-  if ( codition ) {
+  if ( condition ) {
   }
 
   // bad
@@ -100,6 +101,7 @@ Furthermore, if you have a really long block, consider whether it can be broken 
 Braces should always be used, even when they are not required:
 
   ```php
+  // good
   if (condition) {
     action0();
   }
@@ -114,6 +116,12 @@ Braces should always be used, even when they are not required:
   foreach ($items as $item) {
     process_item($item);
   }
+
+  if (condition) { action(); }
+
+  // bad
+  if (condition) action();
+
   ```
 
 Note that requiring the use of braces just means that single-statement inline control structures are prohibited. You are free to use the alternative syntax for control structures (e.g. `if`/`endif`, `while`/`endwhile`)—especially in your templates where PHP code is embedded within HTML, for instance:
@@ -410,6 +418,23 @@ Although the above line is clever, it takes a while to grok if you’re not fami
       $var = some_function();
   }
   ```
+
+**[⬆ back to top](#table-of-contents)**
+
+## Inline Logic
+
+In general, it is best to avoid using inline logic, but in some cases it may be necessary (e.g. when code it used inside html).
+Try to use sparingly
+
+```php
+  // good
+  if (condition) {
+    ...
+  }
+
+  // bad
+  if (condition) { ... }
+```
 
 **[⬆ back to top](#table-of-contents)**
 
