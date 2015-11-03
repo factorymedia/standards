@@ -12,3 +12,7 @@ Standard guideline for all factorymedia dev related
 ## Code Review Guide
 
 - [General Rule / Checklist](code-review)
+
+## Testing Guides
+
+- [CoffeeScript](testing/coffeescript)
