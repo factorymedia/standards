@@ -1,16 +1,16 @@
-# Factory Media CoffeeScript unit testing Guide
+# Factory Media CoffeeScript Unit Testing Guide
 
 ## Table of Contents
 
   1. [Tools](#tools)
   2. [Guidelines](#guidelines)
   3. [Resources](#resources)
-  
+
 ## Tools (This is a suggested setup, loads of room to improve!)
 The suggested setup uses independent libraries that work great with each other and allows for the freedom to change components if better ones come along later on.
 
 - [1.1](#1.1) Test Framework: [mocha](http://mochajs.org/)
-Mocha provides a flexible framework allows for testing javascript both for client and server, and can be run from the command line or within a browser. 
+Mocha provides a flexible framework allows for testing javascript both for client and server, and can be run from the command line or within a browser.
 It also can be complemented easily with other libraries for greater flexibility.
 
 ### Instalation and setup
@@ -28,12 +28,30 @@ Create a ```test``` directory and place a ```mocha.opts``` file in there with th
 --colors
 ```
 
+### Suggested test directory structure
+
+```
+.
++-- test
+|   +-- helpers
+|     spec_helper.coffee
+|   +-- advertising
+|     polar_spec.coffee
+|   mocha.opts
+
+```
+Create a ```helpers``` folder to add the spec_helper.coffee and any other helpers your tests might need.
+
+Add a folder per "module", for example ```advertising``` on this case. Place inside this folder all the tests for advertising components.
+
+The ```mocha.opts``` file needs to be on the root of the test folder in order to be detected.
+
 In order to run all tests all that's needed is ```mocha```. This should look for all tests in the default folder and it's subdirectories, and load the default options file.
 
 
 - [1.2](#1.2) Assertions: [chai](http://chaijs.com/)
 
-Chai provides server assertions in several both BDD and TDD styles. 
+Chai provides server assertions in several both BDD and TDD styles.
 
 Sample chai assertions:
 ```
@@ -69,6 +87,12 @@ npm install -D synon
 
 When running the tests from the command line without a browser, jsdom provides an easy way to create an environment where DOM elements or load third party libraries to satisfy our test requirments. This would provide a ```document```d and ```window``` objects you can refer to.
 
+Please make sure you are running node 4.x or upwards. To easily run multiple node versions you can use [n](https://github.com/tj/n):
+```
+npm install -g n
+n latest
+```
+
 Install jsdom as a project development dependency with:
 ```
 npm install -D jsdom
@@ -76,7 +100,7 @@ npm install -D jsdom
 
 - [1.5](#1.5) Bring it all together on a spec_helper file
 
-Mocha will automatically load the spec_helper file, there's no need to require it in every test. 
+Mocha will automatically load the spec_helper file, there's no need to require it in every test.
 
 Sample spec_helper.coffee
 ```
@@ -97,7 +121,7 @@ global.sinon = sinon
 ```
 
 ## Guidelines
-Please read [https://github.com/mawrkus/js-unit-testing-guide#unit-tests](https://github.com/mawrkus/js-unit-testing-guide#unit-tests). 
+Please read [https://github.com/mawrkus/js-unit-testing-guide#unit-tests](https://github.com/mawrkus/js-unit-testing-guide#unit-tests).
 :)
 
 
