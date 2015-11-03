@@ -16,6 +16,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
   1. [Exceptions](#exceptions)
   1. [Collections](#collections)
   1. [Strings](#strings)
+  1. [Rails](#rails)
   1. [Misc](#misc)
 
 ## Whitespace
@@ -1981,11 +1982,35 @@ Portions of this section borrow heavily from the Google
 
 ## Strings
 
+  - [12.1](#12.1) <a name='12.1'> Prefer string interpolation instead of string concatenation
+
+  - [12.2](#12.2) <a name='12.2'> With interpolated expressions, there should be no padded-spacing inside the braces
+
+  - [12.3](#12.3) <a name='12.3'> Prefer single-quoted strings when you don't need string interpolation or special symbols such as `\t`, `\n`, `'`, etc.
+
+  - [12.4](#12.4) <a name='12.4'> Don't use the character literal syntax ?x. Since Ruby 1.9 it's basically redundant - ?x would interpreted as 'x' (a string with a single character in it).
+
+  - [12.5](#12.5) <a name='12.5'> Don't leave out {} around instance and global variables being interpolated into a string.
+
+  - [12.6](#12.6) <a name='12.6'> Don't use Object#to_s on interpolated objects. It's invoked on them automatically.
+
+  - [12.7](#12.7) <a name='12.7'> Avoid using String#+ when you need to construct large data chunks. Instead, use String#<<. Concatenation mutates the string instance in-place and is always faster than String#+, which creates a bunch of new string objects.
+
+  - [12.8](#12.8) <a name='12.8'> Don't use String#gsub in scenarios in which you can use a faster more specialized alternative.
+
+  - [12.9](#12.9) <a name='12.9'> When using heredocs for multi-line strings keep in mind the fact that they preserve leading whitespace. It's a good practice to employ some margin based on which to trim the excessive whitespace.
+
+  - [12.10](#12.10) <a name='12.10'> Use %() for single-line strings which require both interpolation and embedded double-quotes. For multi-line strings, prefer heredocs.
+
+**[⬆ back to top](#table-of-contents)**
+
+## Rails
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Misc
 
-- [13.1](#13.1) <a name='13.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+- [14.1](#14.1) <a name='14.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
 
   ```ruby
   # bad
@@ -2000,7 +2025,7 @@ Portions of this section borrow heavily from the Google
                 ' and second part of the long string'
   ```
 
-- [13.2](#13.2) <a name='13.2'></a> Add underscores to large numeric literals to improve their readability.
+- [14.2](#14.2) <a name='14.2'></a> Add underscores to large numeric literals to improve their readability.
 
   ```ruby
   # bad - how many 0s are there?
