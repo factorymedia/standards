@@ -2,9 +2,15 @@
 
 Inspired by a lot of smart people, please take the time to read through their [invaluable contributions](#credits)
 
+## New project template
+
+If you are starting a new project; Copy the files from the [SASS directory](sass/) above into the sass directory of
+your new project to give you ITCSS named template files for you to customise accordingly.
+
 ## Contents
 
   1. [Basics](#basics)
+  1. [ITCSS Structure](#itcss-structure)
   1. [Formatting](#formatting)
   1. [Declaration order](#declaration-order)
   1. [Comments](#comments)
@@ -29,6 +35,186 @@ Inspired by a lot of smart people, please take the time to read through their [i
 + We use `@import`s to break up our files into more manageable components. `$variables` and `@mixin`s are available everywhere and it all outputs to a single file. We occasionally use nesting, but only for very shallow things like `&:hover` & media query mixins. We don't use more complex functions like loops and very rarely use `@extends`.
 + We use **<abbr title="Block Element Module">BEM</abbr>** class names and organise our projects with **<abbr title="Inverted Triangle CSS">ITCSS</abbr>** in mind.
 
+## ITCSS Structure
+
+ITCSS (Inverted Triangle CSS) keeps styles in specificity order to reduce waste or redundancy.
+
+Watch the following [video](https://www.youtube.com/watch?v=1OKZOV-iLj4) to for a deeper explanation. Here are the [slides](https://speakerdeck.com/dafed/managing-css-projects-with-itcss)
+
+#### Simple example
+[This is a simple example](https://github.com/itcss/itcss-netmag) of how ITCSS should be used.
+
+#### File structure
+
+Each file has name of the layer and then the name of the file itself.
+e.g. _base.links.scss
+```
+  main.scss
+  _settings.colours.scss
+  _tools.mixins.scss
+  _generic.box-sizing.scss
+  _generic.reset.scss
+  _base.headings.scss
+  _base.links.scss
+  _objects.media.scss
+  _components.buttons.scss
+  _alpha.utility.scss
+```
+
+In the main sass file just import the files in the correct order.
+```
+  @import "settings.colours";
+
+  @import "components.carousel";
+```
+
+
+#### What goes where?
+
+This table is in order from low specificity to high specificity
+
+<!-- Sorry for the crappy indenting. github mark down doesn't like the <pre> code tabbed in. -->
+<!-- It adds the tabbed space to the actual output view -->
+<table>
+  <tbody>
+    <tr>
+      <th>Layer</th>
+      <th>What goes in it</th>
+      <th>Example</th>
+    </tr>
+    <tr>
+      <td>Settings</td>
+      <td>
+        <ul>
+          <li>Globally-available settings </li>
+          <li>Config switches</li>
+          <li>Brand Colours etc.</li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  $color-ui: #BADA55;
+  $spacing-unit: 10px;
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Tools</td>
+      <td>
+        <ul>
+          <li>Globally-available tools</li>
+          <li>Public mixins</li>
+          <li>Helper functions</li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  @mixin font-brand() {
+    font-family: "UI Font", sans-serif;
+    font-weight: 400;
+  }
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Generic</td>
+      <td>
+        <ul>
+          <li>Ground zero styles</li>
+          <li>Low-specificity, far-reaching</li>
+          <li>Resets, Normalize.css etc. </li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -box-sizing: border-box;
+  }
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Base</td>
+      <td>
+        <ul>
+          <li>Unclassed HTML elements</li>
+          <li>H1-H6, basic links, lists, etc. </li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  ul {
+    list-style: square outside;
+  }
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Objects</td>
+      <td>
+        <ul>
+          <li>OOCSS</li>
+          <li>Begin using classes exclusively</li>
+          <li>Agnostically named > .ui-list{} </li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  .ui-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+    .ui-list__item {
+      padding: $spacing-unit;
+    }
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Components</td>
+      <td>
+        <ul>
+          <li>Designed pieces of UI</li>
+          <li>Only classes</li>
+          <li>More explicitly named > .products-list{} </li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  .products-list {
+    @include font-brand();
+    border-top: 1px solid $color-ui;
+  }
+
+    .products-list__item {
+      border-bottom: 1px solid $color-ui;
+    }
+</pre>
+      </td>
+    </tr>
+    <tr>
+      <td>Alphas (aka Trumps)</td>
+      <td>
+        <ul>
+          <li>Overrides, helpers, utilities</li>
+          <li>Only affect one piece of the DOM at a time</li>
+          <li>Sometimes carry !important</li>
+        </ul>
+      </td>
+      <td>
+<pre lang="css">
+  .one-half {
+    width: 50% !important;
+  }
+</pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Formatting
 
