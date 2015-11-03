@@ -1928,10 +1928,54 @@ Portions of this section borrow heavily from the Google
 
 ## Collections
 
-  Favor the use of Array#join over the fairly cryptic Array#* with [link] a string argument.
+  - [11.1](#11.1) <a name='11.1'> Use Set instead of Array when dealing with unique elements. Set implements a collection of unordered values with no duplicates. This is a hybrid of Array's intuitive inter-operation facilities and Hash's fast lookup.
 
-  Use `[*var]` or `Array()` instead of explicit Array check, when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
+  - [11.2](#11.2) <a name='11.2'> Prefer literal array and hash creation notation (unless you need to pass parameters to their constructors, that is).
 
+  - [11.3](#11.3) <a name='11.3'> Prefer %w to the literal array syntax when you need an array of words (non-empty strings without spaces and special characters in them). Apply this rule only to arrays with two or more elements.
+
+  - [11.4](#11.4) <a name='11.4'> Prefer %i to the literal array syntax when you need an array of symbols (and you don't need to maintain Ruby 1.9 compatibility). Apply this rule only to arrays with two or more elements.
+
+  - [11.5](#11.5) <a name='11.5'> When accessing the first or last element from an array, prefer first or last over [0] or [-1]
+
+  - [11.6](#11.6) <a name='11.6'> Prefer symbols instead of strings as hash keys.
+
+  - [11.7](#11.7) <a name='11.7'> Use the Ruby 1.9 hash literal syntax when your hash keys are symbols.
+
+  - [11.8](#11.8) <a name='11.8'> Use Has rockets when only argument is hash, use hash literal for keyword arguments.
+
+    ```ruby
+    def hash_arg(hash = {})
+    end
+
+    # bad
+    hash_arg(arg1: 1, arg2: 2)
+
+    # good
+    hash_arg(:arg1 => 1, :arg2 => 2)
+
+    def keyword_arg(arg1:, arg2)
+    end
+
+    # good
+    keyword_arg(arg1: 1, arg2: 2)
+    ```
+
+  - [11.9](#11.9) <a name='11.9'> Use Hash#key? instead of Hash#has_key? and Hash#value? instead of Hash#has_value?.
+
+  - [11.10](#11.10) <a name='11.10'> Use Hash#fetch when dealing with hash keys that should be present.
+
+  - [11.11](#11.11) <a name='11.11'> Introduce default values for hash keys via Hash#fetch as opposed to using custom logic.
+
+  - [11.12](#11.12) <a name='11.12'> Prefer the use of the block instead of the default value in Hash#fetch if the code that has to be evaluated may have side effects or be expensive.
+
+  - [11.13](#11.13) <a name='11.13'> Use Hash#values_at when you need to retrieve several values consecutively from a hash.
+
+  - [11.14](#11.14) <a name='11.14'> When accessing elements of a collection, avoid direct access via [n] by using an alternate form of the reader method if it is supplied. This guards you from calling [] on nil.
+
+  - [11.15](#11.15) <a name='11.15'> Favor the use of Array#join over the fairly cryptic Array#* with [link] a string argument.
+
+  - [11.16](#11.16) <a name='11.16'> Use `[*var]` or `Array()` instead of explicit Array check, when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
 
 **[⬆ back to top](#table-of-contents)**
 
