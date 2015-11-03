@@ -1741,6 +1741,189 @@ Portions of this section borrow heavily from the Google
 
 ## Exceptions
 
+  - [10.1](#10.1) <a name='10.1'> Use `raise` instead of `fail`
+
+    ```ruby
+    # bad
+    fail('message')
+
+    # good - signals a RuntimeError by default
+    raise('message')
+    ```
+
+  - [10.2](#10.2) <a name='10.2'> Don't specify `RuntimeError` explicitly in the two argument version of `raise`.
+
+    ```ruby
+    # bad
+    raise(RuntimeError, 'message')
+
+    # good - signals a RuntimeError by default
+    raise('message')
+    ```
+
+  - [10.3](#10.3) <a name='10.3'> Prefer supplying an exception class and a message as two separate arguments to `raise`, instead of an exception instance.
+
+    ```ruby
+    # bad
+    raise SomeException.new('message')
+
+    # good
+    raise(SomeException, 'message')
+    ```
+
+  - [10.4](#10.4) <a name='10.4'> Do not return from an `ensure` block. If you explicitly return from a method inside an `ensure` block, the return will take precedence over any exception being raised, and the method will return as if no exception had been raised at all. In effect, the exception will be silently thrown away.
+
+    ```ruby
+    def foo
+      raise
+    ensure
+      return 'very bad idea'
+    end
+    ```
+
+  - [10.5](#10.5) <a name='10.5'> Use implicit begin blocks where possible.
+
+    ```ruby
+    # bad
+    def foo
+      begin
+        # main logic goes here
+      rescue
+        # failure handling goes here
+      end
+    end
+
+    # good
+    def foo
+      # main logic goes here
+    rescue
+      # failure handling goes here
+    end
+    ```
+
+  - [10.6](#10.6) <a name='10.6'> Don't suppress exceptions.
+
+    ```ruby
+    # bad
+    begin
+      # an exception occurs here
+    rescue SomeError
+      # the rescue clause does absolutely nothing
+    end
+
+    # bad
+    do_something rescue nil
+    ```
+
+  - [10.7](#10.7) <a name='10.7'> Avoid using `rescue` in its modifier form.
+
+    ```ruby
+    # bad - this catches exceptions of StandardError class and its descendant classes
+    read_file rescue handle_error($!)
+
+    # good - this catches only the exceptions of Errno::ENOENT class and its descendant classes
+    def foo
+      read_file
+    rescue Errno::ENOENT => ex
+      handle_error(ex)
+    end
+    ```
+
+  - [10.8](#10.8) <a name='10.8'> Don't use exceptions for flow of control.
+
+    ```ruby
+    # bad
+    begin
+      n / d
+    rescue ZeroDivisionError
+      puts 'Cannot divide by 0!'
+    end
+
+    # good
+    if d.zero?
+      puts 'Cannot divide by 0!'
+    else
+      n / d
+    end
+    ```
+
+  - [10.9](#10.9) <a name='10.9'> Avoid rescuing the Exception class.
+
+    ```ruby
+    # bad
+    begin
+      # calls to exit and kill signals will be caught (except kill -9)
+      exit
+    rescue Exception
+      puts "you didn't really want to exit, right?"
+      # exception handling
+    end
+
+    # good
+    begin
+      # a blind rescue rescues from StandardError, not Exception as many
+      # programmers assume.
+    rescue => e
+      # exception handling
+    end
+
+    # also good
+    begin
+      # an exception occurs here
+    rescue StandardError => e
+      # exception handling
+    end
+    ```
+
+  - [10.10](#10.10) <a name='10.10'> Put more specific exceptions higher up the rescue chain, otherwise they'll never be rescued from.
+
+    ```ruby
+    # bad
+    begin
+      # some code
+    rescue StandardError => e
+      # some handling
+    rescue IOError => e
+      # some handling that will never be executed
+    end
+
+    # good
+    begin
+      # some code
+    rescue IOError => e
+      # some handling
+    rescue StandardError => e
+      # some handling
+    end
+    ```
+
+  - [10.11](#10.11) <a name='10.11'> Release external resources obtained by your program in an `ensure` block.
+
+    ```ruby
+    f = File.open('testfile')
+    begin
+      # .. process
+    rescue
+      # .. handle error
+    ensure
+      f.close if f
+    end
+    ```
+
+  - [10.12](#10.12) <a name='10.12'> Use versions of resource obtaining methods that do automatic resource cleanup when possible.
+
+    ```ruby
+    # bad - you need to close the file descriptor explicitly
+    f = File.open('testfile')
+      # ...
+    f.close
+
+    # good - the file descriptor is closed automatically
+    File.open('testfile') do |f|
+      # ...
+    end
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Collections
