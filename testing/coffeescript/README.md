@@ -10,11 +10,10 @@
 ## Tools (This is a suggested setup, loads of room to improve!)
 The suggested setup uses independent libraries that work great with each other and allows for the freedom to change components if better ones come along later on.
 
-#### Test Framework: [mocha](http://mochajs.org/)
+### Test Framework: [mocha](http://mochajs.org/)
 Mocha provides a flexible framework allows for testing javascript both for client and server, and can be run from the command line or within a browser.
 It also can be complemented easily with other libraries for greater flexibility.
 
-### Instalation and setup
 It makes sense to install mocha globally:
 ```
 npm install -g mocha
@@ -29,7 +28,7 @@ Create a ```test``` directory and place a ```mocha.opts``` file in there with th
 --colors
 ```
 
-### Suggested test directory structure
+Suggested test directory structure
 
 ```
 .
@@ -50,7 +49,7 @@ The ```mocha.opts``` file needs to be on the root of the test folder in order to
 In order to run all tests all that's needed is ```mocha```. This should look for all tests in the default folder and it's subdirectories, and load the default options file.
 
 
-##### Assertions: [chai](http://chaijs.com/)
+### Assertions: [chai](http://chaijs.com/)
 
 Chai provides server assertions in several both BDD and TDD styles.
 
@@ -67,7 +66,7 @@ Install chai as a project development dependency with:
 npm install -D chai
 ```
 
-##### Spies, Mocks and Stubs: [synon](http://sinonjs.org/)
+### Spies, Mocks and Stubs: [synon](http://sinonjs.org/)
 
 From their website:
 
@@ -76,7 +75,13 @@ No dependencies, works with any unit testing framework."
 
 Sample synon uses:
 ```
+message = 'an example message'
+spy = sinon.spy()
 
+PubSub.subscribe(message, spy)
+PubSub.publishSync(message, "some payload")
+
+assert(spy.calledWith(message))
 ```
 
 Install synon as a project development dependency with:
@@ -84,8 +89,7 @@ Install synon as a project development dependency with:
 npm install -D synon
 ```
 
-#####
- DOM implementation: [jsdom](https://github.com/tmpvar/jsdom)
+### DOM implementation: [jsdom](https://github.com/tmpvar/jsdom)
 
 When running the tests from the command line without a browser, jsdom provides an easy way to create an environment where DOM elements or load third party libraries to satisfy our test requirments. This would provide a ```document```d and ```window``` objects you can refer to.
 
@@ -100,7 +104,7 @@ Install jsdom as a project development dependency with:
 npm install -D jsdom
 ```
 
-[1.5](#1.5) Bring it all together on a spec_helper file
+### Bring it all together on a spec_helper file
 
 Mocha will automatically load the spec_helper file, there's no need to require it in every test.
 
@@ -110,7 +114,7 @@ chai = require 'chai'
 sinon = require 'sinon'
 jsdom = require 'jsdom'
 
-# Setup DOM
+# Setup DOM:
 document = jsdom.jsdom '<html><body></body></html>', features:
     FetchExternalResources: ['script']
     ProcessExternalResources: ['script']
