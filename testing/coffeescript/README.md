@@ -4,7 +4,8 @@
 
   1. [Tools](#tools)
   2. [Guidelines](#guidelines)
-  3. [Resources](#resources)
+  3. [Sample unit tests](#examples)
+  4. [Resources](#resources)
 
 ## Tools (This is a suggested setup, loads of room to improve!)
 The suggested setup uses independent libraries that work great with each other and allows for the freedom to change components if better ones come along later on.
@@ -125,6 +126,75 @@ Please read [https://github.com/mawrkus/js-unit-testing-guide#unit-tests](https:
 :)
 
 
+## Examples
+The following example tests a 'sharing buttons' component built with React. It makes sure that the control provides the minimal UI components for a user to embed a video and also makes sure the component behaves correctly based on a video's embedabble property, i.e. don't allow private videos to be embedded.
+
+This example uses a ```before``` hook that runs once andcreates an instance of our sharing_buttons component. Then it uses a ```beforeEach``` that runs before each test and makes sure a fresh copy of the component is rendered.
+
+```
+describe 'Sharing buttons', ->
+
+  before ->
+    @SharingButtons = require '../app/components/sharing_buttons.cjsx'
+
+  beforeEach ->
+    @sharingButtonsInstace = utils.renderIntoDocument  <@SharingButtons data={videos.videos[0].videos[0]}/>
+
+  it 'Provides an input to change the iframe width', ->
+    expect(document.getElementById 'iframe-width').not.to.equal null
+
+  it 'Provides an input to change the iframe height', ->
+    expect(document.getElementById 'iframe-height').not.to.equal null
+
+  it 'Provides an input to change the iframe width', ->
+    expect(document.getElementById 'iframe-width').not.to.equal null
+
+  it 'Shows resulting iframe html code', ->
+    expect(document.getElementById 'video-embed-iframe').not.to.equal null
+
+  it 'Shows resulting embed url', ->
+    expect(document.getElementById 'video-embed-url').not.to.equal null
+
+  it 'Shows resulting iframe html code', ->
+    expect(document.getElementById 'video-embed-iframe').not.to.equal null
+
+  it 'Shows a button to copy the iframe html code', ->
+    expect(React.findDOMNode @sharingButtonsInstace.refs.copyIframe).not.to.equal null
+
+  it 'Shows a button to copy the embed url', ->
+    expect(React.findDOMNode @sharingButtonsInstace.refs.copyUrl).not.to.equal null
+
+  it 'Shows embed button if video is embedable', ->
+    video = videos.videos[0].videos[0]
+    video.embeddable = true
+    @sharingButtonsInstace = utils.renderIntoDocument  <@SharingButtons data={video}/>
+    expect(React.findDOMNode @sharingButtonsInstace.refs.embedButton).not.to.equal null
+
+  it 'Hides embed button if video is not embedable', ->
+    video = videos.videos[0].videos[0]
+    video.embeddable = false
+    @sharingButtonsInstace = utils.renderIntoDocument  <@SharingButtons data={video}/>
+    expect(React.findDOMNode @sharingButtonsInstace.refs.embedButton).to.equal null
+```
+
+This other example uses a spy (provided by sinon.js) to make sure a function is called based on an user action.
+
+````
+describe 'VideoForm', ->
+
+  beforeEach ->
+    VideoForm = require '../app/components/video_form.cjsx'
+    @dummyHandler =  @sandbox.spy()
+    @videoForm = utils.renderIntoDocument  <VideoForm handleSubmit={@dummyHandler} a={1}/>
+
+  (...skipping tests to get to the cool example...)
+
+  it 'POSTS the video to the Videos API on submit', ->
+    @videoForm.basicInfo = {category_slug:'BMX'}
+    button = TestUtils.findRenderedDOMComponentWithTag @videoForm, 'button'
+    TestUtils.Simulate.click button
+    expect(@requestStub).to.have.been.called
+````
 
 ## Resources
 * [Setting up Unit Testing with Mocha and Chai](https://egghead.io/lessons/javascript-how-to-write-a-javascript-library-setting-up-unit-testing-with-mocha-and-chai)
