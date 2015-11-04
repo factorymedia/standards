@@ -2171,10 +2171,10 @@ Portions of this section borrow heavily from the Google
 
     ```ruby
     # bad
-    name = "Bozhidar"
+    char = ?c
 
     # good
-    name = 'Bozhidar'
+    char = 'c'
     ```
 
   - [12.5](#12.5) <a name='12.5'> Don't leave out `{}` around instance and global variables being interpolated into a string.
