@@ -34,7 +34,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     end
     ```
 
-  - [1.2](#1.2) <a name='1.2'></a> Indent ```when``` as deep as ```case```. This is the style established in both "The Ruby Programming Language" and "Programming Ruby".
+  - [1.2](#1.2) <a name='1.2'></a> Indent `when` as deep as `case`. This is the style established in both "The Ruby Programming Language" and "Programming Ruby".
 
     ```ruby
     # bad
