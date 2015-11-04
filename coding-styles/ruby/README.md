@@ -2015,7 +2015,7 @@ Portions of this section borrow heavily from the Google
     hash = { one: 1, two: 2, three: 3 }
     ```
 
-  - [11.8](#11.8) <a name='11.8'> Use Has rockets when only argument is hash, use hash literal for keyword arguments.
+  - [11.8](#11.8) <a name='11.8'> Use hash rockets when only argument is hash, use hash literal for keyword arguments.
 
     ```ruby
     def hash_arg(hash = {})
