@@ -166,7 +166,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     [1, 2, 3].each { |e| puts e }
     ```
 
-    >> The only exception, regarding operators, is the exponent operator
+    > The only exception, regarding operators, is the exponent operator
 
     ```ruby
     # bad
@@ -188,7 +188,22 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     [1, 2, 3].size
     ```
 
-  - [1.8](#1.8) <a name='1.8'></a> No space after `!`.
+  - [1.8](#1.8) <a name='1.8'></a> Use space after `{` or before `}`.
+
+    ```ruby
+    # bad
+    {one: 1, two: 2}
+
+    # good - space after { and before }
+    { one: 1, two: 2 }
+
+    # good
+    sum = 1 + 2
+    a, b = 1, 2
+    [1, 2, 3].each { |e| puts e }
+    ```  
+
+  - [1.9](#1.9) <a name='1.9'></a> No space after `!`.
 
     ```ruby
     # bad
@@ -198,7 +213,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     !something
     ```
 
-  - [1.9](#1.9) <a name='1.9'></a> No space inside range literals.
+  - [1.10](#1.10) <a name='1.10'></a> No space inside range literals.
 
     ```ruby
     # bad
@@ -210,7 +225,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     'a'...'z'
     ```
 
-  - [1.10](#1.10) <a name='1.10'></a> Use spaces around the = operator when assigning default values to method parameters
+  - [1.11](#1.11) <a name='1.11'></a> Use spaces around the = operator when assigning default values to method parameters
 
     ```ruby
     # bad
@@ -224,7 +239,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     end
     ```
 
-  - [1.11](#1.11) <a name='1.11'></a> Align the elements of array literals spanning multiple lines.
+  - [1.12](#1.12) <a name='1.12'></a> Align the elements of array literals spanning multiple lines.
 
     ```ruby
     # bad - single indent
@@ -243,7 +258,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
        'Baked beans', 'Spam', 'Spam', 'Spam', 'Spam', 'Spam']
     ```
 
-  - [1.12](#1.12) <a name='1.12'></a> Add a new line after if conditions span multiple lines to help differentiate between the conditions and the body.
+  - [1.13](#1.13) <a name='1.13'></a> Add a new line after if conditions span multiple lines to help differentiate between the conditions and the body.
 
     ```ruby
     if @reservation_alteration.checkin == @reservation.start_date &&
@@ -253,7 +268,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
     end
     ```
 
-  - [1.13](#1.13) <a name='1.13'></a> Add a new line after conditionals, blocks, case statements, etc.
+  - [1.14](#1.14) <a name='1.14'></a> Add a new line after conditionals, blocks, case statements, etc.
 
     ```ruby
     if robot.is_awesome?
@@ -1929,19 +1944,77 @@ Portions of this section borrow heavily from the Google
 
 ## Collections
 
-  - [11.1](#11.1) <a name='11.1'> Use Set instead of Array when dealing with unique elements. Set implements a collection of unordered values with no duplicates. This is a hybrid of Array's intuitive inter-operation facilities and Hash's fast lookup.
+  - [11.1](#11.1) <a name='11.1'> Use `Set` instead of `Array` when dealing with unique elements. `Set` implements a collection of unordered values with no duplicates. This is a hybrid of `Array`'s intuitive inter-operation facilities and `Hash`'s fast lookup.
 
-  - [11.2](#11.2) <a name='11.2'> Prefer literal array and hash creation notation (unless you need to pass parameters to their constructors, that is).
+    ```ruby
+    require 'set'
+    s = Set.new
+    ```
 
-  - [11.3](#11.3) <a name='11.3'> Prefer %w to the literal array syntax when you need an array of words (non-empty strings without spaces and special characters in them). Apply this rule only to arrays with two or more elements.
+  - [11.2](#11.2) <a name='11.2'> Prefer literal array and hash creation notation.
 
-  - [11.4](#11.4) <a name='11.4'> Prefer %i to the literal array syntax when you need an array of symbols (and you don't need to maintain Ruby 1.9 compatibility). Apply this rule only to arrays with two or more elements.
+    ```ruby
+    # bad
+    arr = Array.new
+    hash = Hash.new
 
-  - [11.5](#11.5) <a name='11.5'> When accessing the first or last element from an array, prefer first or last over [0] or [-1]
+    # good
+    arr = []
+    hash = {}
+    ```
+
+  - [11.3](#11.3) <a name='11.3'> Prefer `%w` to the literal array syntax when you need an array of words (non-empty strings without spaces and special characters in them). Apply this rule only to arrays with two or more elements.
+
+    ```ruby
+    # bad
+    STATES = ['draft', 'open', 'closed']
+
+    # good
+    STATES = %w(draft open closed)
+    ```
+
+  - [11.4](#11.4) <a name='11.4'> Prefer `%i` to the literal array syntax when you need an array of symbols. Apply this rule only to arrays with two or more elements.
+
+    ```ruby
+    # bad
+    STATES = [:draft, :open, :closed]
+
+    # good
+    STATES = %i(draft open closed)
+    ```
+
+  - [11.5](#11.5) <a name='11.5'> When accessing the first or last element from an array, prefer `first` or `last` over `[0]` or `[-1]`
+
+    ```ruby
+    array = [1, 2, 3]
+    # bad
+    a[0]
+    a[-1]
+
+    #good
+    a.first
+    a.last
+    ```
 
   - [11.6](#11.6) <a name='11.6'> Prefer symbols instead of strings as hash keys.
 
+    ```ruby
+    # bad
+    hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
+
+    # good
+    hash = { one: 1, two: 2, three: 3 }
+    ```
+
   - [11.7](#11.7) <a name='11.7'> Use the Ruby 1.9 hash literal syntax when your hash keys are symbols.
+
+    ```ruby
+    # bad
+    hash = { :one => 1, :two => 2, :three => 3 }
+
+    # good
+    hash = { one: 1, two: 2, three: 3 }
+    ```
 
   - [11.8](#11.8) <a name='11.8'> Use Has rockets when only argument is hash, use hash literal for keyword arguments.
 
@@ -1962,21 +2035,101 @@ Portions of this section borrow heavily from the Google
     keyword_arg(arg1: 1, arg2: 2)
     ```
 
-  - [11.9](#11.9) <a name='11.9'> Use Hash#key? instead of Hash#has_key? and Hash#value? instead of Hash#has_value?.
+  - [11.9](#11.9) <a name='11.9'> Use `Hash#key?` instead of `Hash#has_key?` and `Hash#value?` instead of `Hash#has_value?`.
 
-  - [11.10](#11.10) <a name='11.10'> Use Hash#fetch when dealing with hash keys that should be present.
+    ```ruby
+    # bad
+    hash.has_key?(:test)
+    hash.has_value?(value)
 
-  - [11.11](#11.11) <a name='11.11'> Introduce default values for hash keys via Hash#fetch as opposed to using custom logic.
+    # good
+    hash.key?(:test)
+    hash.value?(value)
+    ```
 
-  - [11.12](#11.12) <a name='11.12'> Prefer the use of the block instead of the default value in Hash#fetch if the code that has to be evaluated may have side effects or be expensive.
+  - [11.10](#11.10) <a name='11.10'> Use `Hash#fetch` when dealing with hash keys that should be present.
 
-  - [11.13](#11.13) <a name='11.13'> Use Hash#values_at when you need to retrieve several values consecutively from a hash.
+    ```ruby
+    heroes = { batman: 'Bruce Wayne', superman: 'Clark Kent' }
+    # bad - if we make a mistake we might not spot it right away
+    heroes[:batman] # => "Bruce Wayne"
+    heroes[:supermann] # => nil
 
-  - [11.14](#11.14) <a name='11.14'> When accessing elements of a collection, avoid direct access via [n] by using an alternate form of the reader method if it is supplied. This guards you from calling [] on nil.
+    # good - fetch raises a KeyError making the problem obvious
+    heroes.fetch(:supermann)
+    ```
 
-  - [11.15](#11.15) <a name='11.15'> Favor the use of Array#join over the fairly cryptic Array#* with [link] a string argument.
+  - [11.11](#11.11) <a name='11.11'> Introduce default values for hash keys via `Hash#fetch` as opposed to using custom logic.
 
-  - [11.16](#11.16) <a name='11.16'> Use `[*var]` or `Array()` instead of explicit Array check, when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
+    ```ruby
+    batman = { name: 'Bruce Wayne', is_evil: false }
+
+    # bad - if we just use || operator with falsy value we won't get the expected result
+    batman[:is_evil] || true # => true
+
+    # good - fetch work correctly with falsy values
+    batman.fetch(:is_evil, true) # => false
+    ```
+
+  - [11.12](#11.12) <a name='11.12'> Prefer the use of the block instead of the default value in `Hash#fetch` if the code that has to be evaluated may have side effects or be expensive.
+
+    ```ruby
+    batman = { name: 'Bruce Wayne' }
+
+    # bad - if we use the default value, we eager evaluate it
+    # so it can slow the program down if done multiple times
+    batman.fetch(:powers, obtain_batman_powers) # obtain_batman_powers is an expensive call
+
+    # good - blocks are lazy evaluated, so only triggered in case of KeyError exception
+    batman.fetch(:powers) { obtain_batman_powers }
+    ```
+
+  - [11.13](#11.13) <a name='11.13'> Use `Hash#values_at` when you need to retrieve several values consecutively from a hash.
+
+    ```ruby
+    # bad
+    email = data['email']
+    username = data['nickname']
+
+    # good
+    email, username = data.values_at('email', 'nickname')
+    ```
+
+  - [11.14](#11.14) <a name='11.14'> When accessing elements of a collection, avoid direct access via `[n]` by using an alternate form of the reader method if it is supplied. This guards you from calling [] on nil.
+
+    ```ruby
+    # bad
+    Regexp.last_match[1]
+
+    # good
+    Regexp.last_match(1)
+    ```
+
+  - [11.15](#11.15) <a name='11.15'> Favor the use of `Array#join` over the fairly cryptic `Array#`* with a string argument.
+
+    ```ruby
+    # bad
+    %w(one two three) * ', '
+    # => 'one, two, three'
+
+    # good
+    %w(one two three).join(', ')
+    # => 'one, two, three'
+    ```
+
+  - [11.16](#11.16) <a name='11.16'> Use `[*var]` or `Array()` instead of explicit `Array` check, when dealing with a variable you want to treat as an Array, but you're not certain it's an array.
+
+    ```ruby
+    # bad
+    paths = [paths] unless paths.is_a? Array
+    paths.each { |path| do_something(path) }
+
+    # good
+    [*paths].each { |path| do_something(path) }
+
+    # good (and a bit more readable)
+    Array(paths).each { |path| do_something(path) }
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -1984,23 +2137,145 @@ Portions of this section borrow heavily from the Google
 
   - [12.1](#12.1) <a name='12.1'> Prefer string interpolation instead of string concatenation
 
+    ```ruby
+    # bad
+    email_with_name = user.name + ' <' + user.email + '>'
+
+    # good
+    email_with_name = "#{user.name} <#{user.email}>"
+
+    # good
+    email_with_name = format('%s <%s>', user.name, user.email)
+    ```
+
   - [12.2](#12.2) <a name='12.2'> With interpolated expressions, there should be no padded-spacing inside the braces
+
+    ```ruby
+    # bad
+    "From: #{ user.first_name }, #{ user.last_name }"
+
+    # good
+    "From: #{user.first_name}, #{user.last_name}"
+    ```
 
   - [12.3](#12.3) <a name='12.3'> Prefer single-quoted strings when you don't need string interpolation or special symbols such as `\t`, `\n`, `'`, etc.
 
-  - [12.4](#12.4) <a name='12.4'> Don't use the character literal syntax ?x. Since Ruby 1.9 it's basically redundant - ?x would interpreted as 'x' (a string with a single character in it).
+    ```ruby
+    # bad
+    name = "Bozhidar"
 
-  - [12.5](#12.5) <a name='12.5'> Don't leave out {} around instance and global variables being interpolated into a string.
+    # good
+    name = 'Bozhidar'
+    ```
 
-  - [12.6](#12.6) <a name='12.6'> Don't use Object#to_s on interpolated objects. It's invoked on them automatically.
+  - [12.4](#12.4) <a name='12.4'> Don't use the character literal syntax `?x`. Since Ruby 1.9 it's basically redundant - `?x` would interpreted as 'x' (a string with a single character in it).
 
-  - [12.7](#12.7) <a name='12.7'> Avoid using String#+ when you need to construct large data chunks. Instead, use String#<<. Concatenation mutates the string instance in-place and is always faster than String#+, which creates a bunch of new string objects.
+    ```ruby
+    # bad
+    name = "Bozhidar"
 
-  - [12.8](#12.8) <a name='12.8'> Don't use String#gsub in scenarios in which you can use a faster more specialized alternative.
+    # good
+    name = 'Bozhidar'
+    ```
+
+  - [12.5](#12.5) <a name='12.5'> Don't leave out `{}` around instance and global variables being interpolated into a string.
+
+    ```ruby
+    class Person
+      attr_reader :first_name, :last_name
+
+      def initialize(first_name, last_name)
+        @first_name = first_name
+        @last_name = last_name
+      end
+
+      # bad - valid, but awkward
+      def to_s
+        "#@first_name #@last_name"
+      end
+
+      # good
+      def to_s
+        "#{@first_name} #{@last_name}"
+      end
+    end
+    ```
+
+  - [12.6](#12.6) <a name='12.6'> Don't use `Object#to_s` on interpolated objects. It's invoked on them automatically.
+
+    ```ruby
+    # bad
+    message = "This is the #{result.to_s}."
+
+    # good
+    message = "This is the #{result}."
+    ```
+
+  - [12.7](#12.7) <a name='12.7'> Avoid using `String#+` when you need to construct large data chunks. Instead, use `String#<<`. Concatenation mutates the string instance in-place and is always faster than `String#+`, which creates a bunch of new string objects.
+
+    ```ruby
+    # bad
+    html = ''
+    html += '<h1>Page title</h1>'
+
+    paragraphs.each do |paragraph|
+      html += "<p>#{paragraph}</p>"
+    end
+
+    # good and also fast
+    html = ''
+    html << '<h1>Page title</h1>'
+
+    paragraphs.each do |paragraph|
+      html << "<p>#{paragraph}</p>"
+    end
+    ```
+
+  - [12.8](#12.8) <a name='12.8'> Don't use `String#gsub` in scenarios in which you can use a faster more specialized alternative.
+
+    ```ruby
+    url = 'http://example.com'
+    str = 'lisp-case-rules'
+
+    # bad
+    url.gsub("http://", "https://")
+    str.gsub("-", "_")
+
+    # good
+    url.sub("http://", "https://")
+    str.tr("-", "_")
+    ```
 
   - [12.9](#12.9) <a name='12.9'> When using heredocs for multi-line strings keep in mind the fact that they preserve leading whitespace. It's a good practice to employ some margin based on which to trim the excessive whitespace.
 
-  - [12.10](#12.10) <a name='12.10'> Use %() for single-line strings which require both interpolation and embedded double-quotes. For multi-line strings, prefer heredocs.
+    ```ruby
+    code = <<-END.gsub(/^\s+\|/, '')
+      |def test
+      |  some_method
+      |  other_method
+      |end
+    END
+    # => "def test\n  some_method\n  other_method\nend\n"
+    ```
+
+  - [12.10](#12.10) <a name='12.10'> Use `%()` for single-line strings which require both interpolation and embedded double-quotes. For multi-line strings, prefer heredocs.
+
+    ```ruby
+    # bad (no interpolation needed)
+    %(<div class="text">Some text</div>)
+    # should be '<div class="text">Some text</div>'
+
+    # bad (no double-quotes)
+    %(This is #{quality} style)
+    # should be "This is #{quality} style"
+
+    # bad (multiple lines)
+    %(<div>\n<span class="big">#{exclamation}</span>\n</div>)
+    # should be a heredoc.
+
+    # good (requires interpolation, has quotes, single line)
+    %(<tr><td class="name">#{name}</td>)
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
