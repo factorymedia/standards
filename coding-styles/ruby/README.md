@@ -16,7 +16,6 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
   1. [Exceptions](#exceptions)
   1. [Collections](#collections)
   1. [Strings](#strings)
-  1. [Rails](#rails)
   1. [Misc](#misc)
 
 ## Whitespace
@@ -2279,36 +2278,77 @@ Portions of this section borrow heavily from the Google
 
 **[⬆ back to top](#table-of-contents)**
 
-## Rails
+## Misc
+
+- [13.1](#13.1) <a name='13.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+
+    ```ruby
+    # bad
+    result = 1 - \
+             2
+
+    # good (but still ugly as hell)
+    result = 1 \
+             - 2
+
+    long_string = 'First part of the long string' \
+                  ' and second part of the long string'
+    ```
+
+- [13.2](#13.2) <a name='13.2'></a> Add underscores to large numeric literals to improve their readability.
+
+    ```ruby
+    # bad - how many 0s are there?
+    num = 1000000
+
+    # good - much easier to parse for the human brain
+    num = 1_000_000
+    ```
+
+- [13.3](#13.3) <a name='13.3'></a> Use OptionParser for parsing complex command line options and ruby -s for trivial command line options.
+
+- [13.4](#13.4) <a name='13.4'></a> Prefer Time.now over Time.new when retrieving the current system time.
+
+- [13.5](#13.5) <a name='13.5'></a> Avoid more than three levels of block nesting.
+
+- [13.6](#13.6) <a name='13.6'></a> Avoid methods longer than 10 LOC (lines of code). Ideally, most methods will be shorter than 5 LOC. Empty lines do not contribute to the relevant LOC.
+
+- [13.7](#13.7) <a name='13.7'></a> Avoid parameter lists longer than three or four parameters.
+
+- [13.8](#13.8) <a name='13.8'></a> Use module instance variables instead of global variables.
+
+    ```ruby
+    # bad
+    $foo_bar = 1
+
+    # good
+    module Foo
+      class << self
+        attr_accessor :bar
+      end
+    end
+
+    Foo.bar = 1
+    ```
 
 **[⬆ back to top](#table-of-contents)**
 
-## Misc
+## Be Consistent
 
-- [14.1](#14.1) <a name='14.1'></a> Avoid line continuation `\` where not required. In practice, avoid using line continuations for anything but string concatenation
+> If you're editing code, take a few minutes to look at the code around you and
+> determine its style. If they use spaces around all their arithmetic
+> operators, you should too. If their comments have little boxes of hash marks
+> around them, make your comments have little boxes of hash marks around them
+> too.
 
-  ```ruby
-  # bad
-  result = 1 - \
-           2
+> The point of having style guidelines is to have a common vocabulary of coding
+> so people can concentrate on what you're saying rather than on how you're
+> saying it. We present global style rules here so people know the vocabulary,
+> but local style is also important. If code you add to a file looks
+> drastically different from the existing code around it, it throws readers out
+> of their rhythm when they go to read it. Avoid this.
 
-  # good (but still ugly as hell)
-  result = 1 \
-           - 2
-
-  long_string = 'First part of the long string' \
-                ' and second part of the long string'
-  ```
-
-- [14.2](#14.2) <a name='14.2'></a> Add underscores to large numeric literals to improve their readability.
-
-  ```ruby
-  # bad - how many 0s are there?
-  num = 1000000
-
-  # good - much easier to parse for the human brain
-  num = 1_000_000
-  ```
+&mdash;[Google C++ Style Guide][google-c++]
 
 **[⬆ back to top](#table-of-contents)**
 
