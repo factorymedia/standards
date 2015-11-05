@@ -5,6 +5,7 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
 ## Table of Contents
 
   1. [Single and Double Quotes](#single-and-double-quotes)
+  1. [String Interpolation](#string-interpolation)
   1. [Indentation](#indentation)
   1. [Brace Style](#brace-style)
   1. [Regular Expressions](#regular-expressions)
@@ -23,7 +24,7 @@ It was inspired by [Wordpress php style guide](https://make.wordpress.org/core/h
 
 ## Single and Double Quotes
 
-Use single and double quotes if appropriate. However, use single quotes as much as possible, unless you’re evaluating anything in the string. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
+Use single quotes as much as possible, unless you’re evaluating / interpolating anything in the string. You should almost never have to escape quotes in a string, because you can just alternate your quoting style, like so:
 
   ```php
   echo '<a href="/static/link" title="Yeah yeah!">Link name</a>';
@@ -31,6 +32,20 @@ Use single and double quotes if appropriate. However, use single quotes as much 
   ```
 
 Text that goes into attributes should be run through `esc_attr()` so that single or double quotes do not end the attribute value and invalidate the HTML and cause a security issue. See Data Validation in the Codex for further details.
+
+**[⬆ back to top](#table-of-contents)**
+
+## String Interpolation
+
+Where possible use string interpolation instead of concatenation. This is also an instance where double quotes are preferred (required) over singles.
+
+  ```php
+  // good - we prefer interpolation of simple vars like this
+  echo "Welcome {$name}s!"
+
+  // bad - instead of the slightly messier concatenated version
+  echo 'Welcome ' . $name . '!';
+  ```
 
 **[⬆ back to top](#table-of-contents)**
 
