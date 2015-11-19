@@ -61,8 +61,7 @@
   - https://github.com/factorymedia/coresites/pull/286
   - https://github.com/factorymedia/coresites/pull/282
 
-Use this as a base PR template:
-
+### Pull Request Template
 ```md
 **Jira Ticket**
 https://factorymedia.atlassian.net/browse/TD-xxx
