@@ -7,7 +7,7 @@
   3. [Sample unit tests](#examples)
   4. [Resources](#resources)
 
-## Tools 
+## Tools
 The suggested tool is PHPUnit, since it's the [offcial framework used by Wordpress](https://make.wordpress.org/core/handbook/testing/automated-testing/phpunit/). It provides a test runner, assertions, bootstraps the Wordpress environment to make it easy to test plugins, helpers, etc. It's also quite fast!
 
 ### Install PHPUnit
@@ -38,10 +38,10 @@ PHPUnit uses an .xml file, `phpunit.xml`, that needs to go in the root coresites
 </phpunit>
 ```
 
-Finally, PHPUnit uses a separate Wordpress configuration file, `wp-tests-config.php`, also provided on the repo. 
+Finally, PHPUnit uses a separate Wordpress configuration file, `wp-tests-config.php`, also provided on the repo.
 
 ### Create test database
-PHPUnit requires a empty Wordpress database with some additional test tables. To create it download and extract the `test_db.zip` and import into your MySQL instance with:
+PHPUnit requires a empty Wordpress database with some additional test tables. To create it download and extract the `fm_wordpress_tests.zip` and import into your MySQL instance with:
 
 ```
 unzip fm_wordpress_tests.zip
