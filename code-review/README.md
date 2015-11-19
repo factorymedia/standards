@@ -53,8 +53,12 @@
 
 
 ## Pull Request Format
-  - Prefix the branch & PR with the Jira ticket ID eg. `[TD-000] Brief summary of branch`
-  - Include Jira ticket number, summary description of the changes, testing notes & example screenshots for UI changes.
+  - Prefix the branch & PR with the Team Development Jira ticket ID eg. `[TD-000] Brief summary of branch`
+  - Make sure to include:
+    - Jira ticket(s), please include Product Backlog & Team Development tickets
+    - Summary description of the changes
+    - Testing / QA notes
+    - Example links / screenshots for UI changes
 
 ### Example PRs
   - https://github.com/factorymedia/coresites/pull/287
@@ -63,7 +67,8 @@
 
 ### Pull Request Template
 ```md
-**Jira Ticket**
+**Jira Tickets**
+https://factorymedia.atlassian.net/browse/PB-xxx
 https://factorymedia.atlassian.net/browse/TD-xxx
 
 **Summary**
