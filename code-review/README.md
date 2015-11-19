@@ -1,6 +1,11 @@
 # Factory Media Code Review Guide
 
-## General Rule
+  1. [General Rules](#general-rules)
+  1. [Code Review Checklist](#checklist)
+  1. [Pull Request Format](#pull-request-format)
+
+
+## General Rules
 
   - All changes must be reviewed
   - If LOC is longer than 200 lines, the PR has to be broken down to smaller chunks
@@ -8,7 +13,9 @@
   - Anyone can review and reviewers should be careful when leaving reviews. (No offense / criticism / judgement )
   - A review submitter shouldn’t take the review personally.
   - Always provide proper reason / facts to support your review / opinion.
+  - Link to the relevant section in the standards repo when commenting on code style issues.
   - Getting blamed will NOT get you fired. We are extremely forgiving in this respect.
+
 
 ## Checklist
 
@@ -43,3 +50,31 @@
   - Do unit tests actually test that the code is performing the intended functionality?
   - Are arrays checked for ‘out-of-bounds’ errors?
   - Could any test code be replaced with the use of an existing API?
+
+
+## Pull Request Format
+  - Prefix the branch & PR with the Jira ticket ID
+  - Include Jira ticket number, summary description of the changes, testing notes & example screenshots for UI changes.
+
+#### Example PRs
+  - https://github.com/factorymedia/coresites/pull/287
+  - https://github.com/factorymedia/coresites/pull/286
+  - https://github.com/factorymedia/coresites/pull/282
+
+Use this as a base PR template:
+
+```md
+**Jira Ticket**
+https://factorymedia.atlassian.net/browse/TD-xxx
+
+**Summary**
+Quick description of changes and expected behaviour.
+
+**Example**
+A few links or images showing before / after changes.
+
+**Testing / QA Notes**
+Brief notes to save your tester some time, and let them know / what to test for.
+
+```
+
