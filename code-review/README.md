@@ -1,6 +1,11 @@
 # Factory Media Code Review Guide
 
-## General Rule
+  1. [General Rules](#general-rules)
+  1. [Code Review Checklist](#checklist)
+  1. [Pull Request Format](#pull-request-format)
+
+
+## General Rules
 
   - All changes must be reviewed
   - If LOC is longer than 200 lines, the PR has to be broken down to smaller chunks
@@ -8,7 +13,9 @@
   - Anyone can review and reviewers should be careful when leaving reviews. (No offense / criticism / judgement )
   - A review submitter shouldn’t take the review personally.
   - Always provide proper reason / facts to support your review / opinion.
+  - Link to the relevant section in the standards repo when commenting on code style issues.
   - Getting blamed will NOT get you fired. We are extremely forgiving in this respect.
+
 
 ## Checklist
 
@@ -43,3 +50,40 @@
   - Do unit tests actually test that the code is performing the intended functionality?
   - Are arrays checked for ‘out-of-bounds’ errors?
   - Could any test code be replaced with the use of an existing API?
+
+
+## Pull Request Format
+  - Prefix the branch & PR with the Team Development Jira ticket ID eg. `[TD-000] Brief summary of branch`
+  - Make sure to include:
+    - Jira ticket(s), please include Product Backlog & Team Development tickets
+    - Summary description of the changes
+    - Review Note - if your PR includes generated files that do not need to be reviewed or is incomplete please add a Review Note
+    - Testing / QA notes
+    - Example links / screenshots for UI changes
+
+### Example PRs
+  - https://github.com/factorymedia/coresites/pull/287
+  - https://github.com/factorymedia/coresites/pull/286
+  - https://github.com/factorymedia/coresites/pull/282
+
+### Pull Request Template
+```md
+**Jira Tickets**
+https://factorymedia.atlassian.net/browse/PB-xxx
+https://factorymedia.atlassian.net/browse/TD-xxx
+
+**Summary**
+Quick description of changes and expected behaviour.
+
+**Review Note**
+I want a review only for coding style / typo please (30% review)
+I want a review for all (styles / typo / logic / etc) (90% review)
+
+**Example**
+A few links or images showing before / after changes.
+
+**Testing / QA Notes**
+Brief notes to save your tester some time, and let them know / what to test for.
+
+```
+
