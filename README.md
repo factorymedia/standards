@@ -17,3 +17,4 @@ Standard guideline for all factorymedia dev related
 ## Testing Guides
 
 - [CoffeeScript](testing/coffeescript)
+- [PHP](testing/php)
