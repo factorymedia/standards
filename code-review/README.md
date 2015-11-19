@@ -56,7 +56,7 @@
   - Prefix the branch & PR with the Jira ticket ID eg. `[TD-000] Brief summary of branch`
   - Include Jira ticket number, summary description of the changes, testing notes & example screenshots for UI changes.
 
-#### Example PRs
+### Example PRs
   - https://github.com/factorymedia/coresites/pull/287
   - https://github.com/factorymedia/coresites/pull/286
   - https://github.com/factorymedia/coresites/pull/282
