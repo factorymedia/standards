@@ -57,6 +57,7 @@
   - Make sure to include:
     - Jira ticket(s), please include Product Backlog & Team Development tickets
     - Summary description of the changes
+    - Review Note - if your PR includes generated files that do not need to be reviewed or is incomplete please add a Review Note
     - Testing / QA notes
     - Example links / screenshots for UI changes
 
@@ -73,6 +74,10 @@ https://factorymedia.atlassian.net/browse/TD-xxx
 
 **Summary**
 Quick description of changes and expected behaviour.
+
+**Review Note**
+I want a review only for coding style / typo please (30% review)
+I want a review for all (styles / typo / logic / etc) (90% review)
 
 **Example**
 A few links or images showing before / after changes.
