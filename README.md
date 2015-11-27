@@ -18,3 +18,7 @@ Standard guideline for all factorymedia dev related
 
 - [CoffeeScript](testing/coffeescript)
 - [PHP](testing/php)
+
+## Deployment Guides
+
+- [Coresites](deploy/coresites)
