@@ -73,16 +73,42 @@ From their website:
 "Standalone test spies, stubs and mocks for JavaScript.
 No dependencies, works with any unit testing framework."
 
+When using spies, it's safer to create them using the sandbox object, that way you can restore the original object once the test is gone.
+As a suggestion, create a global sandbox in your test helper:
+
+```
+#Avoid pollution
+beforeEach ->
+  @sandbox = sinon.sandbox.create()
+  @body = $(document.getElementsByTagName('body')[0])
+
+afterEach ->
+  @sandbox.restore()
+```
+
+Then on your tests, make sure to also restore any spies you create.
+
 Sample synon uses:
 ```
-message = 'an example message'
-spy = sinon.spy()
+describe 'AsyncPostsLoader', ->
 
-PubSub.subscribe(message, spy)
-PubSub.publishSync(message, "some payload")
+  before ->
+    global.fastdom = require 'fastdom'
+    AsyncLoader = require "#{sourcesPath}app/_components.async-loader"
+    @asyncLoader = new AsyncLoader()
 
-assert(spy.calledWith(message))
+  beforeEach ->
+    @sandbox.spy(fastdom, 'write')
+
+  afterEach ->
+    fastdom.write.restore()
+
+  it 'uses FastDOM', ->
+    posts = $('<div></div>')
+    @asyncLoader.renderPosts(posts)
+    expect(fastdom.write.called).to.equal true
 ```
+
 
 Install synon as a project development dependency with:
 ```
