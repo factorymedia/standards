@@ -213,7 +213,7 @@ Feature: Videos list page
 ```
 
 ## Sample step definitions file
-Here are some of the steps used in the previous feature.
+Here are some of the steps used in the previous feature. Please note you must always return an invocation to the callback function in order for the step to finish and the next step on the scenario can start. Also note, that operations like click, visit, pressButton, etc provide a callback function from which you can invoke the scenario callback and end the step asynchronously.
 
 ```cucumber
 module.exports = ->
