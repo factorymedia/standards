@@ -5,10 +5,9 @@
   1. [Tools](#tools)
   2. [Directory structure](#directory)
   3. [Guidelines](#guidelines)
-  4. [Sample feature file](#sample feature file)
-  5. [Sample step definitions file](#sample step definitions file)
-  6. [Sample world.coffee file](#sample world.coffee file)
-  7. [Resources](#resources)
+  4. [Sample files](#examples)
+  5. [Running tests](#running)
+  6. [Resources](#resources)
 
 ## Tools
 This guide focuses on cucumber for [Javascript](https://github.com/cucumber/cucumber-js), but we can also make use of the [PHP](https://github.com/cucumber/cucumber/wiki/PHP) and [Rails](https://github.com/cucumber/cucumber-rails) implementations depending on the project at hand.
@@ -41,7 +40,7 @@ Make sure you're using the latest version of npm:
 ```
 
 ### Feature files
-These files are written [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) and drive the automated tests by specifying scenarios under which we test the feature in question.
+These files are written in [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) and drive the automated tests by specifying scenarios under which we test the feature in question.
 
 ### Step definition files
 These are coffeescript files than contain the individual steps that make up an scenario in a feature file. They allow the extraction of parameters from the feature file using regular expressions.
@@ -190,7 +189,9 @@ You can create non-capturing groups by adding a “?:” to the beginning of an 
 * Use non-capturing groups to ensure steps are read naturally.
 * Simplify step definitions.
 
-## Sample feature file
+## Examples
+
+### Sample feature file
 Here's a sample `.feature` file for the video list page:
 
 ```cucumber
@@ -212,7 +213,7 @@ Feature: Videos list page
     Then I should land on that page
 ```
 
-## Sample step definitions file
+### Sample step definitions file
 Here are some of the steps used in the previous feature. Please note you must always return an invocation to the callback function in order for the step to finish and the next step on the scenario can start. Also note, that operations like click, visit, pressButton, etc provide a callback function from which you can invoke the scenario callback and end the step asynchronously.
 
 ```cucumber
@@ -237,7 +238,7 @@ module.exports = ->
       callback()
 ```
 
-## Sample world.coffee file
+### Sample world.coffee file
 In this case, the world object (`@` in our coffeescript step definitions) provides an instance of [zombie.js](http://zombie.js.org/) via `@browser` and [chai.expect](http://chaijs.com/) via `@expect`. It can also provide custom functions like `cleanUrl` in this case.
 
 ```js
@@ -268,6 +269,15 @@ World = (callback) ->
 module.exports = ->
   @World = World
 ```
+
+## Running
+You can run individual features with:
+
+`cucumber.js --compiler coffee:coffee-script/register tests/features/video-page.feature`
+
+To run all, just omit mentioning the feature.
+
+You can also add the above to the `test` section of your project's `package.json` file in order to run them via `npm test`.
 
 ## Resources
 [The Cucumber book in Safari Books (login in passpack)](https://www.safaribooksonline.com/library/view/the-cucumber-book/9781941222911/)
