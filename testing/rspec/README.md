@@ -493,7 +493,7 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
 ## Useful formatter
 
-  - [18.](#18.) <a name='18.'></a> se a formatter that can give you useful information about the test suite. I personally find fuubar really nice. To make it work add the gem and set `fuubar` as default formatter in your `Guardfile`.
+  - [18.](#18.) <a name='18.'></a> Use a formatter that can give you useful information about the test suite. I personally find fuubar really nice. To make it work add the gem and set `fuubar` as default formatter in your `Guardfile`.
 
     ```ruby
     # good
