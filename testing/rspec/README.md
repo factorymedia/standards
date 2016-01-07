@@ -4,28 +4,28 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
 ## Table of Contents
 
-  1. [How to describe your methods](#)
-  1. [Use contexts](#)
-  1. [Keep your description short](#)
-  1. [Single expectation test](#)
-  1. [Test all possible cases](#)
-  1. [Expect vs Should syntax](#)
-  1. [Use subject](#)
-  1. [Use let and let!](#)
-  1. [Mock or not to mock](#)
-  1. [Create only the data you need](#)
-  1. [Use factories and not fixtures](#)
-  1. [Easy to read matcher](#)
-  1. [Shared Examples](#)
-  1. [Test what you see](#)
-  1. [Don't use should](#)
-  1. [Automatic tests with guard](#)
-  1. [Stubbing HTTP requests](#)
-  1. [Useful formatter](#)
+  1. [How to describe your methods](#how-to-describe-your-methods)
+  1. [Use contexts](#use-contexts)
+  1. [Keep your description short](#keep-your-description-short)
+  1. [Single expectation test](#single-expectation-test)
+  1. [Test all possible cases](#test-all-possible-cases)
+  1. [Expect vs Should syntax](#expect-vs-should-syntax)
+  1. [Use subject](#use-subject)
+  1. [Use let and let!](#use-let-and-let)
+  1. [Mock or not to mock](#mock-or-not-to-mock)
+  1. [Create only the data you need](#create-only-the-data-you-need)
+  1. [Use factories and not fixtures](#use-factories-and-not-fixtures)
+  1. [Easy to read matcher](#easy-to-read-matcher)
+  1. [Shared Examples](#shared-examples)
+  1. [Test what you see](#test-what-you-see)
+  1. [Don't use should](#dont-use-should)
+  1. [Automatic tests with guard](#automatic-tests-with-guard)
+  1. [Stubbing HTTP requests](#stubbing-http-requests)
+  1. [Useful formatter](#useful-formatter)
 
 ## How to describe your methods
 
-  - [1](#1) <a name='1'></a> Be clear about what method you are describing. For instance, use the Ruby documentation convention of `.` (or `::`) when referring to a class method's name and # when referring to an instance method's name.
+  - [1.](#1.) <a name='1.'></a> Be clear about what method you are describing. For instance, use the Ruby documentation convention of `.` (or `::`) when referring to a class method's name and # when referring to an instance method's name.
 
     ```ruby
     # bad
@@ -37,11 +37,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
     describe '#admin?' do
     ```
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Use contexts
 
-  - [2](#2) <a name='2'></a> Contexts are a powerful method to make your tests clear and well organized. In the long term this practice will keep tests easy to read.
+  - [2.](#2.) <a name='2.'></a> Contexts are a powerful method to make your tests clear and well organized. In the long term this practice will keep tests easy to read.
 
     ```ruby
     # bad
@@ -63,11 +63,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
   When describing a context, start its description with `when` or `with`.
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Keep your description short
 
-  - [3](#3) <a name='3'></a> A spec description should never be longer than 40 characters. If this happens you should split it using a context.
+  - [3.](#3.) <a name='3.'></a> A spec description should never be longer than 40 characters. If this happens you should split it using a context.
 
     ```ruby
     # bad
@@ -87,11 +87,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
       it should respond with 422
     ```
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Single expectation test
 
-  - [4](#4) <a name='4'></a> The 'one expectation' tip is more broadly expressed as 'each test should make only one assertion'. This helps you on finding possible errors, going directly to the failing test, and to make your code readable.
+  - [4.](#4.) <a name='4.'></a> The 'one expectation' tip is more broadly expressed as 'each test should make only one assertion'. This helps you on finding possible errors, going directly to the failing test, and to make your code readable.
 
   In isolated unit specs, you want each example to specify one (and only one) behavior. Multiple expectations in the same example are a signal that you may be specifying multiple behaviors.
 
@@ -111,11 +111,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
   When describing a context, start its description with `when` or `with`.
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Test all possible cases
 
-  - [5](#5) <a name='5'></a> Testing is a good practice, but if you do not test the edge cases, it will not be useful. Test valid, edge and invalid case. For example, consider the following action.
+  - [5.](#5.) <a name='5.'></a> Testing is a good practice, but if you do not test the edge cases, it will not be useful. Test valid, edge and invalid case. For example, consider the following action.
     ```ruby
     # destroy action
     before_filter :find_owned_resources
@@ -151,11 +151,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
     end
     ```
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Expect vs Should syntax
 
-  - [6](#6) <a name='6'></a> On new projects always use the `expect` syntax.
+  - [6.](#6.) <a name='6.'></a> On new projects always use the `expect` syntax.
 
     ```ruby
     # bad
@@ -200,11 +200,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     More about the new Rspec expectation syntax can be found [here](http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/) and [here](http://rspec.info/blog/2013/07/the-plan-for-rspec-3/#what_about_the_old_expectationmock_syntax).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Use subject
 
-  - [7](#7) <a name='7'></a> If you have several tests related to the same subject use `subject{}` to DRY them up.
+  - [7.](#7.) <a name='7.'></a> If you have several tests related to the same subject use `subject{}` to DRY them up.
 
     ```ruby
     # bad
@@ -227,11 +227,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [rspec subject](https://www.relishapp.com/rspec/rspec-core/v/2-11/docs/subject).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Use let and let!
 
-  - [8](#8) <a name='8'></a> When you have to assign a variable instead of using a `before` block to create an instance variable, use `let`. Using `let` the variable lazy loads only when it is used the first time in the test and get cached until that specific test is finished.
+  - [8.](#8.) <a name='8.'></a> When you have to assign a variable instead of using a `before` block to create an instance variable, use `let`. Using `let` the variable lazy loads only when it is used the first time in the test and get cached until that specific test is finished.
 
     ```ruby
     # bad
@@ -289,11 +289,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [rspec let](https://www.relishapp.com/rspec/rspec-core/v/2-11/docs/helper-methods/let-and-let).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Mock or not to mock
 
-  - [9](#9) <a name='9'></a> There's a debate going on. Do not (over)use mocks and test real behavior when possible. Testing real cases are useful when updating your application flow.
+  - [9.](#9.) <a name='9.'></a> There's a debate going on. Do not (over)use mocks and test real behavior when possible. Testing real cases are useful when updating your application flow.
 
     ```ruby
     # good
@@ -306,11 +306,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Mocking makes your specs faster but they are difficult to use. You need to understand them well to use them well. Read more [about](http://myronmars.to/n/dev-blog/2012/06/thoughts-on-mocking).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Create only the data you need
 
-  - [10](#10) <a name='10'></a> If you have ever worked in a medium size project (but also in small ones), test suites can be heavy to run. To solve this problem, it's important not to load more data than needed. Also, if you think you need dozens of records, you are probably wrong.
+  - [10.](#10.) <a name='10.'></a> If you have ever worked in a medium size project (but also in small ones), test suites can be heavy to run. To solve this problem, it's important not to load more data than needed. Also, if you think you need dozens of records, you are probably wrong.
 
     ```ruby
     # good
@@ -322,11 +322,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
     end
     ```
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Use factories and not fixtures
 
-  - [11](#11) <a name='11'></a> This is an old topic, but it's still good to remember it. Do not use fixtures because they are difficult to control, use factories instead. Use them to reduce the verbosity on creating new data.
+  - [11.](#11.) <a name='11.'></a> This is an old topic, but it's still good to remember it. Do not use fixtures because they are difficult to control, use factories instead. Use them to reduce the verbosity on creating new data.
 
     ```ruby
     # bad
@@ -345,11 +345,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [Factory Girl](https://github.com/thoughtbot/factory_girl).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Easy to read matcher
 
-  - [12](#12) <a name='12'></a> Use readable matchers and double check the available [rspec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).
+  - [12.](#12.) <a name='12.'></a> Use readable matchers and double check the available [rspec matchers](https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers).
 
     ```ruby
     # bad
@@ -358,11 +358,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
     expect { model.save! }.to raise_error Mongoid::Errors::DocumentNotFound
     ```
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Shared Examples
 
-  - [13](#13) <a name='13'></a> Making tests is great and you get more confident day after day. But in the end you will start to see code duplication coming up everywhere. Use shared examples to DRY your test suite up.
+  - [13.](#13.) <a name='13.'></a> Making tests is great and you get more confident day after day. But in the end you will start to see code duplication coming up everywhere. Use shared examples to DRY your test suite up.
 
     ```ruby
     # bad
@@ -408,17 +408,17 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [rspec shared examples](https://www.relishapp.com/rspec/rspec-core/v/2-11/docs/example-groups/shared-examples).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Test what you see
 
-  - [14](#14) <a name='14'></a> Deeply test your models and your application behaviour (integration tests). Do not add useless complexity testing controllers.
+  - [14.](#14.) <a name='14.'></a> Deeply test your models and your application behaviour (integration tests). Do not add useless complexity testing controllers.
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Don't use should
 
-  - [15](#15) <a name='15'></a> Do not use should when describing your tests. Use the third person in the present tense. Even better start using the new `expectation` syntax.
+  - [15.](#15.) <a name='15.'></a> Do not use should when describing your tests. Use the third person in the present tense. Even better start using the new `expectation` syntax.
 
     ```ruby
     # bad
@@ -434,11 +434,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     See [the should_not gem](https://github.com/should-not/should_not) for a way to enforce this in RSpec and [the should_clean gem](https://github.com/siyelo/should_clean) for a way to clean up existing RSpec examples that begin with `should.`
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Automatic tests with guard
 
-  - [16](#16) <a name='16'></a> Running all the test suite every time you change your app can be cumbersome. It takes a lot of time and it can break your flow. With Guard you can automate your test suite running only the tests related to the updated spec, model, controller or file you are working at.
+  - [16.](#16.) <a name='16.'></a> Running all the test suite every time you change your app can be cumbersome. It takes a lot of time and it can break your flow. With Guard you can automate your test suite running only the tests related to the updated spec, model, controller or file you are working at.
 
     ```ruby
     # good
@@ -469,11 +469,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [guard-rspec](https://github.com/guard/guard-rspec).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Stubbing HTTP requests
 
-  - [17](#17) <a name='17'></a> Sometimes you need to access external services. In these cases you can't rely on the real service but you should stub it with solutions like `webmock`.
+  - [17.](#17.) <a name='17.'></a> Sometimes you need to access external services. In these cases you can't rely on the real service but you should stub it with solutions like `webmock`.
 
     ```ruby
     # good
@@ -489,11 +489,11 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [webmock](https://github.com/bblimke/webmock) and [VCR](https://github.com/vcr/vcr). Here a [nice presentation](http://marnen.github.io/webmock-presentation/webmock.html#(1)) explaining how to mix them together.
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## Useful formatter
 
-  - [18](#18) <a name='18'></a> se a formatter that can give you useful information about the test suite. I personally find fuubar really nice. To make it work add the gem and set `fuubar` as default formatter in your `Guardfile`.
+  - [18.](#18.) <a name='18.'></a> se a formatter that can give you useful information about the test suite. I personally find fuubar really nice. To make it work add the gem and set `fuubar` as default formatter in your `Guardfile`.
 
     ```ruby
     # good
@@ -510,7 +510,7 @@ Inspired by [Better Specs](http://betterspecs.org/)
 
     Learn more about [fuubar](http://jeffkreeftmeijer.com/2010/fuubar-the-instafailing-rspec-progress-bar-formatter/).
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
 
 ## License
 
@@ -537,4 +537,4 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-  **[⬆ back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
