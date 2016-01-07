@@ -19,6 +19,7 @@ Standard guideline for all factorymedia dev related
 - [CoffeeScript](testing/coffeescript)
 - [PHP](testing/php)
 - [Cucumber](testing/cucumber)
+- [RSpec](testing/rspec)
 
 ## Deployment Guides
 
