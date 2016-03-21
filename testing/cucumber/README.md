@@ -24,6 +24,11 @@ Get the latest stable version of node:
 Make sure you're using the latest version of npm:
 `npm upgrade -g npm`
 
+An easy setup to run cucumber tests is via [chimp.js](https://chimp.readme.io/). This handy framework combines [webdriverio](http://webdriver.io/), cucumber and other testing tools in an easy to use package.
+
+Install chimp with via:
+`npm install -g chimp`
+
 ## Directory structure
 
 ```
@@ -32,8 +37,6 @@ Make sure you're using the latest version of npm:
 |   +-- step_definitions
 |     step1-definitions.coffee
 |     step2-definitions.coffee
-|   +-- support
-|     world.coffee
 |   feature-name1.feature
 |   feature-name2.feature
 |   feature-name3.feature
@@ -45,8 +48,16 @@ These files are written in [Gherkin](https://github.com/cucumber/cucumber/wiki/G
 ### Step definition files
 These are coffeescript files than contain the individual steps that make up an scenario in a feature file. They allow the extraction of parameters from the feature file using regular expressions.
 
-### world.coffee
-This files defines the browser, functions, attributes, that pass between each step and then start afresh between scenarios.
+### Running tests
+You can run all tests with `chimp --browser=phantomjs --compiler=coffee:coffee-script/register --path tests/features`. If you install chimp as a local package you can add it to the `test` section of your `package.json` file:
+
+```json
+  "scripts": {
+    "test": "./node_modules/.bin/chimp --browser=phantomjs --compiler=coffee:coffee-script/register --path tests/features"
+  }
+```
+
+Then you can run all tests easily with `npm test`.
 
 ## Guidelines
 Adapted from [Engine Yard's](https://blog.engineyard.com/2009/15-expert-tips-for-using-cucumber)
@@ -217,29 +228,46 @@ Feature: Videos list page
 Here are some of the steps used in the previous feature. Please note you must always return an invocation to the callback function in order for the step to finish and the next step on the scenario can start. Also note, that operations like click, visit, pressButton, etc provide a callback function from which you can invoke the scenario callback and end the step asynchronously.
 
 ```cucumber
+assert = require 'assert'
+
 module.exports = ->
 
+  @Given /^I landed on the first video in (.*)$/, (url, callback) ->
+    browser.url url
+    browser.click '.o-cards .c-card__wrapper:nth-child(2) .c-card__link'
+    callback()
+
   @Then /^I should be able to see a list of videos$/, (callback) ->
-    @browser.assert.elements '.c-card--videos', atLeast:10
+    elements = browser.elements '.c-card--videos'
+    expect(elements.value.length).toBeGreaterThan 8
     callback()
 
-  @Then /^I can read the (.*) of each video$/, (attribute, callback) ->
-    @browser.assert.elements ".c-card--videos .c-card__title-wrapper .c-card__#{attribute}", atLeast:10
+  @Then /^I can see thumbnails of the videos$/, (callback) ->
+    elements = browser.elements '.c-card--videos .c-card__media-wrapper img'
+    expect(elements.value.length).toBeGreaterThan 8
     callback()
-
-  @Then /^I should be able to see a pager$/, (callback) ->
-    @browser.assert.elements '.c-pagination .page-numbers', atLeast: 4
-    callback()
-
-  @Then /^I click on one of the pager buttons$/, (callback) ->
-    element = @browser.query('.c-pagination a.page-numbers:nth-child(2)')
-    @url = element.href
-    @browser.click '.c-pagination a.page-numbers:nth-child(2)', =>
-      callback()
 ```
 
-### Sample world.coffee file
-In this case, the world object (`@` in our coffeescript step definitions) provides an instance of [zombie.js](http://zombie.js.org/) via `@browser` and [chai.expect](http://chaijs.com/) via `@expect`. It can also provide custom functions like `cleanUrl` in this case.
+### Hints for tricky tests
+
+#### Switch to regular browser
+You can easily change the browser that runs the steps from phantom.js to firefox or chrome with:
+```
+chimp --browser=chrome --compiler=coffee:coffee-script/register --path tests/features
+```
+
+#### Get log messages
+If you a test is giving you a hard time (specially with phantomjs) you can dump all console messages within phantom from your step deffinitions file to the node standard output like this:
+
+```js
+@After ->
+  logs = browser.log('browser')
+  if logs.value.length
+  console.log(logs.value)
+```
+
+#### Taking screenshots
+You can also take screenshots of what the browser is doing, specially handy with phantomjs. You can accomplish this via `browser.saveScreenshot 'screenshot.png'` in your step definition files.
 
 ```js
 Browser = require 'zombie'
