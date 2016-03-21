@@ -269,43 +269,6 @@ If you a test is giving you a hard time (specially with phantomjs) you can dump 
 #### Taking screenshots
 You can also take screenshots of what the browser is doing, specially handy with phantomjs. You can accomplish this via `browser.saveScreenshot 'screenshot.png'` in your step definition files.
 
-```js
-Browser = require 'zombie'
-chai = require 'chai'
-
-World = (callback) ->
-
-  Browser.silent = true
-  Browser.runScripts = false
-  @browser = new Browser()
-  @expect = chai.expect
-
-  @visit = (url, callback) ->
-    @browser.visit url, ->
-      callback()
-
-  @cleanUrl = (url) ->
-    url = url.replace('www.', '')
-    url = url.replace('http://', '')
-    url = url.replace('https://', '')
-    if url.substr(-1) == '/'
-      url = url.replace(/\/$/, '')
-    url
-
-  callback
-
-module.exports = ->
-  @World = World
-```
-
-## Running
-You can run individual features with:
-
-`cucumber.js --compiler coffee:coffee-script/register tests/features/video-page.feature`
-
-To run all, just omit mentioning the feature.
-
-You can also add the above to the `test` section of your project's `package.json` file in order to run them via `npm test`.
 
 ## Resources
 [The Cucumber book in Safari Books (login in passpack)](https://www.safaribooksonline.com/library/view/the-cucumber-book/9781941222911/)
