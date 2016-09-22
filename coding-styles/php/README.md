@@ -71,14 +71,15 @@ Your indentation should always reflect logical structure. Use 2 spaces and not t
   }
   ```
 
-For associative arrays, values should start on a new line. Note the comma after the last array item: this is recommended because it makes it easier to change the order of the array, and makes for cleaner diffs when new items are added.
+For associative arrays, values should start on a new line. Note the comma after the last array item: this is recommended because it makes it easier to change the order of the array, and makes for cleaner diffs when new items are added. We prefer the short array syntax `[]` (introduced in php `5.4`) over  `array()`.
+
   ```php
-  $my_array = array(
+  $my_array = [
   ∙∙'foo'∙∙∙=> 'somevalue',
   ∙∙'foo2'∙∙=> 'somevalue2',
   ∙∙'foo3'∙∙=> 'somevalue3',
   ∙∙'foo34'∙=> 'somevalue3',
-  );
+  ];
   ```
 
 Rule of thumb: Spaces should be used at the beginning and mid-line for alignment if it makes the array more readable.
@@ -113,7 +114,7 @@ Braces shall be used for all blocks in the style shown here:
 
 Furthermore, if you have a really long block, consider whether it can be broken into two or more shorter blocks or functions. If you consider such a long block unavoidable, please put a short comment at the end so people can tell at glance what that ending brace ends – typically this is appropriate for a logic block, longer than about 35 rows, but any code that’s not intuitively obvious can be commented.
 
-Braces should always be used, even when they are not required:
+Braces should always be used, even when they are not required, with the exception of **very short** 1 line conditionals (last example).
 
   ```php
   // good
@@ -132,9 +133,7 @@ Braces should always be used, even when they are not required:
     process_item($item);
   }
 
-  if (condition) { action(); }
-
-  // bad
+  // ok
   if (condition) action();
 
   ```
