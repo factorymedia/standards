@@ -4,6 +4,7 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
 
 ## Table of Contents
 
+  1. [Code Linting](#code-linting)
   1. [Whitespace](#whitespace)
   1. [Line Length](#line-length)
   1. [Encoding](#encoding)
@@ -17,6 +18,15 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
   1. [Collections](#collections)
   1. [Strings](#strings)
   1. [Misc](#misc)
+
+## Code Linting
+
+Where possible use [RuboCop](https://github.com/bbatsov/rubocop) to lint your Ruby source code automatically.
+
+* Enable linting in Sublime Text by installing [SublimeLinter](http://www.sublimelinter.com/en/latest/installation.html)
+* Enable [RuboCop SublimeLinter-Rubocop plugin](http://www.sublimelinter.com/en/latest/installation.html)
+* Ensure `rubocop` is added to your project `Gemfile` and run `bundle install`
+* Copy the [.rubocop.yml](rubocop.yml) file from this repo into your source root folder
 
 ## Whitespace
 
