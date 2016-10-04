@@ -24,9 +24,24 @@ Inspired by [Bozhidar Batsov Guide](https://github.com/bbatsov/ruby-style-guide)
 Where possible use [RuboCop](https://github.com/bbatsov/rubocop) to lint your Ruby source code automatically.
 
 * Enable linting in Sublime Text by installing [SublimeLinter](http://www.sublimelinter.com/en/latest/installation.html)
-* Enable [RuboCop SublimeLinter-Rubocop plugin](http://www.sublimelinter.com/en/latest/installation.html)
+* Install the [SublimeLinter-Ruby plugin]
+* Install the [RuboCop SublimeLinter-Rubocop plugin](http://www.sublimelinter.com/en/latest/installation.html)
 * Ensure `rubocop` is added to your project `Gemfile` and run `bundle install`
-* Copy the [.rubocop.yml](.rubocop.yml) file from this repo into your source root folder
+* Choose Tools > SublimeLinter > Lint Mode > Load/Save
+* Choose Tools > SublimeLinter > Choose Gutter Theme > Default
+* Choose Tools > SublimeLinter > Debug Mode
+* Open Sublime Text > Preferences > SublimeLinter > Settings - User and set the `rubocop` section as below:
+
+```json
+"rubocop": {
+    "@disable": false,
+    "args": ["--config", "/path/to/source/standards/coding-styles/ruby/.rubocop.yml"],
+    "excludes": []
+},
+```
+
+* Check it is all working by opening and saving a new `.rb` file. 
+  Make a linting error such as comment without space and it should be displayed in Yellow
 
 ## Whitespace
 
