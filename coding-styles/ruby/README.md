@@ -26,7 +26,7 @@ Where possible use [RuboCop](https://github.com/bbatsov/rubocop) to lint your Ru
 * Enable linting in Sublime Text by installing [SublimeLinter](http://www.sublimelinter.com/en/latest/installation.html)
 * Enable [RuboCop SublimeLinter-Rubocop plugin](http://www.sublimelinter.com/en/latest/installation.html)
 * Ensure `rubocop` is added to your project `Gemfile` and run `bundle install`
-* Copy the [.rubocop.yml](rubocop.yml) file from this repo into your source root folder
+* Copy the [.rubocop.yml](.rubocop.yml) file from this repo into your source root folder
 
 ## Whitespace
 
