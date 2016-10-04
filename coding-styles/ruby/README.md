@@ -41,7 +41,7 @@ Where possible use [RuboCop](https://github.com/bbatsov/rubocop) to lint your Ru
 ```
 
 * Check it is all working by opening and saving a new `.rb` file. 
-  Make a linting error such as comment without space and it should be displayed in Yellow
+  Make a linting error such as comment without space and it should be displayed in yellow.
 
 ## Whitespace
 
