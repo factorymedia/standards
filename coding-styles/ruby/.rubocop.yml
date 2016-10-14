@@ -29,5 +29,9 @@ Style/FirstParameterIndentation:
 Style/IndentArray:
   EnforcedStyle: consistent
 
-Rails:
-  Enabled: true
+Style/FrozenStringLiteralComment:
+  Enabled: false
+  
+# Include this in your local .rubocop.yml file if you are using Rails
+# Rails:
+#   Enabled: true
